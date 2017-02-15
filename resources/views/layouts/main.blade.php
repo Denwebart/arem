@@ -18,6 +18,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Template Basic Images Start -->
     <meta property="og:image" content="path/to/image.jpg">
     <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
@@ -63,6 +66,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#e1e0e4">
     <!-- Custom Browsers Color End -->
 
+    <!-- Scripts Laravel -->
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
 </head>
 
 <body>
@@ -76,7 +85,7 @@
     <nav>
         <div class="title">Меню</div>
         <ul class="menu main-menu pull-left">
-            <li class="active"><a href="index.html"><span>Главная</span></a></li>
+            <li class="active"><a href="{{ url('/') }}"><span>Главная</span></a></li>
             <li><a href="page.html"><span>О сайте</span></a></li>
             <li>
                 <a href="category.html">
@@ -126,356 +135,14 @@
 
 <div id="panel">
     <header>
-        <!--Для незарегистрированных пользователей-->
-        <!-- -->
-        <div id="header-widget" class="dark-section">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="pull-left hidden-xs hidden-sm">
-                            <div class="pull-left m-r-25 hidden-md">
-                                Регистрируйтесь, чтобы:
-                            </div>
-                            <ul class="pull-left">
-                                <li>
-                                    <i class="fa fa-question"></i>
-                                    <span class="visible-lg">задавать вопросы,</span>
-                                    <span class="visible-md">Задавйте вопросы,</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-file-text"></i>
-                                    <span class="visible-lg">писать статьи,</span>
-                                    <span class="visible-md">пишите статьи,</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-comments"></i>
-                                    <span class="visible-lg">общаться с пользователями,</span>
-                                    <span class="visible-md">общайтесь с пользователями,</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-gift"></i>
-                                    <span class="visible-lg">получать призы!</span>
-                                    <span class="visible-md">получайте призы!</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="pull-right user-panel sign-in-container">
-                            <i class="fa fa-user"></i>
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-button dropdown-arrow"><span>Войти</span></a>
-                                <div class="dropdown-container">
-                                    <div class="container-body">
-                                        <div class="sign-in-social">
-                                            <a href="#" class="button default-button circle-button"><i class="fa fa-vk"></i></a>
-                                            <a href="#" class="button default-button circle-button"><i class="fa fa-facebook"></i></a>
-                                            <a href="#" class="button default-button circle-button"><i class="fa fa-twitter"></i></a>
-                                            <a href="#" class="button default-button circle-button"><i class="fa fa-odnoklassniki"></i></a>
-                                            <a href="#" class="button default-button circle-button"><i class="fa fa-google-plus"></i></a>
-                                        </div>
-                                        <form action="#" id="sign-in-form">
-                                            <div class="form-group" title="Email или логин *">
-                                                <input name="login" type="text" placeholder="Email или логин *">
-                                            </div>
-                                            <div class="form-group" title="Пароль *">
-                                                <input name="password" type="text" placeholder="Пароль *">
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <div class="fixed">
-                                                    <input name="remember-me" id="remember-me" type="checkbox" value="1" checked>
-                                                </div>
-                                                <label for="remember-me">
-                                                    Запомнить меня
-                                                </label>
-                                            </div>
-                                            <button class="button small-button accent-button m-r-10" type="button">
-                                                <i class="fa fa-sign-in"></i>
-                                                Войти
-                                            </button>
-                                            <a href="#" class="link">Забыли пароль?</a>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pull-left">
-                                /
-                            </div>
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-button dropdown-arrow"><span>Зарегистрироваться</span></a>
-                                <div class="dropdown-container">
-                                    <div class="container-body">
-                                        <form action="#" id="registration-form">
-                                            <div class="form-group" title="Логин *">
-                                                <input name="login" type="text" placeholder="Логин *">
-                                            </div>
-                                            <div class="form-group" title="Email *">
-                                                <input name="email" type="text" placeholder="Email *">
-                                            </div>
-                                            <div class="form-group" title="Пароль *">
-                                                <input name="password" type="password" placeholder="Пароль *">
-                                            </div>
-                                            <div class="form-group" title="Повтор пароля *">
-                                                <input name="password_confirmation" type="password" placeholder="Повтор пароля *">
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <div class="fixed">
-                                                    <input name="agree-with-terms" id="agree-with-terms" type="checkbox" value="1" checked>
-                                                </div>
-                                                <label for="agree-with-terms">
-                                                    Я соглашаюсь с <a href="#">правилами сайта</a>
-                                                </label>
-                                            </div>
-                                            <button class="button small-button accent-button m-r-10" type="button">
-                                                <i class="fa fa-user-plus"></i>
-                                                Зарегистрироваться
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="pull-right">-->
-                        <!--<i class="fa fa-user"></i>-->
-                        <!--<a href="#" class="m-r-5">Войти</a>/<a href="#" class="m-l-5">Зарегистрироваться</a>-->
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- -->
 
-        <!--Для зарегистрированных пользователей-->
-    <!--
-            <div id="header-widget" class="dark-section">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="pull-left hidden-xs">
-                                <ul class="pull-left">
-                                    <li>
-                                        <i class="fa fa-file-text"></i>
-                                        <a href="#">Написать статью</a>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-question"></i>
-                                        <a href="#">Задать вопрос</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="pull-right">
-                                <div class="user-panel">
-                                    <div class="notifications pull-left dropdown">
-                                        <a href="#" class="notification dropdown-button"><i class="fa fa-bell-o dropdown-arrow"></i></a>
-                                        <div class="dropdown-container">
-                                            <div class="container-header">
-                                                <div class="title">
-                                                    Уведомлений:
-                                                    <span class="count">5 из 15</span>
-                                                </div>
-                                                <a href="profile-notifications.html" class="pull-right">
-                                                    Все
-                                                    <i class="fa fa-angle-right pull-right"></i>
-                                                </a>
-                                            </div>
-                                            <div class="delimiter"></div>
-                                            <div class="container-body">
-                                                <ul class="list notifications-list">
-                                                    <li>
-                                                        <a href="profile-notifications.html#item-1">
-                                                            <i class="fa fa-thumbs-up info"></i>
-                                                            <span class="small-text date">25 мин. назад</span>
-                                                            <span class="text">
-                                                            Пользователю Support понравилась ваша статья.
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="profile-notifications.html#item-2">
-                                                            <i class="fa fa-comment success"></i>
-                                                            <span class="small-text date">1 ч. назад</span>
-                                                            <span class="text">
-                                                            Роман (roman@email.com) оставил комментарий к вашей статье.
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="profile-notifications.html#item-3">
-                                                            <i class="fa fa-user-plus success"></i>
-                                                            <span class="small-text date">16 ч. назад</span>
-                                                            <span class="text">
-                                                            Зарегистрировался новый пользователь Denwebart.
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="profile-notifications.html#item-4">
-                                                            <i class="fa fa-trash danger"></i>
-                                                            <span class="small-text date">2 д. назад</span>
-                                                            <span class="text">
-                                                            Ваш вопрос был удален.
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="messages pull-left dropdown">
-                                        <a href="#" class="notification dropdown-button"><i class="fa fa-paper-plane-o dropdown-arrow"></i></a>
-                                        <div class="dropdown-container">
-                                            <div class="container-header">
-                                                <div class="title">
-                                                    Сообщений:
-                                                    <span class="count">3</span>
-                                                </div>
-                                                <a href="profile-messages.html" class="pull-right">
-                                                    Все
-                                                    <i class="fa fa-angle-right pull-right"></i>
-                                                </a>
-                                            </div>
-                                            <div class="delimiter"></div>
-                                            <div class="container-body">
-                                                <ul class="list messages-list">
-                                                    <li>
-                                                        <a href="profile-dialog.html">
-                                                            <img src="img/uploads/avatar.jpg" alt="" class="avatar">
-                                                            <span class="small-text">Vasya, 2 мин. назад</span>
-                                                            <span class="text">
-                                                            Здравствуйте! Хотел поблагодарить за помощь в ремонте автомобиля ...
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="profile-dialog.html">
-                                                            <img src="img/uploads/default-avatar.png" alt="" class="avatar">
-                                                            <span class="small-text">Den, 2 ч. назад</span>
-                                                            <span class="text">
-                                                            Привет, Вань!
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="profile-dialog.html">
-                                                            <img src="img/uploads/avatar.jpg" alt="" class="avatar">
-                                                            <span class="small-text">Master, 2 д. назад</span>
-                                                            <span class="text">
-                                                            Иван, подскажите, пожалуйста, как поменять заднюю балку?
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="letters pull-left dropdown">
-                                        <a href="#" class="notification dropdown-button"><i class="fa fa-envelope dropdown-arrow"></i></a>
-                                        <div class="dropdown-container">
-                                            <div class="container-header">
-                                                <div class="title">
-                                                    Писем:
-                                                    <span class="count">2</span>
-                                                </div>
-                                                <a href="#" class="pull-right">
-                                                    Все
-                                                    <i class="fa fa-angle-right pull-right"></i>
-                                                </a>
-                                            </div>
-                                            <div class="delimiter"></div>
-                                            <div class="container-body">
-                                                <ul class="list letters-list">
-                                                    <li>
-                                                        <a href="#">
-                                                            <span class="small-text">masterservis@email.com, 2 мин. назад</span>
-                                                            <span class="text">
-                                                            Предложение о сотрудничестве
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <span class="small-text">reklama-na-sajte@email.com, 2 ч. назад</span>
-                                                            <span class="text">
-                                                            Реклама на сайте
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <span class="small-text">Master, 2 д. назад</span>
-                                                            <span class="text">
-                                                            Иван, подскажите, пожалуйста, как поменять заднюю балку?
-                                                        </span>
-                                                        </a>
-                                                        <a href="#" class="delete-button">
-                                                            <i class="fa fa-close"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="user pull-left dropdown">
-                                        <a href="profile.html" class="dropdown-button">
-                                            <img src="img/uploads/avatar.jpg" class="avatar pull-left" alt="">
-                                            <i class="fa fa-bars dropdown-arrow"></i>
-                                        </a>
-                                        <div class="dropdown-container">
-                                            <div class="container-body">
-                                                <ul class="menu user-menu">
-                                                    <li><a href="profile.html"><i class="fa fa-user"></i><span>Профиль</span></a></li>
-                                                    <li><a href="profile-cars.html"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
-                                                    <li><a href="profile-questions.html"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
-                                                    <li><a href="profile-articles.html"><i class="fa fa-book"></i><span>Журнал</span></a></li>
-                                                    <li><a href="profile-comments.html"><i class="fa fa-comment"></i><span>Комментарии</span></a></li>
-                                                    <li><a href="profile-answers.html"><i class="fa fa-comments"></i><span>Ответы</span></a></li>
-                                                    <li><a href="profile-saved.html"><i class="fa fa-heart"></i><span>Сохраненное</span></a></li>
-                                                    <li><a href="profile-subscriptions.html"><i class="fa fa-newspaper-o"></i><span>Подписки</span></a></li>
-                                                    <li><a href="profile-friends.html"><i class="fa fa-handshake-o"></i><span>Друзья</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="exit-button button"><i class="fa fa-power-off"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
+        {!! $headerPanel->show() !!}
 
         <div id="header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-6 col-logo">
-                        <a href="index.html">
+                        <a href="{{ url('/') }}">
                             <img src="img/logo-full.svg" alt="Avtorem.info" class="logo">
                         </a>
                     </div>
@@ -483,8 +150,8 @@
                         <h1>
                             Школа авторемонта
                             <span class="slogan">
-                                    Статьи, советы и рекомендации по ремонту иобслуживанию автомобилей своими руками
-                                </span>
+                                Статьи, советы и рекомендации по ремонту иобслуживанию автомобилей своими руками
+                            </span>
                         </h1>
                     </div>
                     <div class="visible-xs visible-sm col-sm-2 col-xs-1 col-menu-button">
@@ -548,7 +215,7 @@
                             <nav>
                                 <ul class="menu main-menu pull-left">
                                     <li class="active">
-                                        <a href="index.html">
+                                        <a href="{{ url('/') }}">
                                             <span>Главная</span>
                                         </a>
                                     </li>
@@ -970,7 +637,7 @@
                                     При использовании авторских статей
                                     ссылка на сайт обязательна.
                                     <span class="without-enter">
-                                            © <a href="index.html" class="active">www.avtorem.info</a> 2010 - 2016
+                                            © <a href="{{ url('/') }}" class="active">www.avtorem.info</a> 2010 - 2016
                                         </span>
                                 </div>
                                 <div class="social-links">
@@ -998,7 +665,7 @@
                     <div class="title">Меню</div>
                     <nav>
                         <ul class="menu info-menu">
-                            <li class="active"><a href="index.html">Главная</a></li>
+                            <li class="active"><a href="{{ url('/') }}">Главная</a></li>
                             <li><a href="page.html">О сайте</a></li>
                             <li><a href="category.html">Автоистория</a></li>
                             <li><a href="category.html">Статьи</a></li>
@@ -1063,7 +730,8 @@
 </div>
 
 <!-- Optimized loading JS Start -->
-<script>var scr = {"scripts":[
+<script>
+    var scr = {"scripts":[
         {"src" : "js/libs.min.js", "async" : false},
         {"src" : "js/common.js", "async" : false}
     ]};!function(t,n,r){"use strict";var c=function(t){if("[object Array]"!==Object.prototype.toString.call(t))return!1;for(var r=0;r<t.length;r++){var c=n.createElement("script"),e=t[r];c.src=e.src,c.async=e.async,n.body.appendChild(c)}return!0};t.addEventListener?t.addEventListener("load",function(){c(r.scripts);},!1):t.attachEvent?t.attachEvent("onload",function(){c(r.scripts)}):t.onload=function(){c(r.scripts)}}(window,document,scr);
