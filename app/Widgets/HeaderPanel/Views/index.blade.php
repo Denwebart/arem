@@ -54,25 +54,22 @@
                                         <a href="#" class="button default-button circle-button"><i class="fa fa-odnoklassniki"></i></a>
                                         <a href="#" class="button default-button circle-button"><i class="fa fa-google-plus"></i></a>
                                     </div>
-                                    <form action="{{ route('login') }}" method="POST" role="form" id="sign-in-form" class="send-ajax">
+                                    <form action="{{ route('login') }}" method="POST" role="form" class="send-ajax" id="sign-in-form">
                                         {{ csrf_field() }}
 
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" title="Email или логин *">
                                             <input id="email" name="email" type="text" value="{{ old('email') }}" placeholder="Email или логин *">
-                                            @if ($errors->has('email'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
+                                            <span class="help-block error email_error">
+                                                {{ $errors->first('email') }}
+                                            </span>
                                         </div>
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}" title="Пароль *">
                                             <input id="password" name="password" type="password" placeholder="Пароль *">
-                                            @if ($errors->has('password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                            @endif
+                                            <span class="help-block error password_error">
+                                                {{ $errors->first('password') }}
+                                            </span>
                                         </div>
+                                        <div class="errors-container"></div>
                                         <div class="form-group input-group">
                                             <div class="fixed">
                                                 <input id="remember" name="remember" type="checkbox" value="1" {{ old('remember') ? 'checked' : '' }}>
@@ -97,28 +94,43 @@
                             <a href="#" class="dropdown-button dropdown-arrow"><span>Зарегистрироваться</span></a>
                             <div class="dropdown-container">
                                 <div class="container-body">
-                                    <form action="#" id="registration-form">
-                                        <div class="form-group" title="Логин *">
-                                            <input name="login" type="text" placeholder="Логин *">
+                                    <form action="{{ route('register') }}" method="POST" role="form" class="send-ajax" id="registration-form">
+                                        <div class="form-group{{ $errors->has('login') ? ' has-error' : '' }}" title="Логин *">
+                                            <input id="login" name="login" type="text" value="{{ old('login') }}" placeholder="Логин *">
+                                            <span class="help-block error login_error">
+                                                {{ $errors->first('login') }}
+                                            </span>
                                         </div>
-                                        <div class="form-group" title="Email *">
-                                            <input name="email" type="text" placeholder="Email *">
+                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" title="Email *">
+                                            <input id="email" name="email" type="text" value="{{ old('email') }}" placeholder="Email *">
+                                            <span class="help-block error email_error">
+                                                {{ $errors->first('email') }}
+                                            </span>
                                         </div>
-                                        <div class="form-group" title="Пароль *">
-                                            <input name="password" type="password" placeholder="Пароль *">
+                                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}" title="Пароль *">
+                                            <input id="password" name="password" type="password" placeholder="Пароль *">
+                                            <span class="help-block error password_error">
+                                                {{ $errors->first('password') }}
+                                            </span>
                                         </div>
-                                        <div class="form-group" title="Повтор пароля *">
-                                            <input name="password_confirmation" type="password" placeholder="Повтор пароля *">
+                                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}" title="Повтор пароля *">
+                                            <input id="password_confirmation" name="password_confirmation" type="password" placeholder="Повтор пароля *">
+                                            <span class="help-block error password_confirmation_error">
+                                                {{ $errors->first('password_confirmation') }}
+                                            </span>
                                         </div>
-                                        <div class="form-group input-group">
+                                        <div class="form-group input-group{{ $errors->has('agree-with-terms') ? ' has-error' : '' }}">
                                             <div class="fixed">
-                                                <input name="agree-with-terms" id="agree-with-terms" type="checkbox" value="1" checked>
+                                                <input id="agree-with-terms" name="agree-with-terms" type="checkbox" value="1">
                                             </div>
                                             <label for="agree-with-terms">
                                                 Я соглашаюсь с <a href="#">правилами сайта</a>
                                             </label>
+                                            <span class="help-block error agree-with-terms_error">
+                                                {{ $errors->first('agree-with-terms') }}
+                                            </span>
                                         </div>
-                                        <button class="button small-button accent-button m-r-10" type="button">
+                                        <button class="button small-button accent-button m-r-10" type="submit">
                                             <i class="fa fa-user-plus"></i>
                                             Зарегистрироваться
                                         </button>

@@ -39,6 +39,14 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 	
+	/**
+	 * Replaced method for ajax
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function sendLoginResponse(Request $request)
 	{
 		$request->session()->regenerate();
@@ -46,13 +54,26 @@ class LoginController extends Controller
 		$this->clearLoginAttempts($request);
 		
 		if ($request->ajax()) {
-			return response()->json($this->guard()->user(), 200);
+			return response()->json([
+				'success' => true,
+				'status' => 200,
+				'user' => $this->guard()->user(),
+				'redirectPath' => $this->redirectPath()
+			]);
 		}
 		
 		return $this->authenticated($request, $this->guard()->user())
 			?: redirect()->intended($this->redirectPath());
 	}
 	
+	/**
+	 * Replaced method for ajax
+	 *
+	 * @param Request $request
+	 * @return $this|\Illuminate\Http\JsonResponse
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function sendFailedLoginResponse(Request $request)
 	{
 		if ($request->ajax()) {
@@ -60,6 +81,7 @@ class LoginController extends Controller
 				'error' => Lang::get('auth.failed')
 			], 401);
 		}
+		
 		return redirect()->back()
 			->withInput($request->only($this->username(), 'remember'))
 			->withErrors([
