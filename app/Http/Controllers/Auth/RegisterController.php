@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Helpers\Translit;
 use Illuminate\Support\Facades\Validator;
@@ -71,4 +71,40 @@ class RegisterController extends Controller
 		    'password' => bcrypt($data['password']),
 	    ]);
     }
+	
+	/**
+	 * Activation user.
+	 *
+	 * @param $userId
+	 * @param $token
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function activation($userId, $token)
+	{
+		$user = User::findOrFail($userId);
+		
+		// Check token in user DB. if null then check data (user make first activation).
+		if (is_null($user->remember_token)) {
+			// Check token from url.
+			if (md5($user->email) == $token) {
+				// Change status and login user.
+				$user->role = User::ROLE_USER;
+				$user->save();
+				
+				\Session::flash('flash_message', trans('interface.ActivatedSuccess'));
+				
+				// Make login user.
+				Auth::login($user, true);
+			} else {
+				// Wrong token.
+				\Session::flash('flash_message_error', trans('interface.ActivatedWrong'));
+			}
+		} else {
+			// User was activated early.
+			\Session::flash('flash_message_error', trans('interface.ActivatedAlready'));
+		}
+		return redirect('/');
+	}
 }
