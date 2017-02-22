@@ -29,10 +29,12 @@ $(function() {
 
                 $form.find('.has-error').removeClass('has-error');
                 $form.find('.help-block.error').text('');
-                $('.errors-container').text('');
+                $form.find('.error-message').text('');
 
                 if(response.success){
                     $form.trigger('reset');
+                    console.log(response.message);
+                    $form.find('.success-message').text(response.message);
                 }
 
                 if(response.redirectPath) {
@@ -44,7 +46,7 @@ $(function() {
 
                 $form.find('.has-error').removeClass('has-error');
                 $form.find('.help-block.error').text('');
-                $('.errors-container').text('');
+                $form.find('.error-message').text('');
 
                 if(response.status == 422) {
                     $.each(responseText, function(index, value) {
@@ -53,7 +55,7 @@ $(function() {
                         $form.find(errorDiv).empty().append(value);
                     });
                 } else {
-                    $('.errors-container').text(responseText.error);
+                    $form.find('.error-message').text(responseText.error);
                 }
             }
         });

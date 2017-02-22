@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\ActivateAccount;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Helpers\Translit;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -53,6 +57,7 @@ class RegisterController extends Controller
 	        'email'       => 'required|unique:users|email|max:150',
 	        'alias'       => 'unique:users',
 	        'password'    => 'required|min:6|max:100|confirmed',
+	        'is_agree'    => 'required|integer|in:1',
         ]);
     }
 
@@ -64,13 +69,49 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-	    return User::create([
+	    $newUser = User::create([
 		    'login' => $data['login'],
 		    'email' => $data['email'],
 		    'alias' => Translit::make($data['login']),
 		    'password' => bcrypt($data['password']),
+		    'is_agree' => $data['is_agree'],
 	    ]);
+	    
+	    // Send user message for activation account.
+	    Mail::to($newUser)->send(new ActivateAccount($newUser));
+	    
+	    return $newUser;
     }
+	
+	/**
+	 * Replaced method for ajax (don't login after register, confirmation of registration)
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function register(Request $request)
+	{
+		$this->validator($request->all())->validate();
+		
+		event(new Registered($user = $this->create($request->all())));
+		
+		if ($request->ajax()) {
+			return response()->json([
+				'success' => true,
+				'status' => 200,
+				'user' => $this->guard()->user(),
+				'message' => "Регистрация почти завершена. 
+							  Для активации аккаунта перейдите по ссылке, 
+							  которая была отправлена на email, указанный при регистрации."
+			]);
+		}
+		
+		// доделать, если не ajax
+		return $this->registered($request, $user)
+			?: redirect($this->redirectPath());
+	}
 	
 	/**
 	 * Activation user.

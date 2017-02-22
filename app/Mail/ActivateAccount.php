@@ -8,7 +8,7 @@
 
 namespace App\Mail;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -24,7 +24,7 @@ class ActivateAccount extends Mailable
 	/**
 	 * Create a new message instance.
 	 *
-	 * @param \App\User $user
+	 * @param \App\Models\User $user
 	 */
 	public function __construct(User $user)
 	{
@@ -46,7 +46,7 @@ class ActivateAccount extends Mailable
 		
 		return $this->subject(trans('interface.ActivationAccount'))
 			->view('emails.activate')->with([
-				'link' => $activationLink
+				'activationLink' => $activationLink
 			]);
 	}
 }

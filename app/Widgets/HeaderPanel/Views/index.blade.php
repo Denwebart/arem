@@ -69,7 +69,8 @@
                                                 {{ $errors->first('password') }}
                                             </span>
                                         </div>
-                                        <div class="errors-container"></div>
+                                        <div class="error-message"></div>
+                                        <div class="success-message"></div>
                                         <div class="form-group input-group">
                                             <div class="fixed">
                                                 <input id="remember" name="remember" type="checkbox" value="1" {{ old('remember') ? 'checked' : '' }}>
@@ -119,17 +120,21 @@
                                                 {{ $errors->first('password_confirmation') }}
                                             </span>
                                         </div>
-                                        <div class="form-group input-group{{ $errors->has('agree-with-terms') ? ' has-error' : '' }}">
+                                        <div class="form-group input-group{{ $errors->has('is_agree') ? ' has-error' : '' }}">
                                             <div class="fixed">
-                                                <input id="agree-with-terms" name="agree-with-terms" type="checkbox" value="1">
+                                                <input id="is_agree" name="is_agree" type="checkbox" value="1">
                                             </div>
-                                            <label for="agree-with-terms">
+                                            <label for="is_agree">
                                                 Я соглашаюсь с <a href="#">правилами сайта</a>
                                             </label>
-                                            <span class="help-block error agree-with-terms_error">
-                                                {{ $errors->first('agree-with-terms') }}
+                                            <span class="help-block error is_agree_error">
+                                                {{ $errors->first('is_agree') }}
                                             </span>
                                         </div>
+
+                                        <div class="error-message"></div>
+                                        <div class="success-message"></div>
+
                                         <button class="button small-button accent-button m-r-10" type="submit">
                                             <i class="fa fa-user-plus"></i>
                                             Зарегистрироваться
