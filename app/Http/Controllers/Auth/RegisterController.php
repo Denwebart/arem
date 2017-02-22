@@ -97,6 +97,7 @@ class RegisterController extends Controller
 		
 		event(new Registered($user = $this->create($request->all())));
 		
+		// доделать проверку, если зарегистрирован
 		if ($request->ajax()) {
 			return response()->json([
 				'success' => true,
