@@ -88,4 +88,36 @@ class LoginController extends Controller
 				$this->username() => Lang::get('auth.failed'),
 			]);
 	}
+	
+	/**
+	 * Replaced method to use "login" or "password" for login.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	protected function credentials(Request $request)
+	{
+		$creds = $request->only($this->username(), 'password');
+		if (!strpos($creds['email'], '@')) {
+			$creds['login'] = $creds['email'];
+			unset($creds['email']);
+		}
+		
+		return $creds;
+	}
+	
+	/**
+	 * Replaced validate the user login request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return void
+	 */
+	protected function validateLogin(Request $request)
+	{
+		$this->validate($request, [
+			'email' => 'required_without_all:login',
+			'login' => 'required_without_all:email',
+			'password' => 'required',
+		]);
+	}
 }

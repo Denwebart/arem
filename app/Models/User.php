@@ -12,11 +12,13 @@ class User extends Authenticatable
 	/**
 	 * Role
 	 */
+	const ROLE_NONE = 0;
 	const ROLE_ADMIN = 1;
 	const ROLE_MODERATOR = 2;
 	const ROLE_USER = 3;
 	
 	public static $roles = [
+		self::ROLE_NONE => 'Не задана',
 		self::ROLE_ADMIN => 'Администратор',
 		self::ROLE_MODERATOR => 'Модератор',
 		self::ROLE_USER => 'Пользователь',
@@ -43,6 +45,7 @@ class User extends Authenticatable
 	    'description',
 	    'sex',
 	    'birthday',
+	    'password',
     ];
 
     /**

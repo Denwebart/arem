@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Translit;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -103,8 +104,8 @@ class RegisterController extends Controller
 				'success' => true,
 				'status' => 200,
 				'user' => $this->guard()->user(),
-				'message' => "Регистрация почти завершена. 
-							  Для активации аккаунта перейдите по ссылке, 
+				'message' => "Регистрация почти завершена.
+							  Для активации аккаунта перейдите по ссылке,
 							  которая была отправлена на email, указанный при регистрации."
 			]);
 		}
@@ -128,7 +129,7 @@ class RegisterController extends Controller
 		$user = User::findOrFail($userId);
 		
 		// Check token in user DB. if null then check data (user make first activation).
-		if (is_null($user->remember_token)) {
+		if (is_null($user->remember_token) && $user->role == User::ROLE_NONE) {
 			// Check token from url.
 			if (md5($user->email) == $token) {
 				// Change status and login user.
