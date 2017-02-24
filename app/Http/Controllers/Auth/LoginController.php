@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -40,7 +41,61 @@ class LoginController extends Controller
     }
 	
 	/**
-	 * Replaced method for ajax
+	 * Replaced for check is active user: Handle a login request to the application.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return LoginController|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 */
+	public function login(Request $request)
+	{
+		$this->validateLogin($request);
+		
+		// If the class is using the ThrottlesLogins trait, we can automatically throttle
+		// the login attempts for this application. We'll key this by the username and
+		// the IP address of the client making these requests into this application.
+		if ($this->hasTooManyLoginAttempts($request)) {
+			$this->fireLockoutEvent($request);
+			
+			return $this->sendLockoutResponse($request);
+		}
+		
+		// Check is activated account before attempt login
+		if(!$this->isActivated($request)) {
+			return $this->sendFailedLoginResponse($request, Lang::get('auth.notActivated'));
+		}
+		
+		if ($this->attemptLogin($request)) {
+			return $this->sendLoginResponse($request);
+		}
+		
+		// If the login attempt was unsuccessful we will increment the number of attempts
+		// to login and redirect the user back to the login form. Of course, when this
+		// user surpasses their maximum number of attempts they will get locked out.
+		$this->incrementLoginAttempts($request);
+		
+		return $this->sendFailedLoginResponse($request);
+	}
+	
+	/**
+	 * Check is activated account before attempt login
+	 *
+	 * @param Request $request
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function isActivated(Request $request)
+	{
+		$credentials = $this->credentials($request);
+		unset($credentials['password']);
+		
+		$user = User::where($credentials)->first();
+		
+		return $user->isActive();
+	}
+    
+	/**
+	 * Replaced method for ajax: success login
 	 *
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -54,12 +109,13 @@ class LoginController extends Controller
 		$this->clearLoginAttempts($request);
 		
 		if ($request->ajax()) {
-			return response()->json([
-				'success' => true,
-				'status' => 200,
-				'user' => $this->guard()->user(),
-				'redirectPath' => $this->redirectPath()
-			]);
+			return $this->authenticated($request, $this->guard()->user())
+				?: response()->json([
+					'success' => true,
+					'status' => 200,
+					'user' => $this->guard()->user(),
+					'redirectPath' => $this->redirectPath()
+				]);
 		}
 		
 		return $this->authenticated($request, $this->guard()->user())
@@ -67,18 +123,19 @@ class LoginController extends Controller
 	}
 	
 	/**
-	 * Replaced method for ajax
+	 * Replaced method for ajax: failed login
 	 *
 	 * @param Request $request
-	 * @return $this|\Illuminate\Http\JsonResponse
+	 * @param $message
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected function sendFailedLoginResponse(Request $request)
+	protected function sendFailedLoginResponse(Request $request, $message = null)
 	{
 		if ($request->ajax()) {
 			return response()->json([
-				'error' => Lang::get('auth.failed')
+				'error' => $message ? $message : Lang::get('auth.failed')
 			], 401);
 		}
 		
@@ -107,7 +164,7 @@ class LoginController extends Controller
 	}
 	
 	/**
-	 * Replaced validate the user login request.
+	 * Replaced validate the user login request to use "login" or "password" for login.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return void

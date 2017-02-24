@@ -341,7 +341,7 @@
                         </div>
                         <div class="user pull-left dropdown">
                             <a href="profile.html" class="dropdown-button">
-                                <img src="img/uploads/avatar.jpg" class="avatar pull-left" alt="">
+                                <img src="img/uploads/avatar.jpg" class="avatar pull-left" alt="{{ Auth::user()->login }}" title="{{ Auth::user()->login }}">
                                 <i class="fa fa-bars dropdown-arrow"></i>
                             </a>
                             <div class="dropdown-container">

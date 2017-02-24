@@ -26,7 +26,6 @@ $(function() {
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
             },
             success: function(response) {
-
                 $form.find('.has-error').removeClass('has-error');
                 $form.find('.help-block.error').text('');
                 $form.find('.error-message').text('');

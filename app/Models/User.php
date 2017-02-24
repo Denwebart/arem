@@ -58,4 +58,17 @@ class User extends Authenticatable
     ];
 	
 	
+	/**
+	 * Check is activated account
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+    public function isActive()
+    {
+    	return $this->role == self::ROLE_NONE && is_null($this->remember_token)
+		    ? false : true;
+    }
+	
 }
