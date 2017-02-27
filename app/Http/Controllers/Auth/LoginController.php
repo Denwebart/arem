@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -39,6 +39,68 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+	
+	/**
+	 * Login redirect path.
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function redirectTo()
+	{
+		return url()->previous();
+	}
+	
+	/**
+	 * Replaced method to use "login" or "password" for login.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	protected function credentials(Request $request)
+	{
+		$creds = $request->only($this->username(), 'password');
+		if (!strpos($creds['email'], '@')) {
+			$creds['login'] = $creds['email'];
+			unset($creds['email']);
+		}
+		
+		return $creds;
+	}
+	
+	/**
+	 * Replaced validate the user login request to use "login" or "password" for login.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return void
+	 */
+	protected function validateLogin(Request $request)
+	{
+		$this->validate($request, [
+			'email' => 'required_without_all:login',
+			'login' => 'required_without_all:email',
+			'password' => 'required',
+		]);
+	}
+	
+	/**
+	 * Check is activated account before attempt login
+	 *
+	 * @param Request $request
+	 * @return boolean
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function isActivated(Request $request)
+	{
+		$credentials = $this->credentials($request);
+		unset($credentials['password']);
+		
+		$user = User::where($credentials)->first();
+		
+		return is_object($user) && !$user->isActive() ? false : true;
+	}
 	
 	/**
 	 * Replaced for check is active user: Handle a login request to the application.
@@ -60,7 +122,7 @@ class LoginController extends Controller
 		}
 		
 		// Check is activated account before attempt login
-		if(!$this->isActivated($request)) {
+		if (!$this->isActivated($request)) {
 			return $this->sendFailedLoginResponse($request, Lang::get('auth.notActivated'));
 		}
 		
@@ -74,24 +136,6 @@ class LoginController extends Controller
 		$this->incrementLoginAttempts($request);
 		
 		return $this->sendFailedLoginResponse($request);
-	}
-	
-	/**
-	 * Check is activated account before attempt login
-	 *
-	 * @param Request $request
-	 * @return mixed
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	protected function isActivated(Request $request)
-	{
-		$credentials = $this->credentials($request);
-		unset($credentials['password']);
-		
-		$user = User::where($credentials)->first();
-		
-		return $user->isActive();
 	}
     
 	/**
@@ -147,34 +191,19 @@ class LoginController extends Controller
 	}
 	
 	/**
-	 * Replaced method to use "login" or "password" for login.
+	 * Replaced for redirect to previous page: Log the user out of the application.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @return array
+	 * @return \Illuminate\Http\Response
 	 */
-	protected function credentials(Request $request)
+	public function logout(Request $request)
 	{
-		$creds = $request->only($this->username(), 'password');
-		if (!strpos($creds['email'], '@')) {
-			$creds['login'] = $creds['email'];
-			unset($creds['email']);
-		}
+		$this->guard()->logout();
 		
-		return $creds;
-	}
-	
-	/**
-	 * Replaced validate the user login request to use "login" or "password" for login.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return void
-	 */
-	protected function validateLogin(Request $request)
-	{
-		$this->validate($request, [
-			'email' => 'required_without_all:login',
-			'login' => 'required_without_all:email',
-			'password' => 'required',
-		]);
+		$request->session()->flush();
+		
+		$request->session()->regenerate();
+		
+		return redirect()->intended($this->redirectPath());
 	}
 }

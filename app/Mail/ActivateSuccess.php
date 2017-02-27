@@ -14,24 +14,21 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ActivateAccount extends Mailable
+class ActivateSuccess extends Mailable
 {
 	use Queueable, SerializesModels;
 	
 	// User data.
 	protected $user;
-	// Redirect path after activation.
-	protected $redirectPath;
 	
 	/**
 	 * Create a new message instance.
 	 *
 	 * @param \App\Models\User $user
 	 */
-	public function __construct(User $user, $redirectPath)
+	public function __construct(User $user)
 	{
 		$this->user = $user;
-		$this->redirectPath = $redirectPath;
 	}
 	
 	/**
@@ -44,13 +41,12 @@ class ActivateAccount extends Mailable
 		// Create activation link.
 		$activationLink = route('activation', [
 			'id' => $this->user->id,
-			'token' => md5($this->user->email),
-			'redirect' => urlencode($this->redirectPath),
+			'token' => md5($this->user->email)
 		]);
 		
 		return $this->subject(trans('interface.ActivationAccount'))
-			->view('emails.activate')->with([
-				'activationLink' => $activationLink,
+			->view('emails.activateSuccess')->with([
+				'user' => $this->user
 			]);
 	}
 }

@@ -18,3 +18,6 @@ Auth::routes();
 Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterController@activation')->name('activation');
 
 Route::get('/home', 'HomeController@index');
+Route::get('/page-1', 'HomeController@index');
+Route::get('/page-2', 'HomeController@index');
+Route::get('/page-3', 'HomeController@index');

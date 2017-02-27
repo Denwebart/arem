@@ -132,6 +132,11 @@
                                             </span>
                                         </div>
 
+                                        <div class="small-description">
+                                            Указывайте ваш настоящий email-адрес,
+                                            так как на этот ящик будет выслано письмо с подтверждением регистрации.
+                                        </div>
+
                                         <div class="error-message"></div>
                                         <div class="success-message"></div>
 

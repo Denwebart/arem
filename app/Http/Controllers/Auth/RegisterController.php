@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Mail\ActivateAccount;
+use App\Mail\ActivateSuccess;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Helpers\Translit;
@@ -45,7 +46,19 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+	
+	/**
+	 * Register redirect path.
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function redirectTo()
+	{
+		return url()->previous();
+	}
+	
     /**
      * Get a validator for an incoming registration request.
      *
@@ -80,7 +93,9 @@ class RegisterController extends Controller
 	    ]);
 	    
 	    // Send user message for activation account.
-	    Mail::to($newUser)->send(new ActivateAccount($newUser));
+	    if($newUser) {
+		    Mail::to($newUser)->send(new ActivateAccount($newUser, $this->redirectPath()));
+	    }
 	    
 	    return $newUser;
     }
@@ -128,7 +143,7 @@ class RegisterController extends Controller
 		$user = User::findOrFail($userId);
 		
 		// Check token in user DB. if null then check data (user make first activation).
-		if ($user->isActive()) {
+		if (!$user->isActive()) {
 			// Check token from url.
 			if (md5($user->email) == $token) {
 				// Change status and login user.
@@ -139,6 +154,9 @@ class RegisterController extends Controller
 				
 				// Make login user.
 				Auth::login($user, true);
+				
+				// Send user message for activation account.
+				Mail::to($user)->send(new ActivateSuccess($user));
 			} else {
 				// Wrong token.
 				\Session::flash('flash_message_error', trans('interface.ActivatedWrong'));
@@ -147,6 +165,9 @@ class RegisterController extends Controller
 			// User was activated early.
 			\Session::flash('flash_message_error', trans('interface.ActivatedAlready'));
 		}
-		return redirect('/');
+		
+		return \Request::get('redirect')
+			? redirect(urldecode(\Request::get('redirect')))
+			: redirect('/');
 	}
 }

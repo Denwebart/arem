@@ -27,8 +27,7 @@ $(function() {
             },
             success: function(response) {
                 $form.find('.has-error').removeClass('has-error');
-                $form.find('.help-block.error').text('');
-                $form.find('.error-message').text('');
+                $form.find('.help-block.error', '.error-message', '.success-message').text('');
 
                 if(response.success){
                     $form.trigger('reset');
@@ -44,8 +43,7 @@ $(function() {
                 var responseText = JSON.parse(response.responseText);
 
                 $form.find('.has-error').removeClass('has-error');
-                $form.find('.help-block.error').text('');
-                $form.find('.error-message').text('');
+                $form.find('.help-block.error', '.error-message', '.success-message').text('');
 
                 if(response.status == 422) {
                     $.each(responseText, function(index, value) {
