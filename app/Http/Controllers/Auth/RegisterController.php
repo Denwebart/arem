@@ -10,7 +10,6 @@ use App\Helpers\Translit;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -44,7 +43,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['except' => 'activation']);
     }
 	
 	/**
@@ -120,7 +119,7 @@ class RegisterController extends Controller
 				'success' => true,
 				'status' => 200,
 				'user' => $this->guard()->user(),
-				'message' => Lang::get('auth.afterRegistration')
+				'message' => trans('auth.afterRegistration')
 			]);
 		}
 		

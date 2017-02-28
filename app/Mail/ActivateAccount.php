@@ -12,7 +12,6 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ActivateAccount extends Mailable
 {
@@ -48,8 +47,8 @@ class ActivateAccount extends Mailable
 			'redirect' => urlencode($this->redirectPath),
 		]);
 		
-		return $this->subject(trans('interface.ActivationAccount'))
-			->view('emails.activate')->with([
+		return $this->subject(trans('auth.activateAccountSubject'))
+			->markdown('emails.account.activate')->with([
 				'activationLink' => $activationLink,
 			]);
 	}

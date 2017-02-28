@@ -12,7 +12,6 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ActivateSuccess extends Mailable
 {
@@ -38,14 +37,8 @@ class ActivateSuccess extends Mailable
 	 */
 	public function build()
 	{
-		// Create activation link.
-		$activationLink = route('activation', [
-			'id' => $this->user->id,
-			'token' => md5($this->user->email)
-		]);
-		
-		return $this->subject(trans('interface.ActivationAccount'))
-			->view('emails.activateSuccess')->with([
+		return $this->subject(trans('auth.activateSuccessSubject'))
+			->markdown('emails.account.activateSuccess')->with([
 				'user' => $this->user
 			]);
 	}

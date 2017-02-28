@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 
 class LoginController extends Controller
 {
@@ -123,7 +122,7 @@ class LoginController extends Controller
 		
 		// Check is activated account before attempt login
 		if (!$this->isActivated($request)) {
-			return $this->sendFailedLoginResponse($request, Lang::get('auth.notActivated'));
+			return $this->sendFailedLoginResponse($request, trans('auth.notActivated'));
 		}
 		
 		if ($this->attemptLogin($request)) {
@@ -179,14 +178,14 @@ class LoginController extends Controller
 	{
 		if ($request->ajax()) {
 			return response()->json([
-				'error' => $message ? $message : Lang::get('auth.failed')
+				'error' => $message ? $message : trans('auth.failed')
 			], 401);
 		}
 		
 		return redirect()->back()
 			->withInput($request->only($this->username(), 'remember'))
 			->withErrors([
-				$this->username() => Lang::get('auth.failed'),
+				$this->username() => trans('auth.failed'),
 			]);
 	}
 	
