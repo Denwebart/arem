@@ -48,7 +48,7 @@
                             <div class="dropdown-container">
                                 <div class="container-body">
                                     <div class="sign-in-social">
-                                        <a href="#" class="button default-button circle-button"><i class="fa fa-vk"></i></a>
+                                        <a href="{{ URL::to('social_login/vkontakte') }}" class="button default-button circle-button"><i class="fa fa-vk"></i></a>
                                         <a href="#" class="button default-button circle-button"><i class="fa fa-facebook"></i></a>
                                         <a href="#" class="button default-button circle-button"><i class="fa fa-twitter"></i></a>
                                         <a href="#" class="button default-button circle-button"><i class="fa fa-odnoklassniki"></i></a>

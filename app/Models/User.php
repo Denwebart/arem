@@ -71,4 +71,20 @@ class User extends Authenticatable
 		    ? false : true;
     }
 	
+	/**
+	 * Creating user by social provider
+	 *
+	 * @param $providerUser
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public static function createBySocialProvider($providerUser)
+	{
+		return self::create([
+			'email' => $providerUser->getEmail(),
+			'login' => $providerUser->getNickname(),
+			'firstname' => $providerUser->getName(),
+		]);
+	}
 }
