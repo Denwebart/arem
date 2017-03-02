@@ -1,7 +1,7 @@
 <?php
 /**
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
 
@@ -346,7 +346,7 @@
                         </div>
                         <div class="user pull-left dropdown">
                             <a href="profile.html" class="dropdown-button">
-                                <img src="img/uploads/avatar.jpg" class="avatar pull-left" alt="{{ Auth::user()->login }}" title="{{ Auth::user()->login }}">
+                                <img src="{{ Auth::user()->getAvatarUrl() }}" class="avatar pull-left" alt="{{ Auth::user()->login }}" title="{{ Auth::user()->login }}">
                                 <i class="fa fa-bars dropdown-arrow"></i>
                             </a>
                             <div class="dropdown-container">

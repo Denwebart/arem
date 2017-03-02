@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use App\Helpers\Translit;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+	
+	/**
+	 * Path of avatar of user
+	 */
+	protected $imagePath = '/uploads/users/{alias}/';
+	protected $defaultImagePath = '/img/uploads/avatar.jpg';
 	
 	/**
 	 * Role
@@ -57,13 +64,37 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 	
+	public static function boot()
+	{
+		parent::boot();
+		
+		static::creating(function($user) {
+			//
+		});
+		
+		static::deleting(function($user) {
+			$user->userSocialAccounts()->delete();
+		});
+	}
+	
+	/**
+	 * User social accounts
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function userSocialAccounts()
+	{
+		return $this->hasMany(UserSocialAccount::class);
+	}
 	
 	/**
 	 * Check is activated account
 	 *
 	 * @return bool
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
     public function isActive()
     {
@@ -72,19 +103,46 @@ class User extends Authenticatable
     }
 	
 	/**
+	 * Get user's avatar path
+	 *
+	 * @param bool $default
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getAvatarUrl($default = true) {
+		// доделать с учетом незарегистрированных пользователей
+		return $this->avatar
+			? (
+				preg_match("~^(?:f|ht)tps?://~i", $this->avatar)
+				? $this->avatar
+				: $this->imagePath //$this->getImagePath('avatar')
+			)
+			: ($default
+				? url($this->defaultImagePath)
+				: null);
+	}
+    
+	/**
 	 * Creating user by social provider
 	 *
 	 * @param $providerUser
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static function createBySocialProvider($providerUser)
 	{
+		$nameArray = explode(" ", $providerUser->getName());
+		
 		return self::create([
+			'role' => User::ROLE_USER,
+			'alias' => Translit::make($providerUser->getNickname()),
+			'login' => ucfirst($providerUser->getNickname()),
 			'email' => $providerUser->getEmail(),
-			'login' => $providerUser->getNickname(),
-			'firstname' => $providerUser->getName(),
+			'avatar' => $providerUser->getAvatar(),
+			'firstname' => array_key_exists(0, $nameArray) ? $nameArray[0] : '',
+			'lastname' => array_key_exists(1, $nameArray) ? $nameArray[1] : '',
 		]);
 	}
 }

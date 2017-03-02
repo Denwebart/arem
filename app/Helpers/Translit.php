@@ -3,7 +3,7 @@
  * Class Translit
  *
  * @author     It Hill (it-hill.com@yandex.ua)
- * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 
 namespace App\Helpers;
@@ -61,7 +61,7 @@ class Translit
 	 * @param bool $rewrite
 	 * @return bool
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static function generateAlias($title, $alias, $rewrite = false)
 	{
@@ -83,7 +83,7 @@ class Translit
 	 * @param $fileName
 	 * @return mixed|string
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static function generateFileName($fileName)
 	{
@@ -97,7 +97,7 @@ class Translit
 	 * @param string $pattern
 	 * @return mixed|string
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public static function make($string, $pattern = '/[^a-zа-яёіїєґ0-9-_ ]+/iu')
 	{

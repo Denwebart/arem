@@ -44,7 +44,7 @@ class LoginController extends Controller
 	 *
 	 * @return string
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function redirectTo()
 	{
@@ -89,7 +89,7 @@ class LoginController extends Controller
 	 * @param Request $request
 	 * @return boolean
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function isActivated(Request $request)
 	{
@@ -143,7 +143,7 @@ class LoginController extends Controller
 	 * @param Request $request
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function sendLoginResponse(Request $request)
 	{
@@ -172,7 +172,7 @@ class LoginController extends Controller
 	 * @param $message
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	protected function sendFailedLoginResponse(Request $request, $message = null)
 	{

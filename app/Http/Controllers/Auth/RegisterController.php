@@ -51,7 +51,7 @@ class RegisterController extends Controller
 	 *
 	 * @return string
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function redirectTo()
 	{
@@ -84,9 +84,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 	    $newUser = User::create([
+		    'alias' => Translit::make($data['login']),
 		    'login' => $data['login'],
 		    'email' => $data['email'],
-		    'alias' => Translit::make($data['login']),
 		    'password' => bcrypt($data['password']),
 		    'is_agree' => $data['is_agree'],
 	    ]);
@@ -105,7 +105,7 @@ class RegisterController extends Controller
 	 * @param Request $request
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function register(Request $request)
 	{
@@ -135,7 +135,7 @@ class RegisterController extends Controller
 	 * @param $token
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function activation($userId, $token)
 	{
