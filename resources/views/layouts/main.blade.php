@@ -27,6 +27,8 @@
     <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+
+    <meta name="google-site-verification" content="JoYRWEyA6SKbzhodnLG5xHRb_OtxQ_k1goEh4EnP_7k">
     <!-- Template Basic Images End -->
 
     <!-- Bootstrap (latest) Grid Styles Only -->

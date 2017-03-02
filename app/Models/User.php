@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Translit;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -135,15 +136,22 @@ class User extends Authenticatable
 	{
 		// доделать сохранение изображения на сервер
 		$nameArray = explode(" ", $providerUser->getName());
+		$user = $providerUser->user ? $providerUser->user : [];
+		$login = $providerUser->getNickname()
+			? ucfirst($providerUser->getNickname())
+			: ucfirst(Translit::make($providerUser->getName()));
 		
 		return self::create([
 			'role' => User::ROLE_USER,
 			'alias' => Translit::make($providerUser->getNickname()),
-			'login' => ucfirst($providerUser->getNickname()),
-			'email' => $providerUser->getEmail(),
+			'login' => $login,
+			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'email', // доделать : не выбирается email на одноклассниках
 			'avatar' => $providerUser->getAvatar(),
 			'firstname' => array_key_exists(0, $nameArray) ? $nameArray[0] : '',
 			'lastname' => array_key_exists(1, $nameArray) ? $nameArray[1] : '',
+			'birthday' => array_key_exists('birthday', $user)
+				? date('Y-m-d H:i:s', strtotime($user['birthday']))
+				: null,
 		]);
 	}
 }

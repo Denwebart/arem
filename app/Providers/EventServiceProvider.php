@@ -16,7 +16,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
 	    SocialiteWasCalled::class => [
 		    'SocialiteProviders\VKontakte\VKontakteExtendSocialite@handle',
-		    'JhaoDa\SocialiteProviders\Odnoklassniki\OdnoklassnikiExtendSocialite@handle'
+		    'SocialiteProviders\Twitter\TwitterExtendSocialite@handle',
+		    'JhaoDa\SocialiteProviders\Odnoklassniki\OdnoklassnikiExtendSocialite@handle',
+		    'SocialiteProviders\Google\GoogleExtendSocialite@handle',
 	    ],
     ];
 

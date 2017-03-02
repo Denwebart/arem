@@ -48,11 +48,11 @@
                             <div class="dropdown-container">
                                 <div class="container-body">
                                     <div class="sign-in-social">
-                                        <a href="{{ URL::to('social_login/vkontakte') }}" class="button default-button circle-button"><i class="fa fa-vk"></i></a>
-                                        <a href="#" class="button default-button circle-button"><i class="fa fa-facebook"></i></a>
-                                        <a href="#" class="button default-button circle-button"><i class="fa fa-twitter"></i></a>
-                                        <a href="#" class="button default-button circle-button"><i class="fa fa-odnoklassniki"></i></a>
-                                        <a href="#" class="button default-button circle-button"><i class="fa fa-google-plus"></i></a>
+                                        <a href="{{ URL::route('login.social', ['provider' => 'vkontakte']) }}" class="button default-button circle-button"><i class="fa fa-vk"></i></a>
+                                        <a href="{{ URL::route('login.social', ['provider' => 'facebook']) }}" class="button default-button circle-button"><i class="fa fa-facebook"></i></a>
+                                        <a href="{{ URL::route('login.social', ['provider' => 'twitter']) }}" class="button default-button circle-button"><i class="fa fa-twitter"></i></a>
+                                        <a href="{{ URL::route('login.social', ['provider' => 'odnoklassniki']) }}" class="button default-button circle-button"><i class="fa fa-odnoklassniki"></i></a>
+                                        <a href="{{ URL::route('login.social', ['provider' => 'google']) }}" class="button default-button circle-button"><i class="fa fa-google-plus"></i></a>
                                     </div>
                                     <form action="{{ route('login') }}" method="POST" role="form" class="send-ajax" id="sign-in-form">
                                         {{ csrf_field() }}
