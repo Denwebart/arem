@@ -10,6 +10,7 @@
         "barryvdh/laravel-ide-helper": "^2.2",
         "caouecs/laravel-lang": "~3.0",
         "doctrine/dbal": "^2.5",
+        "jhaoda/socialite-odnoklassniki": "^3.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",

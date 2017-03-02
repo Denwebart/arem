@@ -238,6 +238,7 @@ return [
 	     */
 	    'Debugbar' => Barryvdh\Debugbar\Facade::class,
 	    'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+	    
     ],
 
 ];

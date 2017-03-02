@@ -133,6 +133,7 @@ class User extends Authenticatable
 	 */
 	public static function createBySocialProvider($providerUser)
 	{
+		// доделать сохранение изображения на сервер
 		$nameArray = explode(" ", $providerUser->getName());
 		
 		return self::create([

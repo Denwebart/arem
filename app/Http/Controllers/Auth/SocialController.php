@@ -49,7 +49,7 @@ class SocialController extends Controller
 		
 		Auth::login($user, true);
 		
-		return redirect($this->redirectPath()); //redirect()->intended('/');
+		return redirect($this->redirectPath());
 	}
 	
 }
