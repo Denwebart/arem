@@ -143,7 +143,7 @@ class User extends Authenticatable
 		
 		return self::create([
 			'role' => User::ROLE_USER,
-			'alias' => Translit::make($providerUser->getNickname()),
+			'alias' => Translit::make($login),
 			'login' => $login,
 			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'email', // доделать : не выбирается email на одноклассниках
 			'avatar' => $providerUser->getAvatar(),
