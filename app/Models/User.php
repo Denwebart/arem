@@ -145,7 +145,7 @@ class User extends Authenticatable
 			'role' => User::ROLE_USER,
 			'alias' => Translit::make($login),
 			'login' => $login,
-			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'email', // доделать : не выбирается email на одноклассниках
+			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'null-email-' . $login, // доделать : не выбирается email на одноклассниках
 			'avatar' => $providerUser->getAvatar(),
 			'firstname' => array_key_exists(0, $nameArray) ? $nameArray[0] : '',
 			'lastname' => array_key_exists(1, $nameArray) ? $nameArray[1] : '',
