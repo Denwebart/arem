@@ -13,7 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController
+class Controller extends \App\Http\Controllers\Controller
 {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
