@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<div id="panel">
+<div id="panel" @if(isset($panelClass)) class="{{ $panelClass }}" @endif>
     <header>
 
         {!! $headerPanel->show() !!}

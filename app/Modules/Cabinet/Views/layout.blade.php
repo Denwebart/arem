@@ -5,7 +5,7 @@
  */
 ?>
 
-@extends('layouts.app')
+@extends('layouts.app', ['panelClass' => 'user-profile'])
 
 @section('layout-content')
     <div class="container-fluid">
