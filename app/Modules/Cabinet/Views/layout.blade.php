@@ -14,7 +14,7 @@
                 <div class="m-b-30">
                     <div id="user-menu-section">
                         <ul class="menu user-menu">
-                            <li class="active"><a href="profile.html"><i class="fa fa-user"></i><span>Профиль</span></a></li>
+                            <li class="active"><a href="{{ route('user.profile', ['user' => $user->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
                             <li><a href="profile-cars.html"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
                             <li><a href="profile-questions.html"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
                             <li><a href="profile-articles.html"><i class="fa fa-book"></i><span>Журнал</span></a></li>
@@ -30,7 +30,7 @@
                     <div id="user-content-section">
                         <div id="user-section">
                             <div class="user-avatar">
-                                <a href="profile.html">
+                                <a href="{{ route('user.profile', ['user' => $user->alias]) }}">
                                     <img src="/img/uploads/avatar-2.jpg" alt="" class="avatar">
                                 </a>
                                 <div class="buttons">
@@ -44,14 +44,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="user-profile-picture" style="background: url('img/uploads/user-background.jpg');">
+                            <div class="user-profile-picture" style="background: url('/img/uploads/user-background.jpg');">
                                 <div class="gradient">
                                     <div class="user-info">
                                         <div>
-                                            <span class="login">Ivan</span>
+                                            <span class="login">{{ $user->login }}</span>
                                             <span class="is-online online">В сети</span>
                                         </div>
-                                        <div class="fullname">Иван Плахотин</div>
+                                        <div class="fullname">{{ $user->getFullName() }}</div>
                                         <div class="rank">Эксперт</div>
                                         <div class="rating-position">
                                             <div class="label">

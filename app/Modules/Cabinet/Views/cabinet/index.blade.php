@@ -27,36 +27,48 @@
             <div class="info-list two-col">
                 <div class="item">
                     <span class="title">Роль:</span>
-                    <span class="value">Администратор</span>
+                    <span class="value">{{ \App\Models\User::$roles[$user->role] }}</span>
                 </div>
-                <div class="item">
-                    <span class="title">Автомобиль:</span>
-                    <span class="value">Daewoo Nexia</span>
-                </div>
+                @if($user->getCar())
+                    <div class="item">
+                        <span class="title">Автомобиль:</span>
+                        <span class="value">{{ $user->getCar() }}</span>
+                    </div>
+                @endif
                 <div class="item">
                     <span class="title">Зарегистрирован:</span>
-                    <span class="value">4 февраля 2015 </span>
+                    <span class="value">{{ \App\Helpers\Date::make($user->created_at, 'j F Y') }}</span>
                 </div>
-                <div class="item">
-                    <span class="title">Профессия:</span>
-                    <span class="value">Автомеханик</span>
-                </div>
-                <div class="item">
-                    <span class="title">Email:</span>
-                    <span class="value">avtorem.info@yandex.ru</span>
-                </div>
-                <div class="item">
-                    <span class="title">Пол:</span>
-                    <span class="value">Мужской</span>
-                </div>
-                <div class="item">
-                    <span class="title">Местоположение:</span>
-                    <span class="value">Украина, Харьков</span>
-                </div>
-                <div class="item">
-                    <span class="title">Дата рождения:</span>
-                    <span class="value">3 февраля 1979</span>
-                </div>
+                @if($user->profession)
+                    <div class="item">
+                        <span class="title">Профессия:</span>
+                        <span class="value">{{ $user->profession }}</span>
+                    </div>
+                @endif
+                @if(1==1)
+                    <div class="item">
+                        <span class="title">Email:</span>
+                        <span class="value">{{ $user->email }}</span>
+                    </div>
+                @endif
+                @if(!is_null($user->sex))
+                    <div class="item">
+                        <span class="title">Пол:</span>
+                        <span class="value">{{ \App\Models\User::$sex[$user->sex] }}</span>
+                    </div>
+                @endif
+                @if($user->getLocation())
+                    <div class="item">
+                        <span class="title">Местоположение:</span>
+                        <span class="value">{{ $user->getLocation() }}</span>
+                    </div>
+                @endif
+                @if($user->birthday)
+                    <div class="item">
+                        <span class="title">День рождения:</span>
+                        <span class="value">{{ \App\Helpers\Date::make($user->birthday, 'j F Y') }}</span>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="col-md-5 col-sm-5">
@@ -68,21 +80,12 @@
         </div>
     </div>
 
-    <div class="small-description m-b-0">О себе:</div>
-    <div class="text page-text">
-        <p>
-            Зовут меня Плахотин Иван. Родился, живу и работаю
-            в «Первой столице» Украины, славном городе Харькове.
-            Там же закончил школу и университет ХГТУСХ
-            имени П. Василенко, с дипломом инженера-механика
-            по ремонту и обслуживанию с\х техники. И вот уже более
-            10 лет своей жизни посвятил ремонту легковых автомобилей
-            в своей небольшой мастерской. Все статьи на сайте написал
-            лично, исходя из персонального опыта и багажа знаний.
-            И практически все фотографии сделал сам, как говорится
-            «в рабочей обстановке».
-        </p>
-    </div>
+    @if($user->description)
+        <div class="small-description m-b-0">О себе:</div>
+        <div class="text page-text">
+            {{ $user->description }}
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-md-6">

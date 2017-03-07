@@ -32,6 +32,17 @@ class User extends Authenticatable
 		self::ROLE_USER => 'Пользователь',
 	];
 	
+	/**
+	 * Male
+	 */
+	const SEX_MALE = 0;
+	const SEX_FEMALE = 1;
+	
+	public static $sex = [
+		self::SEX_MALE => 'Мужской',
+		self::SEX_FEMALE => 'Женский',
+	];
+	
     /**
      * The attributes that are mass assignable.
      *
@@ -153,5 +164,44 @@ class User extends Authenticatable
 				? date('Y-m-d H:i:s', strtotime($user['birthday']))
 				: null,
 		]);
+	}
+	
+	/**
+	 * Get user full name
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getFullName()
+	{
+		$separator = ($this->firstname && $this->lastname) ? ' ' : '';
+		return $this->firstname . $separator . $this->lastname;
+	}
+	
+	/**
+	 * Get user car brand and model
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getCar()
+	{
+		$separator = ($this->car_brand && $this->car_model) ? ' ' : '';
+		return $this->car_brand . $separator . $this->car_model;
+	}
+	
+	/**
+	 * Get user location (country and city)
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getLocation()
+	{
+		$separator = ($this->country && $this->city) ? ', ' : '';
+		return $this->country . $separator . $this->city;
 	}
 }
