@@ -8,14 +8,18 @@
 
 namespace Modules\Cabinet\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+
 class CabinetController extends Controller
 {
-	/**
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index()
+	
+	public function index(Request $request)
 	{
-		return view('cabinet::cabinet.index');
+		$user = \Auth::check()
+			? \Auth::user()
+			: User::whereLogin($request->get('login'))->firstOrFail();
+			
+		return view('cabinet::cabinet.index')->with('user', $user);
 	}
 }

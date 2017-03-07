@@ -31,7 +31,7 @@
                         <div id="user-section">
                             <div class="user-avatar">
                                 <a href="profile.html">
-                                    <img src="img/uploads/avatar-2.jpg" alt="" class="avatar">
+                                    <img src="/img/uploads/avatar-2.jpg" alt="" class="avatar">
                                 </a>
                                 <div class="buttons">
                                     <div class="button-group pull-right">
@@ -190,62 +190,62 @@
                     <div class="items horisontal">
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="img/uploads/avatar-3.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="img/uploads/avatar-1.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="img/uploads/avatar-3.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="img/uploads/avatar-1.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="img/uploads/avatar-3.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="img/uploads/avatar-1.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                     <div class="items horisontal">
                         <div class="item user">
                             <a href="profile.html" class="user-avatar" title="Denwebart">
-                                <img src="img/uploads/avatar.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar.jpg" alt="" class="avatar mini">
                             </a>
                         </div>
                     </div>

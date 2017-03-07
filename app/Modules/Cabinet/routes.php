@@ -5,5 +5,5 @@
  */
 
 Route::group(['module' => 'Cabinet', 'prefix' => 'cabinet', 'middleware' => ['web', 'auth'], 'namespace' => 'Modules\Cabinet\Controllers'], function () {
-	Route::get('/{user}', ['as' => 'cabinet.index', 'uses' => 'CabinetController@index']);
+	Route::get('/{login}', ['as' => 'cabinet.index', 'uses' => 'CabinetController@index']);
 });

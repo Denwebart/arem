@@ -23,10 +23,10 @@
 
     <!-- Template Basic Images Start -->
     <meta property="og:image" content="path/to/image.jpg">
-    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/img/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png">
 
     <meta name="google-site-verification" content="JoYRWEyA6SKbzhodnLG5xHRb_OtxQ_k1goEh4EnP_7k">
     <!-- Template Basic Images End -->
@@ -42,20 +42,20 @@
 
     <!-- Load Fonts CSS Start -->
     <script>
-        loadCSS( "css/fonts.min.css?ver=1.0.0", false, "all" ); // Loading fonts, if the site is located in a subfolder
-        //		loadLocalStorageCSS( "webfonts", "css/fonts.min.css?ver=1.0.0" ); // Loading fonts, if the site is at the root
+        loadCSS( "/css/fonts.min.css?ver=1.0.0", false, "all" ); // Loading fonts, if the site is located in a subfolder
+        //		loadLocalStorageCSS( "webfonts", "/css/fonts.min.css?ver=1.0.0" ); // Loading fonts, if the site is at the root
     </script>
     <!-- Load Fonts CSS End -->
 
     <!-- Load Custom CSS Start -->
 
-    <script>loadCSS( "css/main.min.css?ver=1.0.0", false, "all" );</script>
+    <script>loadCSS( "/css/main.min.css?ver=1.0.0", false, "all" );</script>
     <!-- Load Custom CSS End -->
 
     <!-- Load Custom CSS Compiled without JS Start -->
     <noscript>
-        <link rel="stylesheet" href="css/fonts.min.css">
-        <link rel="stylesheet" href="css/main.min.css">
+        <link rel="stylesheet" href="/css/fonts.min.css">
+        <link rel="stylesheet" href="/css/main.min.css">
     </noscript>
     <!-- Load Custom CSS Compiled without JS End -->
 
@@ -145,7 +145,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-6 col-logo">
                         <a href="{{ url('/') }}">
-                            <img src="img/logo-full.svg" alt="Avtorem.info" class="logo">
+                            <img src="/img/logo-full.svg" alt="Avtorem.info" class="logo">
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-4 col-xs-5 col-title">
@@ -305,7 +305,7 @@
                     <div class="first-column">
                         <div class="row">
                             <div class="full-xxs col-xs-6 col-sm-6 col-md-12">
-                                <img src="img/logo-white.svg" alt="Avtorem.info" class="logo">
+                                <img src="/img/logo-white.svg" alt="Avtorem.info" class="logo">
                             </div>
                             <div class="full-xxs col-xs-6 col-sm-6 col-md-12">
                                 <div class="copyright">
@@ -391,7 +391,7 @@
                         </p>
 
                         <div class="m-t-20 align-center-xs">
-                            <img src="img/uploads/hit.png" alt="Счетчик, заменить на код счетчика">
+                            <img src="/img/uploads/hit.png" alt="Счетчик, заменить на код счетчика">
                         </div>
 
                         <p class="m-t-20 small visible-xs">
@@ -407,8 +407,8 @@
 <!-- Optimized loading JS Start -->
 <script>
     var scr = {"scripts":[
-        {"src" : "js/libs.min.js", "async" : false},
-        {"src" : "js/common.js", "async" : false}
+        {"src" : "/js/libs.min.js", "async" : false},
+        {"src" : "/js/common.js", "async" : false}
     ]};!function(t,n,r){"use strict";var c=function(t){if("[object Array]"!==Object.prototype.toString.call(t))return!1;for(var r=0;r<t.length;r++){var c=n.createElement("script"),e=t[r];c.src=e.src,c.async=e.async,n.body.appendChild(c)}return!0};t.addEventListener?t.addEventListener("load",function(){c(r.scripts);},!1):t.attachEvent?t.attachEvent("onload",function(){c(r.scripts)}):t.onload=function(){c(r.scripts)}}(window,document,scr);
 </script>
 <!-- Optimized loading JS End -->

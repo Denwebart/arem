@@ -15,7 +15,7 @@
         </li>
     </ul>
 
-    <h2>Профиль пользователя Ivan</h2>
+    <h2>Профиль пользователя {{ $user->login }}</h2>
 
     <div class="small-description m-t--15">
         В сообществе Avtorem.info уже
@@ -61,9 +61,9 @@
         </div>
         <div class="col-md-5 col-sm-5">
             <div class="images-collage">
-                <a href="#"><img src="img/uploads/car-2.jpg" alt=""></a>
-                <a href="#"><img src="img/uploads/car-3.jpg" alt=""></a>
-                <a href="#"><img src="img/default-image.svg" alt=""></a>
+                <a href="#"><img src="/img/uploads/car-2.jpg" alt=""></a>
+                <a href="#"><img src="/img/uploads/car-3.jpg" alt=""></a>
+                <a href="#"><img src="/img/default-image.svg" alt=""></a>
             </div>
         </div>
     </div>
@@ -116,13 +116,13 @@
 
             <div class="user-awards">
                 <a href="#" class="item" title="Лучший знаток 2015 года">
-                    <img src="img/uploads/awards/pisatel-goda.png" alt="">
+                    <img src="/img/uploads/awards/pisatel-goda.png" alt="">
                 </a>
                 <a href="#" class="item" title="Лучший писатель 2015 года">
-                    <img src="img/uploads/awards/znatok-goda.png" alt="">
+                    <img src="/img/uploads/awards/znatok-goda.png" alt="">
                 </a>
                 <a href="#" class="item" title="Лучший комментатор августа 2015 года">
-                    <img src="img/uploads/awards/kommentator-mesyatsa.png" alt="">
+                    <img src="/img/uploads/awards/kommentator-mesyatsa.png" alt="">
                 </a>
             </div>
         </div>

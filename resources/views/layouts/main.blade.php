@@ -28,7 +28,7 @@
                     <div class="items">
                         <div class="item">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="item">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
@@ -60,7 +60,7 @@
                         </div>
                         <div class="item has-solution">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/avatar-1.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                             <a href="page.html">
-                                <img src="img/uploads/statya-1-mini.png" alt="" class="item-image">
+                                <img src="/img/uploads/statya-1-mini.png" alt="" class="item-image">
                             </a>
                             <div class="item-content">
                                 <a href="page.html" class="text">
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <a href="page.html">
-                                <img src="img/uploads/statya-2-mini.png" alt="" class="item-image">
+                                <img src="/img/uploads/statya-2-mini.png" alt="" class="item-image">
                             </a>
                             <div class="item-content">
                                 <a href="page.html" class="text">
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <a href="page.html">
-                                <img src="img/uploads/statya-3-mini.png" alt="" class="item-image">
+                                <img src="/img/uploads/statya-3-mini.png" alt="" class="item-image">
                             </a>
                             <div class="item-content">
                                 <a href="page.html" class="text">
@@ -169,7 +169,7 @@
                         <div class="item">
                             <div class="rating-position">1</div>
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="user">
                                 <a href="profile.html" class="login"><span>Ivan</span></a>
@@ -182,7 +182,7 @@
                         <div class="item">
                             <div class="rating-position">2</div>
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/avatar-2.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-2.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="user">
                                 <a href="profile.html" class="login"><span>SKS</span></a>
@@ -195,7 +195,7 @@
                         <div class="item">
                             <div class="rating-position">3</div>
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/avatar-3.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="user">
                                 <a href="profile.html" class="login"><span>Мастер</span></a>
@@ -209,7 +209,7 @@
                         <div class="item">
                             <div class="rating-position">4</div>
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/avatar-1.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="user">
                                 <a href="profile.html" class="login"><span>Muph1984</span></a>
@@ -223,7 +223,7 @@
                         <div class="item">
                             <div class="rating-position">5</div>
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/default-avatar.png" alt="" class="avatar mini">
+                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
                             </a>
                             <div class="user">
                                 <a href="profile.html" class="login"><span>Макс</span></a>
@@ -251,7 +251,7 @@
                     <div class="items">
                         <div class="item">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
@@ -272,7 +272,7 @@
                         </div>
                         <div class="item">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
@@ -292,7 +292,7 @@
                         </div>
                         <div class="item">
                             <a href="profile.html" class="user-avatar">
-                                <img src="img/uploads/ivan.jpg" alt="" class="avatar mini">
+                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
                             </a>
                             <div class="item-content">
                                 <div class="item-info">
