@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-
+/*
+ * Autorization
+ */
 Auth::routes();
 // Activation user.
 Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterController@activation')->name('activation');
@@ -20,7 +21,6 @@ Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterControll
 Route::get('/social_login/{provider}', '\App\Http\Controllers\Auth\SocialController@login')->name('login.social');
 Route::get('/social_login/callback/{provider}', '\App\Http\Controllers\Auth\SocialController@callback')->name('login.social.callback');
 
-Route::get('/home', 'HomeController@index');
-Route::get('/page-1', 'HomeController@index');
-Route::get('/page-2', 'HomeController@index');
-Route::get('/page-3', 'HomeController@index');
+
+Route::get('/', 'PagesController@index');
+Route::get('/{alias}', 'PagesController@page');
