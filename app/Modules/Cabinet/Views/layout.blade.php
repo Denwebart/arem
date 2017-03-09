@@ -31,18 +31,20 @@
                         <div id="user-section">
                             <div class="user-avatar">
                                 <a href="{{ route('user.profile', ['user' => $user->alias]) }}">
-                                    <img src="/img/uploads/avatar-2.jpg" alt="" class="avatar">
+                                    <img src="{{ $user->getAvatarUrl() }}" alt="{{ $user->login }}" class="avatar">
                                 </a>
-                                <div class="buttons">
-                                    <div class="button-group pull-right">
-                                        <button class="button default-button transparent-button">
-                                            В друзьях
-                                        </button>
-                                        <button class="button dark-button transparent-button">
-                                            <i class="fa fa-paper-plane"></i>
-                                        </button>
+                                @if(Auth::check() && !Auth::user()->is($user))
+                                    <div class="buttons">
+                                        <div class="button-group pull-right">
+                                            <button class="button default-button transparent-button">
+                                                В друзьях
+                                            </button>
+                                            <button class="button dark-button transparent-button">
+                                                <i class="fa fa-paper-plane"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="user-profile-picture" style="background: url('/img/uploads/user-background.jpg');">
                                 <div class="gradient">

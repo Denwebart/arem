@@ -345,14 +345,14 @@
                             </div>
                         </div>
                         <div class="user pull-left dropdown">
-                            <a href="profile.html" class="dropdown-button">
+                            <a href="#" rel="nofollow" class="dropdown-button">
                                 <img src="{{ Auth::user()->getAvatarUrl() }}" class="avatar pull-left" alt="{{ Auth::user()->login }}" title="{{ Auth::user()->login }}">
                                 <i class="fa fa-bars dropdown-arrow"></i>
                             </a>
                             <div class="dropdown-container">
                                 <div class="container-body">
                                     <ul class="menu user-menu">
-                                        <li><a href="profile.html"><i class="fa fa-user"></i><span>Профиль</span></a></li>
+                                        <li><a href="{{ route('user.profile', ['login' => Auth::user()->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
                                         <li><a href="profile-cars.html"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
                                         <li><a href="profile-questions.html"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
                                         <li><a href="profile-articles.html"><i class="fa fa-book"></i><span>Журнал</span></a></li>

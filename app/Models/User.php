@@ -134,37 +134,6 @@ class User extends Authenticatable
 				? url($this->defaultImagePath)
 				: null);
 	}
-    
-	/**
-	 * Creating user by social provider
-	 *
-	 * @param $providerUser
-	 * @return mixed
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public static function createBySocialProvider($providerUser)
-	{
-		// доделать сохранение изображения на сервер
-		$nameArray = explode(" ", $providerUser->getName());
-		$user = $providerUser->user ? $providerUser->user : [];
-		$login = $providerUser->getNickname()
-			? ucfirst($providerUser->getNickname())
-			: ucfirst(Translit::make($providerUser->getName()));
-		
-		return self::create([
-			'role' => User::ROLE_USER,
-			'alias' => Translit::make($login),
-			'login' => $login,
-			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'null-email-' . $login, // доделать : не выбирается email на одноклассниках
-			'avatar' => $providerUser->getAvatar(),
-			'firstname' => array_key_exists(0, $nameArray) ? $nameArray[0] : '',
-			'lastname' => array_key_exists(1, $nameArray) ? $nameArray[1] : '',
-			'birthday' => array_key_exists('birthday', $user)
-				? date('Y-m-d H:i:s', strtotime($user['birthday']))
-				: null,
-		]);
-	}
 	
 	/**
 	 * Get user full name
@@ -203,5 +172,38 @@ class User extends Authenticatable
 	{
 		$separator = ($this->country && $this->city) ? ', ' : '';
 		return $this->country . $separator . $this->city;
+	}
+	
+	
+	
+	/**
+	 * Creating user by social provider
+	 *
+	 * @param $providerUser
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public static function createBySocialProvider($providerUser)
+	{
+		// доделать сохранение изображения на сервер
+		$nameArray = explode(" ", $providerUser->getName());
+		$user = $providerUser->user ? $providerUser->user : [];
+		$login = $providerUser->getNickname()
+			? ucfirst($providerUser->getNickname())
+			: ucfirst(Translit::make($providerUser->getName()));
+		
+		return self::create([
+			'role' => User::ROLE_USER,
+			'alias' => Translit::make($login),
+			'login' => $login,
+			'email' => $providerUser->getEmail() ? $providerUser->getEmail() : 'null-email-' . $login, // доделать : не выбирается email на одноклассниках
+			'avatar' => $providerUser->getAvatar(),
+			'firstname' => array_key_exists(0, $nameArray) ? $nameArray[0] : '',
+			'lastname' => array_key_exists(1, $nameArray) ? $nameArray[1] : '',
+			'birthday' => array_key_exists('birthday', $user)
+				? date('Y-m-d H:i:s', strtotime($user['birthday']))
+				: null,
+		]);
 	}
 }
