@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class User
+ *
+ * @author     It Hill (it-hill.com@yandex.ua)
+ * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+ */
 
 namespace App\Models;
 
@@ -85,20 +91,36 @@ class User extends Authenticatable
 		});
 		
 		static::deleting(function($user) {
-			$user->userSocialAccounts()->delete();
+			$user->socialAccounts()->delete();
+			$user->notifications()->delete();
 		});
 	}
 	
 	/**
 	 * User social accounts
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function userSocialAccounts()
+	public function socialAccounts()
 	{
 		return $this->hasMany(UserSocialAccount::class);
+	}
+	
+	/**
+	 * User notifications
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function notifications()
+	{
+		return $this->hasMany(Notification::class)
+			->orderBy('created_at', 'DESC')
+			->orderBy('id', 'DESC')
+			->get();
 	}
 	
 	/**

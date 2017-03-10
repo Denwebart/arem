@@ -6,4 +6,5 @@
 
 Route::group(['module' => 'Cabinet', 'prefix' => 'user', 'middleware' => ['web', 'auth'], 'namespace' => 'Modules\Cabinet\Controllers'], function () {
 	Route::get('/{login}', ['as' => 'user.profile', 'uses' => 'CabinetController@profile']);
+	Route::get('/{login}/notifications', ['as' => 'user.notifications', 'uses' => 'CabinetController@notifications']);
 });

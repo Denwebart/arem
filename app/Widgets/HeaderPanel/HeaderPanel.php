@@ -8,10 +8,13 @@
 
 namespace Widgets\HeaderPanel;
 
+use App\Models\Notification;
+
 class HeaderPanel
 {
 	public function show()
 	{
-		return view('widget.headerPanel::index');
+		return view('widget.headerPanel::index')->with('limit', 5);
 	}
+	
 }
