@@ -28,8 +28,10 @@
                 @foreach(Auth::user()->notifications() as $notification)
                     <li data-id="{{ $notification->id }}">
                         <a href="{{ route('user.notifications', ['login' => Auth::user()->alias]) }}#item-{{ $notification->id }}">
-                            <i class="fa fa-thumbs-up info"></i>
-                            <span class="small-text date">25 мин. назад</span>
+                            {!! \App\Models\Notification::$typeIcons[$notification->type] !!}
+                            <span class="small-text date">
+                                {{ \App\Helpers\Date::getRelative($notification->created_at) }}
+                            </span>
                             <span class="text">
                                 {{ $notification->message }}
                             </span>
@@ -38,6 +40,7 @@
                             <i class="fa fa-close"></i>
                         </a>
                     </li>
+                    @break($loop->iteration == $limit)
                 @endforeach
             </ul>
         </div>

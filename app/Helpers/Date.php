@@ -8,6 +8,8 @@
 
 namespace App\Helpers;
 
+use Carbon\Carbon;
+
 class Date
 {
 	protected static $months = [
@@ -94,6 +96,14 @@ class Date
 	/**
 	 * Date format: "1 min. ago" etc.
 	 *
+	 *     ? < 10 sec            - "just now"
+	 *     10 sec. < ? < 1 min   - "n sec. ago"
+	 *     1 min. < ? < 1 hours  - "n min. ago"
+	 *     1 hours < ? < 3 hours - "(1, 2, 3) hours ago"
+	 *     3 hours < ? and today - today at nn:nn
+	 *     tomorrow              - tomorrow at nn:nn
+	 *     else                  - date time
+	 *
 	 * @param string $date
 	 * @return string
 	 *
@@ -104,25 +114,26 @@ class Date
 	{
 		if(!is_null($date)) {
 			$timestamp = strtotime($date);
-			$delta = (time() - $timestamp);
-			if ($delta < 0) {
-				return '0 сек.';
+			
+			$timeDifference = (time() - $timestamp);
+			
+			if($timeDifference < 10) {
+				$result = 'только что';
+			} elseif ($timeDifference < 60) {
+				$result = round($timeDifference, 0) . ' сек. назад';
+			} elseif ($timeDifference < (60 * 60)) {
+				$result = round(($timeDifference / 60), 0) . ' мин. назад';
+			} elseif ($timeDifference <= (60 * 60 * 3.1)) {
+				$result = round(($timeDifference / (60 * 60)), 0) . ' ч. назад';
 			}
-			if ($delta < 60) {
-				$result = round($delta, 0) . ' сек. назад';
-			} elseif ($delta < 120) {
-				$result = '1 мин. назад';
-			} elseif ($delta < (45 * 60)) {
-				$result = round(($delta / 60), 0) . ' мин. назад';
-			} elseif ($delta < (24 * 60 * 60)) {
+			elseif (Carbon::today()->timestamp == strtotime(date('d-m-Y', $timestamp))) {
 				$result = 'сегодня в ' . date('H:i', $timestamp);
+			} elseif (Carbon::yesterday()->timestamp == strtotime(date('d-m-Y', $timestamp))) {
+				$result = 'вчера в ' . date('H:i', $timestamp);
 			} else {
-				$year = date('Y', $timestamp) != date('Y') ? ' ' . date('Y', $timestamp) : '';
-				$result = date('j', $timestamp) . ' ' . self::$months[date('n', $timestamp)]
-					. $year
-					. ' в ' . date('H:i', strtotime($date));
+				$result = self::format($date, true);
 			}
-
+			
 			return $result;
 		}
 		else return '-';

@@ -26,7 +26,7 @@ class CabinetController extends Controller
 	}
 	
 	/**
-	 * All notifications of user
+	 * All notifications of user (only owner)
 	 *
 	 * @param Request $request
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
