@@ -21,7 +21,7 @@ class User extends Authenticatable
 	 * Path of avatar of user
 	 */
 	protected $imagePath = '/uploads/users/{alias}/';
-	protected $defaultImagePath = '/img/uploads/avatar.jpg';
+	protected $defaultImagePath = '/img/default-avatar.png';
 	
 	/**
 	 * Role

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Letter
+ * Class Message
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -11,25 +11,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Letter extends Model
+class Message extends Model
 {
-	protected $table = "letters";
+	protected $table = "messages";
 	
 	protected $fillable = [
-		'user_id',
-		'ip_id',
-		'user_name',
-		'user_email',
-		'subject',
+		'user_id_sender',
+		'user_id_recipient',
 		'message',
 		'read_at',
+		'deleted_sender',
+		'deleted_recipient',
 	];
 	
 	public static $rules = [
-		'user_id' => 'required_without_all:user_name,user_email|numeric',
-		'user_name' => 'required_without_all:user_id|regex:/^[A-Za-zА-Яа-яЁёЇїІіЄєЭэ \-\']+$/u|min:3|max:50',
-		'user_email' => 'required_without_all:user_id|email|max:100',
-		'subject' => 'min:3|max:500',
+		'user_id_sender' => 'required|numeric',
+		'user_id_recipient' => 'required|numeric',
 		'message' => 'required|min:5',
 	];
 	
@@ -56,7 +53,7 @@ class Letter extends Model
 	 */
 	public function user()
 	{
-		return $this->belongsTo(User::class);
+//		return $this->belongsTo(User::class);
 	}
 	
 	/**
@@ -67,7 +64,7 @@ class Letter extends Model
 	 */
 	public function scopeNew($query)
 	{
-		return $query->whereNull('read_at')->whereNull('deleted_at');
+//		return $query->whereNull('read_at')->whereNull('deleted_at');
 	}
 	
 }
