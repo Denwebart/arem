@@ -8,4 +8,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'middleware' => ['web', 
 	
 	Route::get('/', ['as' => 'admin.index', 'uses' => 'AdminController@index']);
 	
+	Route::get('/letters', ['as' => 'admin.letters.index', 'uses' => 'AdminController@index']);
+	Route::get('/letters/{id}', ['as' => 'admin.letters.show', 'uses' => 'AdminController@index']);
+	
 });

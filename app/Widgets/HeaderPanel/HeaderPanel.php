@@ -8,13 +8,26 @@
 
 namespace Widgets\HeaderPanel;
 
-use App\Models\Notification;
+use App\Models\Letter;
 
 class HeaderPanel
 {
 	public function show()
 	{
-		return view('widget.headerPanel::index')->with('limit', 5);
+		$letters = $this->getNewLetters();
+		return view('widget.headerPanel::index')
+			->with('limit', 5)
+			->with('letters', $letters);
 	}
 	
+	public function getNewLetters() {
+		return Letter::select('id', 'user_id', 'user_name', 'user_email', 'subject', 'created_at', 'read_at', 'deleted_at')
+			->new()
+			->with([
+				'user' => function($query) {
+					$query->select('id', 'login', 'alias', 'avatar', 'email', 'firstname', 'lastname');
+				}
+			])
+			->get();
+	}
 }
