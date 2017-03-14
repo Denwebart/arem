@@ -27,7 +27,7 @@ class Message extends Model
 	public static $rules = [
 		'user_id_sender' => 'required|numeric',
 		'user_id_recipient' => 'required|numeric',
-		'message' => 'required|min:5',
+		'message' => 'required|max:5000',
 	];
 	
 	/**
@@ -45,26 +45,38 @@ class Message extends Model
 	}
 	
 	/**
-	 * User
+	 * Sender
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function user()
+	public function sender()
 	{
-//		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id_sender');
 	}
 	
 	/**
-	 * Scope a query to only include unreaded letters.
+	 * Recipient
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function recipient()
+	{
+		return $this->belongsTo(User::class, 'user_id_recipient');
+	}
+	
+	/**
+	 * Scope a query to only include unreaded mesages.
 	 *
 	 * @param \Illuminate\Database\Eloquent\Builder $query
 	 * @return \Illuminate\Database\Eloquent\Builder
 	 */
 	public function scopeNew($query)
 	{
-//		return $query->whereNull('read_at')->whereNull('deleted_at');
+		return $query->whereNull('read_at');
 	}
 	
 }

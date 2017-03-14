@@ -4,17 +4,17 @@
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 ?>
-@if(count(Auth::user()->notifications()))
+@if(count($notifications))
     <a href="#" class="notification dropdown-button"><i class="fa fa-bell-o dropdown-arrow"></i></a>
     <div class="dropdown-container">
         <div class="container-header">
             <div class="title">
                 Уведомлений:
                 <span class="count">
-                    @if($limit < count(Auth::user()->notifications()))
+                    @if($limit < count($notifications))
                         {{ $limit }} из
                     @endif
-                    {{ count(Auth::user()->notifications()) }}
+                    {{ count($notifications) }}
                 </span>
             </div>
             <a href="{{ route('user.notifications', ['login' => Auth::user()->alias]) }}" class="pull-right">
@@ -25,7 +25,7 @@
         <div class="delimiter"></div>
         <div class="container-body">
             <ul class="list notifications-list">
-                @foreach(Auth::user()->notifications() as $notification)
+                @foreach($notifications as $notification)
                     <li data-id="{{ $notification->id }}">
                         <a href="{{ route('user.notifications', ['login' => Auth::user()->alias]) }}#item-{{ $notification->id }}">
                             {!! \App\Models\Notification::$typeIcons[$notification->type] !!}

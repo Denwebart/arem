@@ -93,6 +93,8 @@ class User extends Authenticatable
 		static::deleting(function($user) {
 			$user->socialAccounts()->delete();
 			$user->notifications()->delete();
+			$user->receivedMessages()->delete();
+			$user->sentMessages()->delete();
 		});
 	}
 	
@@ -117,10 +119,31 @@ class User extends Authenticatable
 	 */
 	public function notifications()
 	{
-		return $this->hasMany(Notification::class)
-			->orderBy('created_at', 'DESC')
-			->orderBy('id', 'DESC')
-			->get();
+		return $this->hasMany(Notification::class);
+	}
+	
+	/**
+	 * Received (incoming) messages
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function receivedMessages()
+	{
+		return $this->hasMany(Message::class, 'user_id_recipient');
+	}
+	
+	/**
+	 * Sent (outgiong) messages
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function sentMessages()
+	{
+		return $this->hasMany(Message::class, 'user_id_sender');
 	}
 	
 	/**

@@ -9,15 +9,34 @@
 namespace Widgets\HeaderPanel;
 
 use App\Models\Letter;
+use Illuminate\Support\Facades\Auth;
 
 class HeaderPanel
 {
 	public function show()
 	{
+		$notifications = $this->getNewNotifications();
+		$messages = $this->getNewMessages();
 		$letters = $this->getNewLetters();
+		
 		return view('widget.headerPanel::index')
 			->with('limit', 5)
+			->with('notifications', $notifications)
+			->with('messages', $messages)
 			->with('letters', $letters);
+	}
+	
+	public function getNewNotifications() {
+		return Auth::user()->notifications()
+			->orderBy('created_at', 'DESC')
+			->orderBy('id', 'DESC')
+			->get();
+	}
+	
+	public function getNewMessages() {
+		return Auth::user()->receivedMessages()
+			->whereNull('deleted_recipient')
+			->get();
 	}
 	
 	public function getNewLetters() {

@@ -37,4 +37,17 @@ class CabinetController extends Controller
 	{
 		return view('cabinet::cabinet.index');
 	}
+	
+	/**
+	 * All messages of user (only owner)
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function messages(Request $request)
+	{
+		return view('cabinet::cabinet.index');
+	}
 }
