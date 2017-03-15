@@ -13,9 +13,9 @@
                 Сообщений:
                 <span class="count">
                 @if($limit < count($messages))
-                        {{ $limit }} из
-                    @endif
-                    {{ count($messages) }}
+                    {{ $limit }} из
+                @endif
+                {{ count($messages) }}
             </span>
             </div>
             <a href="{{ route('user.messages', ['login' => Auth::user()->alias]) }}" class="pull-right">
@@ -26,42 +26,26 @@
         <div class="delimiter"></div>
         <div class="container-body">
             <ul class="list messages-list">
-                <li>
-                    <a href="profile-dialog.html">
-                        <img src="img/uploads/avatar.jpg" alt="" class="avatar">
-                        <span class="small-text">Vasya, 2 мин. назад</span>
-                        <span class="text">
-                        Здравствуйте! Хотел поблагодарить за помощь в ремонте автомобиля ...
-                    </span>
-                    </a>
-                    <a href="#" class="delete-button">
-                        <i class="fa fa-close"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="profile-dialog.html">
-                        <img src="img/uploads/default-avatar.png" alt="" class="avatar">
-                        <span class="small-text">Den, 2 ч. назад</span>
-                        <span class="text">
-                        Привет, Вань!
-                    </span>
-                    </a>
-                    <a href="#" class="delete-button">
-                        <i class="fa fa-close"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="profile-dialog.html">
-                        <img src="img/uploads/avatar.jpg" alt="" class="avatar">
-                        <span class="small-text">Master, 2 д. назад</span>
-                        <span class="text">
-                        Иван, подскажите, пожалуйста, как поменять заднюю балку?
-                    </span>
-                    </a>
-                    <a href="#" class="delete-button">
-                        <i class="fa fa-close"></i>
-                    </a>
-                </li>
+                @foreach($messages as $message)
+                    <li data-id="{{ $message->id }}">
+                        <a href="{{ route('user.dialog', ['login' => Auth::user()->alias, 'companion' => $message->sender->alias]) }}">
+                            @if($message->sender)
+                                <img src="{{ $message->sender->getAvatarUrl() }}" alt="{{ $message->sender->login }}" class="avatar">
+                            @endif
+                            <span class="small-text">
+                                @if($message->sender) {{ $message->sender->login }} @endif
+                                ,
+                                {{ \App\Helpers\Date::getRelative($message->created_at) }}
+                            </span>
+                            <span class="text">
+                                {{ \App\Helpers\Str::limit($message->message, 75) }}
+                            </span>
+                        </a>
+                        <a href="#" class="delete-button">
+                            <i class="fa fa-close"></i>
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

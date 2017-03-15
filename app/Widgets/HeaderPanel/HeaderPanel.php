@@ -35,6 +35,7 @@ class HeaderPanel
 	
 	public function getNewMessages() {
 		return Auth::user()->receivedMessages()
+			->new()
 			->whereNull('deleted_recipient')
 			->get();
 	}

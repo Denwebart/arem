@@ -38,7 +38,7 @@
                                 {{ \App\Helpers\Date::getRelative($letter->created_at) }}
                             </span>
                             <span class="text">
-                                {{ $letter->subject }}
+                                {{ \App\Helpers\Str::limit($letter->subject, 75) }}
                             </span>
                         </a>
                         <a href="#" rel="nofollow" class="delete-button">
