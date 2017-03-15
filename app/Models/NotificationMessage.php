@@ -14,7 +14,7 @@ class NotificationMessage extends Model
 {
 	protected $table = "notifications_messages";
 	
-	/*
+	/**
 	 * Id in notifications_message table = type in notifications table
 	 */
 	public $incrementing = false;

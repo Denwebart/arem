@@ -13,17 +13,23 @@ use Illuminate\Support\Facades\Auth;
 
 class HeaderPanel
 {
+	public $notifications;
+	public $messages;
+	public $letters;
+	
 	public function show()
 	{
-		$notifications = $this->getNewNotifications();
-		$messages = $this->getNewMessages();
-		$letters = $this->getNewLetters();
+		if(Auth::check()) {
+			$this->notifications = $this->getNewNotifications();
+			$this->messages = $this->getNewMessages();
+			$this->letters = $this->getNewLetters();
+		}
 		
 		return view('widget.headerPanel::index')
 			->with('limit', 5)
-			->with('notifications', $notifications)
-			->with('messages', $messages)
-			->with('letters', $letters);
+			->with('notifications', $this->notifications)
+			->with('messages', $this->messages)
+			->with('letters', $this->letters);
 	}
 	
 	public function getNewNotifications() {
