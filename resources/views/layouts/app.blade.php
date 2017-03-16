@@ -78,62 +78,38 @@
 
 <body>
 
-<div id="menu" class="dark-section">
-    <button class="menu-close-button close-button">
-        <svg viewbox="0 0 40 40">
-            <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
-        </svg>
-    </button>
-    <nav>
-        <div class="title">Меню</div>
-        <ul class="menu main-menu pull-left">
-            <li class="active"><a href="{{ url('/') }}"><span>Главная</span></a></li>
-            <li><a href="page.html"><span>О сайте</span></a></li>
-            <li>
-                <a href="category.html">
-                    <span>Автоистория</span>
-                    <i class="fa fa-angle-down open-dropdown"></i>
-                </a>
-                <ul>
-                    <li><a href="page.html">История Daewoo</a></li>
-                    <li><a href="page.html">История Nissan</a></li>
-                    <li><a href="page.html">История ВАЗ</a></li>
-                    <li><a href="page.html">История Mazda</a></li>
-                    <li><a href="page.html">История Shkoda</a></li>
-                </ul>
-            </li>
-            <li><a href="category.html"><span>Статьи</span><i class="fa fa-angle-down open-dropdown"></i></a></li>
-            <li><a href="category.html"><span>Советы</span></a></li>
-            <li><a href="category.html"><span>Гараж</span></a></li>
-            <li><a href="questions.html"><span>Вопрос-ответ</span><i class="fa fa-angle-down open-dropdown"></i></a></li>
-            <li><a href="articles.html"><span>Бортовой журнал</span></a></li>
-            <li><a href="users.html"><span>Пользователи</span></a></li>
-        </ul>
+{{--<div id="menu" class="dark-section">--}}
+    {{--<button class="menu-close-button close-button">--}}
+        {{--<svg viewbox="0 0 40 40">--}}
+            {{--<path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />--}}
+        {{--</svg>--}}
+    {{--</button>--}}
+    {{--<nav>--}}
+        {{--<div class="title">Меню</div>--}}
+        {{--<ul class="menu main-menu pull-left">--}}
+            {{--{!! $menu->main() !!}--}}
+        {{--</ul>--}}
 
-        <div class="title">Информация</div>
-        <ul class="menu info-menu">
-            <li><a href="#">Правила сайта</a></li>
-            <li><a href="#">Как задать вопрос?</a></li>
-            <li><a href="#">Как создать статью?</a></li>
-            <li><a href="#">ЧаВо</a></li>
-            <li><a href="#">Реклама на сайте</a></li>
-        </ul>
-        <ul class="menu contact-menu m-t-20">
-            <li><a href="contacts.html"><i class="fa fa-envelope"></i>Контакты</a></li>
-            <li><a href="sitemap.html"><i class="fa fa-sitemap"></i>Карта сайта</a></li>
-        </ul>
-    </nav>
+        {{--<div class="title">Информация</div>--}}
+        {{--<ul class="menu info-menu">--}}
+            {{--{!! $menu->info() !!}--}}
+        {{--</ul>--}}
+        {{--<ul class="menu contact-menu m-t-20">--}}
+            {{--<li><a href="contacts.html"><i class="fa fa-envelope"></i>Контакты</a></li>--}}
+            {{--<li><a href="sitemap.html"><i class="fa fa-sitemap"></i>Карта сайта</a></li>--}}
+        {{--</ul>--}}
+    {{--</nav>--}}
 
-    <div class="title">Мы в социальных сетях:</div>
-    <div class="social-links">
-        <ul class="pull-left horisontal">
-            <li><a href="#"><i class="fa fa-vk"></i></a></li>
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-        </ul>
-    </div>
-</div>
+    {{--<div class="title">Мы в социальных сетях:</div>--}}
+    {{--<div class="social-links">--}}
+        {{--<ul class="pull-left horisontal">--}}
+            {{--<li><a href="#"><i class="fa fa-vk"></i></a></li>--}}
+            {{--<li><a href="#"><i class="fa fa-facebook"></i></a></li>--}}
+            {{--<li><a href="#"><i class="fa fa-twitter"></i></a></li>--}}
+            {{--<li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>--}}
+        {{--</ul>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <div id="panel" @if(isset($panelClass)) class="{{ $panelClass }}" @endif>
     <header>
@@ -191,21 +167,17 @@
                                 <div class="input-group">
                                     <input type="text" name="query" placeholder="Поиск по сайту">
                                     <span class="input-group-button">
-                                            <button type="submit" form="search-form-1" value="" class="button accent-button">
-                                                <i class="fa fa-search"></i>
-                                                <span class="hidden-md">Искать</span>
-                                            </button>
-                                        </span>
+                                        <button type="submit" form="search-form-1" value="" class="button accent-button">
+                                            <i class="fa fa-search"></i>
+                                            <span class="hidden-md">Искать</span>
+                                        </button>
+                                    </span>
                                 </div>
                             </form>
                         </div>
                         <div class="info-menu-container">
                             <ul class="menu info-menu">
-                                <li><a href="#">Правила сайта</a></li>
-                                <li><a href="#">Как задать вопрос?</a></li>
-                                <li><a href="#">Как создать статью?</a></li>
-                                <li><a href="#">ЧаВо</a></li>
-                                <li><a href="#">Реклама на сайте</a></li>
+                                {!! $menu->info() !!}
                             </ul>
                             <i class="info-icon fa fa-info-circle pull-right"></i>
                         </div>
@@ -216,61 +188,7 @@
                         <div class="menu-section">
                             <nav>
                                 <ul class="menu main-menu pull-left">
-                                    <li class="active">
-                                        <a href="{{ url('/') }}">
-                                            <span>Главная</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page.html">
-                                            <span>О сайте</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html">
-                                            <span>Автоистория</span>
-                                            <i class="fa fa-angle-down open-dropdown"></i>
-                                        </a>
-                                        <ul>
-                                            <li><a href="page.html">История Daewoo awsedasdasd</a></li>
-                                            <li><a href="page.html">История Nissan</a></li>
-                                            <li><a href="page.html">История ВАЗ</a></li>
-                                            <li><a href="page.html">История Mazda</a></li>
-                                            <li><a href="page.html">История Shkoda</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="category.html">
-                                            <span>Статьи</span>
-                                            <i class="fa fa-angle-down open-dropdown"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html">
-                                            <span>Советы</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="category.html">
-                                            <span>Гараж</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="questions.html">
-                                            <span>Вопрос-ответ</span>
-                                            <i class="fa fa-angle-down open-dropdown"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="articles.html">
-                                            <span>Бортовой журнал</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="users.html">
-                                            <span>Пользователи</span>
-                                        </a>
-                                    </li>
+                                    {!! $menu->main() !!}
                                 </ul>
                             </nav>
                         </div>
@@ -339,27 +257,15 @@
                 <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-0 col-sm-3 col-xs-6">
                     <div class="title">Меню</div>
                     <nav>
-                        <ul class="menu info-menu">
-                            <li class="active"><a href="{{ url('/') }}">Главная</a></li>
-                            <li><a href="page.html">О сайте</a></li>
-                            <li><a href="category.html">Автоистория</a></li>
-                            <li><a href="category.html">Статьи</a></li>
-                            <li><a href="category.html">Советы</a></li>
-                            <li><a href="category.html">Гараж</a></li>
-                            <li><a href="questions.html">Вопрос-ответ</a></li>
-                            <li><a href="articles.html">Бортовой журнал</a></li>
-                            <li><a href="users.html">Пользователи</a></li>
+                        <ul class="menu main-menu">
+                            {!! $menu->main() !!}
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
                     <div class="title">Информация</div>
                     <ul class="menu info-menu">
-                        <li><a href="#">Правила сайта</a></li>
-                        <li><a href="#">Как задать вопрос?</a></li>
-                        <li><a href="#">Как создать статью?</a></li>
-                        <li><a href="#">ЧаВо</a></li>
-                        <li><a href="#">Реклама на сайте</a></li>
+                        {!! $menu->info() !!}
                     </ul>
                     <nav>
                         <ul class="menu contact-menu">

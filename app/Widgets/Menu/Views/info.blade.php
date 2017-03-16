@@ -5,19 +5,12 @@
  */
 ?>
 
-@if(count($menuItems))
-    <h5 class="title text-uppercase">Информация</h5>
-    <div class="v-links-list">
-        <ul>
-            @foreach($menuItems as $item)
-                @if($item->page)
-                    <li @if(\Request::is($item->page->getUrl()) || \Request::url() == url($item->page->alias)) class="active" @endif>
-                        <a href="{{ $item->page->getUrl() }}">
-                            {{ $item->page->getTitle() }}
-                        </a>
-                    </li>
-                @endif
-            @endforeach
-        </ul>
-    </div>
-@endif
+@foreach($menuItems as $item)
+    @if($item->page)
+        <li @if(\Request::is($item->page->getUrl()) || \Request::url() == url($item->page->alias)) class="active" @endif>
+            <a href="{{ $item->page->getUrl() }}">
+                {{ $item->page->getTitle() }}
+            </a>
+        </li>
+    @endif
+@endforeach

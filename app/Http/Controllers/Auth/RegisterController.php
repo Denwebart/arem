@@ -88,7 +88,6 @@ class RegisterController extends Controller
 		    'login' => $data['login'],
 		    'email' => $data['email'],
 		    'password' => bcrypt($data['password']),
-		    'is_agree' => $data['is_agree'],
 	    ]);
 	    
 	    // Send user message for activation account.

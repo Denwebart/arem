@@ -76,7 +76,7 @@ class Page extends Model
 	 */
 	public function parent()
 	{
-		return $this->belongsTo(Page::class);
+		return $this->belongsTo(Page::class, 'parent_id');
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Page extends Model
 	 */
 	public function children()
 	{
-		return $this->hasMany(Page::class);
+		return $this->hasMany(Page::class, 'parent_id');
 	}
 	
 	/**
@@ -101,5 +101,33 @@ class Page extends Model
 	public function menus()
 	{
 		return $this->hasMany(Menu::class);
+	}
+	
+	/**
+	 * Get page title (menu_title or title)
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getTitle()
+	{
+		return $this->menu_title ? $this->menu_title : $this->title;
+	}
+	
+	/**
+	 * Get page url
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getUrl()
+	{
+		if($this->parent_id) {
+			return url($this->parent->getUrl() . '/' . $this->alias);
+		} else {
+			return url($this->alias);
+		}
 	}
 }

@@ -21,6 +21,8 @@ Route::get('activate/{id}/{token}', '\App\Http\Controllers\Auth\RegisterControll
 Route::get('/social_login/{provider}', '\App\Http\Controllers\Auth\SocialController@login')->name('login.social');
 Route::get('/social_login/callback/{provider}', '\App\Http\Controllers\Auth\SocialController@callback')->name('login.social.callback');
 
-
+/*
+ * Pages
+ */
 Route::get('/', 'PagesController@index');
 Route::get('/{alias}', 'PagesController@page');
