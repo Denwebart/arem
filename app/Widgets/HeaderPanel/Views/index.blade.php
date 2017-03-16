@@ -184,15 +184,15 @@
                             <div class="dropdown-container">
                                 <div class="container-body">
                                     <ul class="menu user-menu">
-                                        <li><a href="{{ route('user.profile', ['login' => Auth::user()->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
-                                        <li><a href="profile-cars.html"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
-                                        <li><a href="profile-questions.html"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
+                                        <li @if (Request::url() == route('user.profile', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.profile', ['login' => Auth::user()->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
+                                        <li @if (Request::url() == route('user.cars', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.cars', ['login' => Auth::user()->alias]) }}"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
+                                        <li @if (Request::url() == route('user.questions', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.questions', ['login' => Auth::user()->alias]) }}"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
                                         <li><a href="profile-articles.html"><i class="fa fa-book"></i><span>Журнал</span></a></li>
-                                        <li><a href="profile-comments.html"><i class="fa fa-comment"></i><span>Комментарии</span></a></li>
-                                        <li><a href="profile-answers.html"><i class="fa fa-comments"></i><span>Ответы</span></a></li>
-                                        <li><a href="profile-saved.html"><i class="fa fa-heart"></i><span>Сохраненное</span></a></li>
-                                        <li><a href="profile-subscriptions.html"><i class="fa fa-newspaper-o"></i><span>Подписки</span></a></li>
-                                        <li><a href="profile-friends.html"><i class="fa fa-handshake-o"></i><span>Друзья</span></a></li>
+                                        <li @if (Request::url() == route('user.comments', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.comments', ['login' => Auth::user()->alias]) }}"><i class="fa fa-comment"></i><span>Комментарии</span></a></li>
+                                        <li @if (Request::url() == route('user.answers', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.answers', ['login' => Auth::user()->alias]) }}"><i class="fa fa-comments"></i><span>Ответы</span></a></li>
+                                        <li @if (Request::url() == route('user.saved', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.saved', ['login' => Auth::user()->alias]) }}"><i class="fa fa-heart"></i><span>Сохраненное</span></a></li>
+                                        <li @if (Request::url() == route('user.subscriptions', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.subscriptions', ['login' => Auth::user()->alias]) }}"><i class="fa fa-newspaper-o"></i><span>Подписки</span></a></li>
+                                        <li @if (Request::url() == route('user.friends', ['user' => Auth::user()->alias])) class="active" @endif><a href="{{ route('user.friends', ['login' => Auth::user()->alias]) }}"><i class="fa fa-handshake-o"></i><span>Друзья</span></a></li>
                                     </ul>
                                 </div>
                             </div>
