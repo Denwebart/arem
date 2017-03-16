@@ -39,7 +39,8 @@ class Notification extends Model
 	const TYPE_ANSWER_LIKED = 15;
 	const TYPE_ANSWER_DISLIKED = 16;
 	const TYPE_BEST_ANSWER = 17;
-	const TYPE_RATING = 18;
+	const TYPE_PAGE_LIKE = 18; // TYPE_RATING
+	const TYPE_PAGE_DISLIKE = 32; // TYPE_RATING
 	const TYPE_SUBSCRIBED_ON_QUESTION = 19;
 	const TYPE_SUBSCRIBED_ON_JOURNAL = 20;
 	const TYPE_UNSUBSCRIBED_FROM_QUESTION = 21;
@@ -56,38 +57,39 @@ class Notification extends Model
 	const TYPE_FOR_ADMIN_NEW_COMMENT = 31;
 	
 	public static $typeIcons = [
-		self::TYPE_POINTS_FOR_COMMENT_ADDED => '<i class="material-icons mdi-success">attach_money</i>',
-		self::TYPE_POINTS_FOR_ANSWER_ADDED => '<i class="material-icons mdi-success">attach_money</i>',
-		self::TYPE_POINTS_FOR_ARTICLE_ADDED => '<i class="material-icons mdi-success">attach_money</i>',
-		self::TYPE_POINTS_FOR_BEST_ANSWER_ADDED => '<i class="material-icons mdi-success">attach_money</i>',
-		self::TYPE_POINTS_FOR_COMMENT_REMOVED => '<i class="material-icons mdi-warning">money_off</i>',
-		self::TYPE_POINTS_FOR_ANSWER_REMOVED => '<i class="material-icons mdi-warning">money_off</i>',
-		self::TYPE_POINTS_FOR_ARTICLE_REMOVED => '<i class="material-icons mdi-warning">money_off</i>',
-		self::TYPE_POINTS_FOR_BEST_ANSWER_REMOVED => '<i class="material-icons mdi-warning">money_off</i>',
-		self::TYPE_BANNED => '<i class="material-icons mdi-danger">lock</i>',
-		self::TYPE_UNBANNED => '<i class="material-icons mdi-success">lock_open</i>',
-		self::TYPE_NEW_COMMENT => '<i class="material-icons mdi-info">chat_bubble</i>',
-		self::TYPE_NEW_ANSWER => '<i class="material-icons mdi-info">question_answer</i>',
+		self::TYPE_POINTS_FOR_COMMENT_ADDED => '<i class="fa fa-money success"></i>',
+		self::TYPE_POINTS_FOR_ANSWER_ADDED => '<i class="fa fa-money success"></i>',
+		self::TYPE_POINTS_FOR_ARTICLE_ADDED => '<i class="fa fa-money success"></i>',
+		self::TYPE_POINTS_FOR_BEST_ANSWER_ADDED => '<i class="fa fa-money success"></i>',
+		self::TYPE_POINTS_FOR_COMMENT_REMOVED => '<i class="fa fa-money warning"></i>',
+		self::TYPE_POINTS_FOR_ANSWER_REMOVED => '<i class="fa fa-money warning"></i>',
+		self::TYPE_POINTS_FOR_ARTICLE_REMOVED => '<i class="fa fa-money warning"></i>',
+		self::TYPE_POINTS_FOR_BEST_ANSWER_REMOVED => '<i class="fa fa-money warning"></i>',
+		self::TYPE_BANNED => '<i class="fa fa-lock danger"></i>',
+		self::TYPE_UNBANNED => '<i class="fa fa-unlock-alt success"></i>',
+		self::TYPE_NEW_COMMENT => '<i class="fa fa-comment info"></i>',
+		self::TYPE_NEW_ANSWER => '<i class="fa fa-comments info"></i>',
 		self::TYPE_COMMENT_LIKED => '<i class="fa fa-thumbs-up info"></i>', // <- NEW
-		self::TYPE_COMMENT_DISLIKED => '<i class="material-icons mdi-warning">thumb_down</i>',
-		self::TYPE_ANSWER_LIKED => '<i class="material-icons mdi-success">thumb_up</i>',
-		self::TYPE_ANSWER_DISLIKED => '<i class="material-icons mdi-warning">thumb_down</i>',
-		self::TYPE_BEST_ANSWER => '<i class="material-icons mdi-success">done</i>',
-		self::TYPE_RATING => '<i class="material-icons mdi-info">star_rate</i>',
-		self::TYPE_SUBSCRIBED_ON_QUESTION => '<i class="material-icons mdi-info">local_library</i>',
-		self::TYPE_SUBSCRIBED_ON_JOURNAL => '<i class="material-icons mdi-info">local_library</i>',
-		self::TYPE_UNSUBSCRIBED_FROM_QUESTION => '<i class="material-icons mdi-info">local_library</i>',
-		self::TYPE_UNSUBSCRIBED_FROM_JOURNAL => '<i class="material-icons mdi-info">local_library</i>',
-		self::TYPE_ROLE_CHANGED => '<i class="material-icons mdi-info">perm_identity</i>',
-		self::TYPE_COMMENT_DELETED => '<i class="material-icons mdi-danger">delete</i>',
-		self::TYPE_ANSWER_DELETED => '<i class="material-icons mdi-danger">delete</i>',
-		self::TYPE_QUESTION_DELETED => '<i class="material-icons mdi-danger">delete</i>',
+		self::TYPE_COMMENT_DISLIKED => '<i class="fa fa-thumbs-up warning"></i>',
+		self::TYPE_ANSWER_LIKED => '<i class="fa fa-thumbs-up info"></i>',
+		self::TYPE_ANSWER_DISLIKED => '<i class="fa fa-thumbs-up warning"></i>',
+		self::TYPE_BEST_ANSWER => '<i class="fa fa-check success"></i>',
+		self::TYPE_PAGE_LIKE => '<i class="fa fa-thumbs-up info"></i>',
+		self::TYPE_PAGE_DISLIKE => '<i class="fa fa-thumbs-down info"></i>',
+		self::TYPE_SUBSCRIBED_ON_QUESTION => '<i class="fa fa-newspaper-o info"></i>',
+		self::TYPE_SUBSCRIBED_ON_JOURNAL => '<i class="fa fa-newspaper-o info"></i>',
+		self::TYPE_UNSUBSCRIBED_FROM_QUESTION => '<i class="fa fa-newspaper-o danger"></i>',
+		self::TYPE_UNSUBSCRIBED_FROM_JOURNAL => '<i class="fa fa-newspaper-o danger"></i>',
+		self::TYPE_ROLE_CHANGED => '<i class="fa fa-user-circle-o info"></i>',
+		self::TYPE_COMMENT_DELETED => '<i class="fa fa-comment danger"></i>',
+		self::TYPE_ANSWER_DELETED => '<i class="fa fa-comments danger"></i>',
+		self::TYPE_QUESTION_DELETED => '<i class="fa fa-question danger"></i>',
 		/* for only admin */
-		self::TYPE_FOR_ADMIN_NEW_USER => '<i class="material-icons mdi-success">supervisor_account</i>',
-		self::TYPE_FOR_ADMIN_NEW_QUESTION => '<i class="material-icons mdi-success">content_copy</i>',
-		self::TYPE_FOR_ADMIN_NEW_ARTICLE => '<i class="material-icons mdi-success">content_copy</i>',
-		self::TYPE_FOR_ADMIN_NEW_ANSWER => '<i class="material-icons mdi-success">question_answer</i>',
-		self::TYPE_FOR_ADMIN_NEW_COMMENT => '<i class="material-icons mdi-success">chat_bubble</i>',
+		self::TYPE_FOR_ADMIN_NEW_USER => '<i class="fa fa-user-plus success"></i>',
+		self::TYPE_FOR_ADMIN_NEW_QUESTION => '<i class="fa fa-question success"></i>',
+		self::TYPE_FOR_ADMIN_NEW_ARTICLE => '<i class="fa fa-newspaper-o success"></i>',
+		self::TYPE_FOR_ADMIN_NEW_ANSWER => '<i class="fa fa-comments success"></i>',
+		self::TYPE_FOR_ADMIN_NEW_COMMENT => '<i class="fa fa-comment success"></i>',
 	];
 	
 	public static $notificationSettingColumns = [
@@ -108,7 +110,8 @@ class Notification extends Model
 		self::TYPE_ANSWER_LIKED => ['notification_like_dislike'],
 		self::TYPE_ANSWER_DISLIKED => ['notification_like_dislike'],
 		self::TYPE_BEST_ANSWER => ['notification_best_answer'],
-		self::TYPE_RATING => ['notification_rating'],
+		self::TYPE_PAGE_LIKE => ['notification_rating'],
+		self::TYPE_PAGE_DISLIKE => ['notification_rating'],
 		self::TYPE_SUBSCRIBED_ON_QUESTION => ['notification_question_subscribed'],
 		self::TYPE_SUBSCRIBED_ON_JOURNAL => ['notification_journal_subscribed'],
 		self::TYPE_UNSUBSCRIBED_FROM_QUESTION => ['notification_question_subscribed'],
