@@ -14,17 +14,17 @@
                 <div class="m-b-30">
                     <div id="user-menu-section">
                         <ul class="menu user-menu">
-                            <li class="active"><a href="{{ route('user.profile', ['user' => $user->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
-                            <li><a href="profile-cars.html"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
-                            <li><a href="profile-questions.html"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
+                            <li @if (Request::url() == route('user.profile', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.profile', ['user' => $user->alias]) }}"><i class="fa fa-user"></i><span>Профиль</span></a></li>
+                            <li @if (Request::url() == route('user.cars', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.cars', ['user' => $user->alias]) }}"><i class="fa fa-car"></i><span>Автомобили</span></a></li>
+                            <li @if (Request::url() == route('user.questions', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.questions', ['user' => $user->alias]) }}"><i class="fa fa-question-circle"></i><span>Вопросы</span></a></li>
                             <li><a href="profile-articles.html"><i class="fa fa-book"></i><span>Журнал</span></a></li>
-                            <li><a href="profile-comments.html"><i class="fa fa-comment"></i><span>Комментарии</span></a></li>
-                            <li><a href="profile-answers.html"><i class="fa fa-comments"></i><span>Ответы</span></a></li>
-                            <li><a href="profile-messages.html"><i class="fa fa-paper-plane"></i><span>Сообщения</span></a></li>
-                            <li><a href="profile-saved.html"><i class="fa fa-heart"></i><span>Сохраненное</span></a></li>
-                            <li><a href="profile-subscriptions.html"><i class="fa fa-newspaper-o"></i><span>Подписки</span></a></li>
-                            <li><a href="profile-notifications.html"><i class="fa fa-bell"></i><span>Уведомления</span></a></li>
-                            <li><a href="profile-friends.html"><i class="fa fa-handshake-o"></i><span>Друзья</span></a></li>
+                            <li @if (Request::url() == route('user.comments', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.comments', ['user' => $user->alias]) }}"><i class="fa fa-comment"></i><span>Комментарии</span></a></li>
+                            <li @if (Request::url() == route('user.answers', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.answers', ['user' => $user->alias]) }}"><i class="fa fa-comments"></i><span>Ответы</span></a></li>
+                            <li @if (Request::url() == route('user.messages', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.messages', ['user' => $user->alias]) }}"><i class="fa fa-paper-plane"></i><span>Сообщения</span></a></li>
+                            <li @if (Request::url() == route('user.saved', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.saved', ['user' => $user->alias]) }}"><i class="fa fa-heart"></i><span>Сохраненное</span></a></li>
+                            <li @if (Request::url() == route('user.subscriptions', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.subscriptions', ['user' => $user->alias]) }}"><i class="fa fa-newspaper-o"></i><span>Подписки</span></a></li>
+                            <li @if (Request::url() == route('user.notifications', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.notifications', ['user' => $user->alias]) }}"><i class="fa fa-bell"></i><span>Уведомления</span></a></li>
+                            <li @if (Request::url() == route('user.friends', ['user' => $user->alias])) class="active" @endif><a href="{{ route('user.friends', ['user' => $user->alias]) }}"><i class="fa fa-handshake-o"></i><span>Друзья</span></a></li>
                         </ul>
                     </div>
                     <div id="user-content-section">
