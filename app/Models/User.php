@@ -95,7 +95,20 @@ class User extends Authenticatable
 			$user->notifications()->delete();
 			$user->receivedMessages()->delete();
 			$user->sentMessages()->delete();
+			$user->pages()->delete();
 		});
+	}
+	
+	/**
+	 * Pages of the user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function pages()
+	{
+		return $this->hasMany(Page::class);
 	}
 	
 	/**

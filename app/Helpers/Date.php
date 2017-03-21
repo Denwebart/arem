@@ -53,14 +53,20 @@ class Date
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public static function format($date, $withTime = false, $isShortMonth = false)
+	public static function format($date, $withTime = false, $withYear = false, $isShortMonth = false)
 	{
 		if(!is_null($date)) {
 			$timestamp = strtotime($date);
 			$month = ($isShortMonth) ?
 				self::$shortMonths[date('n', $timestamp)] : self::$months[date('n', $timestamp)];
 			$time = ($withTime) ? " в H:i" : "";
-			$year = date('Y', $timestamp) != date('Y') ? ' ' . date('Y', $timestamp) : '';
+			if($withYear) {
+				$year = ' ' . date('Y', $timestamp);
+			} else {
+				$year = date('Y', $timestamp) != date('Y')
+					? ' ' . date('Y', $timestamp)
+					: '';
+			}
 			return date("j $month" . $year . $time, $timestamp);
 		} else {
 			return '-';
