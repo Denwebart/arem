@@ -242,4 +242,18 @@ class Str
 
 		return $valuesCount . ' ' . $string;
 	}
+	
+	/**
+	 * Number format.
+	 *
+	 * @param $value
+	 * @param int $afterPoint
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public static function numberFormat($value, $afterPoint = 0)
+	{
+		return number_format($value, $afterPoint, '.', ' ');
+	}
 }

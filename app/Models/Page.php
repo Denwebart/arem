@@ -99,6 +99,18 @@ class Page extends Model
 	}
 	
 	/**
+	 * Author of the page
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+	
+	/**
 	 * Items of menu
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany

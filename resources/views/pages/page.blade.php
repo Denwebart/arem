@@ -19,11 +19,11 @@
                 <div class="buttons">
                     <button class="like active">
                         <i class="fa fa-thumbs-up"></i>
-                        <span class="count">1 412 000</span>
+                        <span class="count">{{ \App\Helpers\Str::numberFormat($page->votes_like) }}</span>
                     </button>
                     <button class="dislike">
                         <i class="fa fa-thumbs-o-down"></i>
-                        <span class="count">6 253</span>
+                        <span class="count">{{ \App\Helpers\Str::numberFormat($page->votes_dislike) }}</span>
                     </button>
                 </div>
                 <div class="percentage">
@@ -34,64 +34,36 @@
     </div>
 
     <div class="page-info">
-        <div class="user" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            <a href="profile.html" itemprop="url">
-                <img src="img/uploads/ivan.jpg" class="avatar micro" title="" alt=""><span class="login" itemprop="name">IvanIvanIvan</span>
-            </a>
-        </div>
+        @if($page->user)
+            <div class="user" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+                <a href="profile.html" itemprop="url">
+                    <img src="img/uploads/ivan.jpg" class="avatar micro" title="" alt=""><span class="login" itemprop="name">{{ $page->user->login }}</span>
+                </a>
+            </div>
+        @endif
         <div class="date">
             <i class="fa fa-calendar-o"></i>
-            <time datetime="2013-03-17T19:55" itemprop="datePublished">17 марта 2013 в 19:55</time>
+            <time datetime="2013-03-17T19:55" itemprop="datePublished">{{ \App\Helpers\Date::format($page->created_at, true, true) }}</time>
         </div>
         <div class="views" title="Количество просмотров">
             <i class="fa fa-eye"></i>
-            <span>6 413 122</span>
+            <span>{{ \App\Helpers\Str::numberFormat($page->views) }}</span>
         </div>
         <div class="comments-count" title="Количество комментариев">
             <a href="page.html#comments">
-                <i class="fa fa-comments-o"></i><span class="count" itemprop="commentCount">12 234</span>
+                <i class="fa fa-comments-o"></i><span class="count" itemprop="commentCount">{{ \App\Helpers\Str::numberFormat(count($page->comments)) }}</span>
             </a>
         </div>
         <div class="saved-count active" title="Сколько пользователей сохранили">
             <i class="fa fa-heart"></i>
-            <span>734 445</span>
+            <span>{{ \App\Helpers\Str::numberFormat(count($page->whoSaved)) }}</span>
         </div>
     </div>
-
-    <div class="text page-text">
-        <p>
-            В жизни каждого автолюбителя наступает такой момент,
-            когда приходится все делать самому. Засучивать рукава,
-            брать инструмент в руки и самостоятельно обслуживать,
-            диагностировать неисправность, ремонтировать или тюнинговать
-            свой автомобиль. Причин, по которым человек пытается все
-            сделать своими руками, - множество. Это, например: желание
-            человека узнать и понять устройство своего автомобиля и научиться
-            чему-то новому. А для кого-то «поковыряться» в машине – это проявление
-            нежных и глубоких чувств к своему верному, железному другу.
-            Для других ремонт своими руками – это просто способ сэкономить деньги.
-            Но, какими бы мотивами не руководствовался человек, для успешного
-            решения поставленных задач ему будет необходима информация.
-            То есть: желание или необходимость отремонтировать личное транспортное
-            средство своими силами - есть, а необходимых знаний для этого, - нет.
-            И, естественно, возникают вопросы примерно такого характера:
-            Как всё правильно сделать?
-            Какая последовательность выполнения работы?
-            Как не допустить досадных ошибок?
-            Какой инструмент будет необходим?
-            И как выбрать качественные запчасти?
-        </p>
-        <p>
-            Вот для ответов на подобные вопросы и был создан сайт
-            <strong>"Школа авторемонта"</strong>.
-            Здесь для автолюбителей собраны и, конечно же, будут постоянно
-            добавляться статьи, советы и рекомендации по техническому
-            обслуживанию и ремонту легковых автомобилей различных марок и
-            моделей. И мы надеемся, что информация, прочитанная Вами,
-            будет полезной и поможет самостоятельно, быстро, а главное,
-            правильно, отремонтировать и обслужить&nbsp; автомобиль.
-        </p>
-    </div>
+    @if($page->content)
+        <div class="text page-text">
+            {!! $page->content !!}
+        </div>
+    @endif
     <div class="tags">
         <a href="#">
             <span>Daewoo Lanos</span>

@@ -57,6 +57,8 @@ class View
 					}
 				}
 			}
+			
+			return false;
 		}
 	}
 }
