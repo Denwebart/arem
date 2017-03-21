@@ -25,19 +25,19 @@ class FillMenusTable extends Migration
 				    'id' => 2,
 				    'type' => \App\Models\Menu::TYPE_MAIN,
 				    'page_id' => \App\Models\Page::whereAlias(\App\Helpers\Translit::make('Вопрос-ответ'))->first()->id,
-				    'position' => '1',
+				    'position' => '2',
 			    ],
 			    [
 				    'id' => 3,
 				    'type' => \App\Models\Menu::TYPE_MAIN,
 				    'page_id' => \App\Models\Page::whereAlias(\App\Helpers\Translit::make('Гараж'))->first()->id,
-				    'position' => '1',
+				    'position' => '3',
 			    ],
 			    [
 				    'id' => 4,
 				    'type' => \App\Models\Menu::TYPE_MAIN,
 				    'page_id' => \App\Models\Page::whereAlias(\App\Helpers\Translit::make('Награды'))->first()->id,
-				    'position' => '1',
+				    'position' => '4',
 			    ],
 			    [
 				    'id' => 5,

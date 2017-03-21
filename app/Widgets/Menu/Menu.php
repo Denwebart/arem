@@ -15,11 +15,9 @@ class Menu
 	public function __construct()
 	{
 		// доделать cache
-//		$this->menuItems = \Cache::rememberForever('menuItems', function() {
-//			return \App\Models\Menu::getMenuItems();
-//		});
-		
-		$this->menuItems = \App\Models\Menu::getMenuItems();
+		$this->menuItems = \Cache::rememberForever('menuItems', function() {
+			return \App\Models\Menu::getMenuItems();
+		});
 	}
 
 	/**
@@ -40,7 +38,7 @@ class Menu
 	 * Main menu
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function main()
 	{
@@ -53,7 +51,7 @@ class Menu
 	 * Information menu
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function info()
 	{
@@ -61,5 +59,18 @@ class Menu
 			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_INFO))
 			->render();
 	}
-
+	
+	/**
+	 * System menu (contact and sitemap pages)
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function system()
+	{
+		return (string) view('widget.menu::system')
+			->with('menuItems', $this->getMenuItems(\App\Models\Menu::TYPE_SYSTEM))
+			->render();
+	}
+	
 }

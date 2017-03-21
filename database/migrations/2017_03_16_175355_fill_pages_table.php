@@ -26,6 +26,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Главная',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 2,
@@ -36,6 +37,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Контакты',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 3,
@@ -46,6 +48,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Карта сайта',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 4,
@@ -56,6 +59,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Награды и призы',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 5,
@@ -66,6 +70,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Правила сайта',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 6,
@@ -76,6 +81,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Теги',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 7,
@@ -86,6 +92,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Вопрос-ответ',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 			    [
 				    'id' => 8,
@@ -96,6 +103,7 @@ class FillPagesTable extends Migration
 				    'menu_title' => 'Гараж',
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
+				    'is_published' => 1,
 			    ],
 		    ]);
     }

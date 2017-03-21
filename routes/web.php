@@ -12,6 +12,12 @@
 */
 
 /*
+ * Routes for developers mode (comment out in production mode)
+ */
+//Route::pattern('parentOne', '/^(?!.*(_debugbar).*$)/xs');
+
+
+/*
  * Autorization
  */
 Auth::routes();
@@ -25,4 +31,10 @@ Route::get('/social_login/callback/{provider}', '\App\Http\Controllers\Auth\Soci
  * Pages
  */
 Route::get('/', 'PagesController@index');
-Route::get('/{alias}', 'PagesController@page');
+
+Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
+
+Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}', ['uses' => 'PagesController@pageFourLevel']);
+Route::get('{parentOne}/{parentTwo}/{page}', ['uses' => 'PagesController@pageThreeLevel']);
+Route::get('{parentOne}/{page}', ['uses' => 'PagesController@pageTwoLevel']);
+Route::get('{page}', ['uses' => 'PagesController@pageOneLevel']);

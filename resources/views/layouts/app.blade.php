@@ -78,38 +78,37 @@
 
 <body>
 
-{{--<div id="menu" class="dark-section">--}}
-    {{--<button class="menu-close-button close-button">--}}
-        {{--<svg viewbox="0 0 40 40">--}}
-            {{--<path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />--}}
-        {{--</svg>--}}
-    {{--</button>--}}
-    {{--<nav>--}}
-        {{--<div class="title">Меню</div>--}}
-        {{--<ul class="menu main-menu pull-left">--}}
-            {{--{!! $menu->main() !!}--}}
-        {{--</ul>--}}
+<div id="menu" class="dark-section">
+    <button class="menu-close-button close-button">
+        <svg viewbox="0 0 40 40">
+            <path class="close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+        </svg>
+    </button>
+    <nav>
+        <div class="title">Меню</div>
+        <ul class="menu main-menu pull-left">
+            {!! $menu->main() !!}
+        </ul>
 
-        {{--<div class="title">Информация</div>--}}
-        {{--<ul class="menu info-menu">--}}
-            {{--{!! $menu->info() !!}--}}
-        {{--</ul>--}}
-        {{--<ul class="menu contact-menu m-t-20">--}}
-            {{--<li><a href="contacts.html"><i class="fa fa-envelope"></i>Контакты</a></li>--}}
-            {{--<li><a href="sitemap.html"><i class="fa fa-sitemap"></i>Карта сайта</a></li>--}}
-        {{--</ul>--}}
-    {{--</nav>--}}
+        <div class="title">Информация</div>
+        <ul class="menu info-menu">
+            {!! $menu->info() !!}
+        </ul>
+        <ul class="menu contact-menu m-t-20">
+            {!! $menu->system() !!}
+        </ul>
+    </nav>
 
-    {{--<div class="title">Мы в социальных сетях:</div>--}}
-    {{--<div class="social-links">--}}
-        {{--<ul class="pull-left horisontal">--}}
-            {{--<li><a href="#"><i class="fa fa-vk"></i></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-facebook"></i></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-twitter"></i></a></li>--}}
-            {{--<li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-{{--</div>--}}
+    <div class="title">Мы в социальных сетях:</div>
+    <div class="social-links">
+        <ul class="pull-left horisontal">
+            <li><a href="#"><i class="fa fa-vk"></i></a></li>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
+        </ul>
+    </div>
+</div>
 
 <div id="panel" @if(isset($panelClass)) class="{{ $panelClass }}" @endif>
     <header>
@@ -144,8 +143,7 @@
                         <div class="search-container">
                             <nav>
                                 <ul class="menu contact-menu horisontal">
-                                    <li><a href="contacts.html"><i class="fa fa-envelope"></i>Контакты</a></li>
-                                    <li><a href="sitemap.html"><i class="fa fa-sitemap"></i>Карта сайта</a></li>
+                                    {!! $menu->system() !!}
                                 </ul>
                             </nav>
                             <div class="clearfix"></div>
@@ -269,8 +267,7 @@
                     </ul>
                     <nav>
                         <ul class="menu contact-menu">
-                            <li><a href="contacts.html"><i class="fa fa-envelope"></i>Контакты</a></li>
-                            <li><a href="sitemap.html"><i class="fa fa-sitemap"></i>Карта сайта</a></li>
+                            {!! $menu->system() !!}
                         </ul>
                     </nav>
                 </div>

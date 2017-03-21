@@ -13,7 +13,7 @@
     </ul>
 
     <div class="table-block page-title">
-        <h2 class="responsive-block p-r-25">Страница сайта с комментариями</h2>
+        <h2 class="responsive-block p-r-25">{{ $page->title }}</h2>
         <div class="fixed-block">
             <div class="widget like-dislike-widget">
                 <div class="buttons">

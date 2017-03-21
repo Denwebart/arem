@@ -13,7 +13,14 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
 	protected $table = 'pages';
-
+	
+	/**
+	 * Id страниц с контактной формы и карты сайта
+	 */
+	const ID_CONTACT_PAGE = 2;
+	const ID_SITEMAP_PAGE = 3;
+	const ID_AWARDS_PAGE  = 4;
+	
 	/**
 	 * Type of the page (value of "type" field)
 	 */
@@ -96,7 +103,7 @@ class Page extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function menus()
 	{
@@ -108,7 +115,7 @@ class Page extends Model
 	 *
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function getTitle()
 	{
@@ -120,7 +127,7 @@ class Page extends Model
 	 *
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
 	public function getUrl()
 	{
