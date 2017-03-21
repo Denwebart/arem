@@ -125,16 +125,26 @@ class Page extends Model
 	/**
 	 * Get page url
 	 *
+	 * @param string $sufix
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getUrl()
+	public function getUrl($sufix = '.html')
 	{
-		if($this->parent_id) {
-			return url($this->parent->getUrl() . '/' . $this->alias);
+		if(self::TYPE_ARTICLE != $this->type) {
+			
+			$sufix = (!$this->is_container && $this->alias != '/') ? $sufix : '';
+			
+			if($this->parent_id) {
+				return url($this->parent->getUrl() . '/' . $this->alias . $sufix);
+			} else {
+				return url($this->alias . $sufix);
+			}
+			
 		} else {
-			return url($this->alias);
+			$parentUrl = !$this->parent_id ? ($this->parent) ? $this->parent->alias : '' : '';
+			return $parentUrl . '/' . $this->user->alias . '/' . $this->alias . $sufix;
 		}
 	}
 }

@@ -34,6 +34,11 @@ Route::get('/', 'PagesController@index');
 
 Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
 
+Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}{suffix}', ['uses' => 'PagesController@pageFourLevel'])->where('suffix', '.html');
+Route::get('{parentOne}/{parentTwo}/{page}{suffix}', ['uses' => 'PagesController@pageThreeLevel'])->where('suffix', '.html');
+Route::get('{parentOne}/{page}{suffix}', ['uses' => 'PagesController@pageTwoLevel'])->where('suffix', '.html');
+Route::get('{page}{suffix}', ['uses' => 'PagesController@pageOneLevel'])->where('suffix', '.html');
+
 Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}', ['uses' => 'PagesController@pageFourLevel']);
 Route::get('{parentOne}/{parentTwo}/{page}', ['uses' => 'PagesController@pageThreeLevel']);
 Route::get('{parentOne}/{page}', ['uses' => 'PagesController@pageTwoLevel']);

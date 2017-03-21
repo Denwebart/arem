@@ -60,6 +60,7 @@ class FillPagesTable extends Migration
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
 				    'is_published' => 1,
+				    'is_container' => 1,
 			    ],
 			    [
 				    'id' => 5,
@@ -82,6 +83,7 @@ class FillPagesTable extends Migration
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
 				    'is_published' => 1,
+				    'is_container' => 1,
 			    ],
 			    [
 				    'id' => 7,
@@ -93,6 +95,7 @@ class FillPagesTable extends Migration
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
 				    'is_published' => 1,
+				    'is_container' => 1,
 			    ],
 			    [
 				    'id' => 8,
@@ -104,6 +107,7 @@ class FillPagesTable extends Migration
 				    'created_at' => \Carbon\Carbon::now(),
 				    'published_at' => \Carbon\Carbon::now(),
 				    'is_published' => 1,
+				    'is_container' => 1,
 			    ],
 		    ]);
     }
