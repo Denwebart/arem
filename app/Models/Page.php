@@ -144,6 +144,7 @@ class Page extends Model
 	 */
 	public function getUrl($sufix = '.html')
 	{
+		// доделать - рефакторинг?
 		if(self::TYPE_ARTICLE != $this->type) {
 			
 			$sufix = (!$this->is_container && $this->alias != '/') ? $sufix : '';
@@ -155,8 +156,8 @@ class Page extends Model
 			}
 			
 		} else {
-			$parentUrl = !$this->parent_id ? ($this->parent) ? $this->parent->alias : '' : '';
-			return $parentUrl . '/' . $this->user->alias . '/' . $this->alias . $sufix;
+			$parentUrl = $this->parent_id ? ($this->parent) ? $this->parent->alias : '' : '';
+			return url($parentUrl . '/' . $this->user->alias . '/' . $this->alias . $sufix);
 		}
 	}
 }

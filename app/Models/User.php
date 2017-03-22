@@ -160,6 +160,17 @@ class User extends Authenticatable
 	}
 	
 	/**
+	 * Scope a query to only include active users.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeActive($query)
+	{
+		return $query->where('role', '!=', self::ROLE_NONE)->whereNull('remember_token');
+	}
+	
+	/**
 	 * Check is activated account
 	 *
 	 * @return bool
@@ -172,6 +183,21 @@ class User extends Authenticatable
 		    ? false : true;
     }
 	
+	/**
+	 * Get user's journal url
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getJournalUrl() {
+		// доделать - оптимизировать
+		$page = Page::whereType(Page::TYPE_JOURNAL)->first();
+		return $page
+			? url($page->alias . '/' . $this->alias)
+			: null;
+	}
+    
 	/**
 	 * Get user's avatar path
 	 *

@@ -31,9 +31,9 @@ class RouteServiceProvider extends ServiceProvider
 		    $page = Page::whereAlias($alias)
 			    ->whereIsPublished(1)
 			    ->where('published_at', '<=', Carbon::now())
-			    ->firstOrFail();
+			    ->first();
 		    
-		    return $page;
+		    return $page ? $page : $alias;
 	    });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,9 @@ class PagesController extends Controller
 	
 	public function pageTwoLevel(Request $request, $parentOne, $page)
 	{
+		if(!is_object($page)) {
+			$page = User::whereAlias($page)->active()->firstOrFail();
+		}
 		return $this->renderPage($request, $page);
 	}
 	
@@ -53,7 +57,11 @@ class PagesController extends Controller
 	
 	protected function renderPage($request, $page)
 	{
-		if(url($request->getPathInfo()) != $page->getUrl()) {
+		if (is_a($page, 'App\Models\User') && url($request->getPathInfo()) == $page->getJournalUrl()) {
+			return $this->getUserJournalPage($request, $page);
+		}
+		
+		if(!is_object($page) || (is_a($page, 'App\Models\Page') && url($request->getPathInfo()) != $page->getUrl())) {
 			abort(404);
 		}
 		
@@ -135,6 +143,13 @@ class PagesController extends Controller
 		});
 		
 		return view('pages.sitemap', compact('page', 'sitemapItems'));
+	}
+	
+	protected function getUserJournalPage($request, $page)
+	{
+		$user = $page;
+		$page = new Page();
+		return view('cabinet::cabinet.articles', compact('page', 'user'));
 	}
 	
 	protected function getJournalPage($request, $page)

@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.15 on 2017-03-21.
+ * Generated for Laravel 5.4.16 on 2017-03-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1085,6 +1085,20 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Resolve the given type with the given parameter overrides.
+         *
+         * @param string $abstract
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function makeWith($abstract, $parameters)
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
+        }
+        
+        /**
          * Instantiate a concrete instance of the given type.
          *
          * @param string $concrete
@@ -1864,18 +1878,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\Models\User 
-         * @throws \Illuminate\Auth\AuthenticationException
-         * @static 
-         */
-        public static function authenticate()
-        {
-            return \Illuminate\Auth\SessionGuard::authenticate();
-        }
-        
-        /**
-         * Determine if the current user is authenticated.
-         *
          * @return bool 
          * @static 
          */
@@ -1893,6 +1895,18 @@ namespace Illuminate\Support\Facades {
         public static function guest()
         {
             return \Illuminate\Auth\SessionGuard::guest();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return \App\Models\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */
+        public static function authenticate()
+        {
+            return \Illuminate\Auth\SessionGuard::authenticate();
         }
         
     }         
@@ -3586,11 +3600,11 @@ namespace Illuminate\Support\Facades {
         /**
          * Get an option from the configuration options.
          *
-         * @param string $option
+         * @param string|null $option
          * @return mixed 
          * @static 
          */
-        public static function getConfig($option)
+        public static function getConfig($option = null)
         {
             //Method inherited from \Illuminate\Database\Connection            
             return \Illuminate\Database\MySqlConnection::getConfig($option);
@@ -10661,6 +10675,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the rendered content of the view based on a given condition.
+         *
+         * @param bool $condition
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @return string 
+         * @static 
+         */
+        public static function renderWhen($condition, $view, $data = array(), $mergeData = array())
+        {
+            return \Illuminate\View\Factory::renderWhen($condition, $view, $data, $mergeData);
+        }
+        
+        /**
          * Get the rendered contents of a partial from a loop.
          *
          * @param string $view
@@ -10960,6 +10989,32 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Register a view composer event.
+         *
+         * @param array|string $views
+         * @param \Closure|string $callback
+         * @return array 
+         * @static 
+         */
+        public static function composer($views, $callback)
+        {
+            return \Illuminate\View\Factory::composer($views, $callback);
+        }
+        
+        /**
+         * Register a view creator event.
+         *
+         * @param array|string $views
+         * @param \Closure|string $callback
+         * @return array 
+         * @static 
+         */
+        public static function creator($views, $callback)
+        {
+            return \Illuminate\View\Factory::creator($views, $callback);
+        }
+        
+        /**
          * Start a component rendering process.
          *
          * @param string $name
@@ -11008,19 +11063,6 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a view creator event.
-         *
-         * @param array|string $views
-         * @param \Closure|string $callback
-         * @return array 
-         * @static 
-         */
-        public static function creator($views, $callback)
-        {
-            return \Illuminate\View\Factory::creator($views, $callback);
-        }
-        
-        /**
          * Register multiple view composers via an array.
          *
          * @param array $composers
@@ -11030,19 +11072,6 @@ namespace Illuminate\Support\Facades {
         public static function composers($composers)
         {
             return \Illuminate\View\Factory::composers($composers);
-        }
-        
-        /**
-         * Register a view composer event.
-         *
-         * @param array|string $views
-         * @param \Closure|string $callback
-         * @return array 
-         * @static 
-         */
-        public static function composer($views, $callback)
-        {
-            return \Illuminate\View\Factory::composer($views, $callback);
         }
         
         /**
@@ -12088,20 +12117,6 @@ namespace {
         }
         
         /**
-         * Apply the callback's query changes if the given "value" is true.
-         *
-         * @param bool $value
-         * @param \Closure $callback
-         * @param \Closure $default
-         * @return $this 
-         * @static 
-         */
-        public static function when($value, $callback, $default = null)
-        {
-            return \Illuminate\Database\Eloquent\Builder::when($value, $callback, $default);
-        }
-        
-        /**
          * Add a where clause on the primary key to the query.
          *
          * @param mixed $id
@@ -12260,18 +12275,6 @@ namespace {
         }
         
         /**
-         * Execute the query and get the first result.
-         *
-         * @param array $columns
-         * @return \Illuminate\Database\Eloquent\Model|static|null 
-         * @static 
-         */
-        public static function first($columns = array())
-        {
-            return \Illuminate\Database\Eloquent\Builder::first($columns);
-        }
-        
-        /**
          * Execute the query and get the first result or throw an exception.
          *
          * @param array $columns
@@ -12357,19 +12360,6 @@ namespace {
         }
         
         /**
-         * Chunk the results of the query.
-         *
-         * @param int $count
-         * @param callable $callback
-         * @return bool 
-         * @static 
-         */
-        public static function chunk($count, $callback)
-        {
-            return \Illuminate\Database\Eloquent\Builder::chunk($count, $callback);
-        }
-        
-        /**
          * Chunk the results of a query by comparing numeric IDs.
          *
          * @param int $count
@@ -12382,19 +12372,6 @@ namespace {
         public static function chunkById($count, $callback, $column = null, $alias = null)
         {
             return \Illuminate\Database\Eloquent\Builder::chunkById($count, $callback, $column, $alias);
-        }
-        
-        /**
-         * Execute a callback over each item while chunking.
-         *
-         * @param callable $callback
-         * @param int $count
-         * @return bool 
-         * @static 
-         */
-        public static function each($callback, $count = 1000)
-        {
-            return \Illuminate\Database\Eloquent\Builder::each($callback, $count);
         }
         
         /**
@@ -12605,6 +12582,58 @@ namespace {
         }
         
         /**
+         * Chunk the results of the query.
+         *
+         * @param int $count
+         * @param callable $callback
+         * @return bool 
+         * @static 
+         */
+        public static function chunk($count, $callback)
+        {
+            return \Illuminate\Database\Eloquent\Builder::chunk($count, $callback);
+        }
+        
+        /**
+         * Execute a callback over each item while chunking.
+         *
+         * @param callable $callback
+         * @param int $count
+         * @return bool 
+         * @static 
+         */
+        public static function each($callback, $count = 1000)
+        {
+            return \Illuminate\Database\Eloquent\Builder::each($callback, $count);
+        }
+        
+        /**
+         * Execute the query and get the first result.
+         *
+         * @param array $columns
+         * @return mixed 
+         * @static 
+         */
+        public static function first($columns = array())
+        {
+            return \Illuminate\Database\Eloquent\Builder::first($columns);
+        }
+        
+        /**
+         * Apply the callback's query changes if the given "value" is true.
+         *
+         * @param mixed $value
+         * @param \Closure $callback
+         * @param \Closure $default
+         * @return mixed 
+         * @static 
+         */
+        public static function when($value, $callback, $default = null)
+        {
+            return \Illuminate\Database\Eloquent\Builder::when($value, $callback, $default);
+        }
+        
+        /**
          * Add a relationship count / exists condition to the query.
          *
          * @param string $relation
@@ -12673,7 +12702,7 @@ namespace {
          * @return \Illuminate\Database\Eloquent\Builder|static 
          * @static 
          */
-        public static function orWhereHas($relation, $callback, $operator = '>=', $count = 1)
+        public static function orWhereHas($relation, $callback = null, $operator = '>=', $count = 1)
         {
             return \Illuminate\Database\Eloquent\Builder::orWhereHas($relation, $callback, $operator, $count);
         }
@@ -12895,6 +12924,18 @@ namespace {
         public static function crossJoin($table, $first = null, $operator = null, $second = null)
         {
             return \Illuminate\Database\Query\Builder::crossJoin($table, $first, $operator, $second);
+        }
+        
+        /**
+         * Pass the query to a given callback.
+         *
+         * @param \Closure $callback
+         * @return \Illuminate\Database\Query\Builder 
+         * @static 
+         */
+        public static function tap($callback)
+        {
+            return \Illuminate\Database\Query\Builder::tap($callback);
         }
         
         /**
@@ -13425,6 +13466,18 @@ namespace {
         public static function orderBy($column, $direction = 'asc')
         {
             return \Illuminate\Database\Query\Builder::orderBy($column, $direction);
+        }
+        
+        /**
+         * Add a descending "order by" clause to the query.
+         *
+         * @param string $column
+         * @return $this 
+         * @static 
+         */
+        public static function orderByDesc($column)
+        {
+            return \Illuminate\Database\Query\Builder::orderByDesc($column);
         }
         
         /**

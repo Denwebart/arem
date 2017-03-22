@@ -14,7 +14,7 @@
 /*
  * Routes for developers mode (comment out in production mode)
  */
-Route::pattern('parentOne', '/^(?!.*(_debugbar).*$)/xs');
+//Route::pattern('parentOne', '/^(?!.*(_debugbar).*$)/xs');
 
 
 /*
@@ -33,6 +33,8 @@ Route::get('/social_login/callback/{provider}', '\App\Http\Controllers\Auth\Soci
 Route::get('/', 'PagesController@index');
 
 Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
+
+//Route::get('{parentOne}/{login}/{page}{suffix}', 'PagesController@pageThreeLevel')->where('suffix', '.html');
 
 Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}{suffix}', ['uses' => 'PagesController@pageFourLevel'])->where('suffix', '.html');
 Route::get('{parentOne}/{parentTwo}/{page}{suffix}', ['uses' => 'PagesController@pageThreeLevel'])->where('suffix', '.html');
