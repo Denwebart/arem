@@ -36,9 +36,8 @@
         </div>
     </div>
 
-    <div class="delimiter indent m-t-30"></div>
-
     @if($page->content)
+        <div class="delimiter indent m-t-30"></div>
         <div class="text page-text">
             {!! $page->content !!}
         </div>

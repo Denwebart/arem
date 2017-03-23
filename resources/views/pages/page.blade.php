@@ -37,7 +37,7 @@
         @if($page->user)
             <div class="user" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
                 <a href="profile.html" itemprop="url">
-                    <img src="img/uploads/ivan.jpg" class="avatar micro" title="" alt=""><span class="login" itemprop="name">{{ $page->user->login }}</span>
+                    <img src="/img/uploads/ivan.jpg" class="avatar micro" title="" alt=""><span class="login" itemprop="name">{{ $page->user->login }}</span>
                 </a>
             </div>
         @endif
@@ -101,7 +101,7 @@
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-6 full-xxs">
                 <a href="page.html" class="item">
-                    <img src="img/uploads/articles/statya-1.jpg" alt="" title="" class="item-image">
+                    <img src="/img/uploads/articles/statya-1.jpg" alt="" title="" class="item-image">
                     <span class="title text">
                                         Ремонт ключа трещотки своими руками
                                     </span>
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 full-xxs">
                 <a href="page.html" class="item">
-                    <img src="img/uploads/articles/statya-2.jpg" alt="" title="" class="item-image">
+                    <img src="/img/uploads/articles/statya-2.jpg" alt="" title="" class="item-image">
                     <span class="title text">
                                         Замена рычага передней подвески на автомобиле Daewoo Lanos,
                                         Daewoo Nexia, Chevrolet Lanos, Daewoo Sens
@@ -118,7 +118,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 full-xxs">
                 <a href="page.html" class="item">
-                    <img src="img/uploads/articles/statya-3.jpg" alt="" title="" class="item-image">
+                    <img src="/img/uploads/articles/statya-3.jpg" alt="" title="" class="item-image">
                     <span class="title text">
                                         Устраняем люфт и дребезжание ручки переключения
                                         передач или замена уплотняющего...
@@ -130,7 +130,7 @@
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 full-xxs">
                 <a href="page.html" class="item">
-                    <img src="img/uploads/articles/statya-1.jpg" alt="" title="" class="item-image">
+                    <img src="/img/uploads/articles/statya-1.jpg" alt="" title="" class="item-image">
                     <span class="title text">
                                         Ремонт ключа трещотки своими руками
                                     </span>
@@ -147,7 +147,7 @@
                 <div class="comment-content">
                     <div class="comment-left-side">
                         <a href="#" class="user">
-                            <img src="img/uploads/avatar-1.jpg" class="avatar mini" />
+                            <img src="/img/uploads/avatar-1.jpg" class="avatar mini" />
                             <span class="login visible-xs">Muph1984</span>
                         </a>
                         <div class="like-dislike">
@@ -196,7 +196,7 @@
                         <div class="comment-content">
                             <div class="comment-left-side">
                                 <a href="#" class="user">
-                                    <img src="img/uploads/default-avatar.png" class="avatar mini" />
+                                    <img src="/img/uploads/default-avatar.png" class="avatar mini" />
                                     <span class="login visible-xs">Ivan</span>
                                 </a>
                                 <div class="like-dislike">
@@ -247,7 +247,7 @@
                         <div class="comment-content">
                             <div class="comment-left-side">
                                 <a href="#" class="user">
-                                    <img src="img/uploads/default-avatar.png" class="avatar mini" />
+                                    <img src="/img/uploads/default-avatar.png" class="avatar mini" />
                                     <span class="login visible-xs">Пользователь</span>
                                 </a>
                                 <div class="like-dislike">
@@ -300,7 +300,7 @@
                 <div class="comment-content">
                     <div class="comment-left-side">
                         <a href="#" class="user">
-                            <img src="img/uploads/default-avatar.png" class="avatar mini" />
+                            <img src="/img/uploads/default-avatar.png" class="avatar mini" />
                             <span class="login visible-xs">Василий</span>
                         </a>
                         <div class="like-dislike">
@@ -398,7 +398,7 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4">
                             <a href="#" class="user-info">
-                                <img src="img/uploads/ivan.jpg" class="avatar micro" title="" alt="">
+                                <img src="/img/uploads/ivan.jpg" class="avatar micro" title="" alt="">
                                 <span class="login">Ivan</span>
                             </a>
                             <div class="form-group" title="Имя *">
