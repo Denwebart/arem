@@ -42,6 +42,7 @@ class PagesController extends Controller
 		if(!is_object($page)) {
 			$page = User::whereAlias($page)->active()->firstOrFail();
 		}
+		
 		return $this->renderPage($request, $page);
 	}
 	

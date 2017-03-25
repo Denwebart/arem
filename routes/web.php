@@ -34,8 +34,6 @@ Route::get('/', 'PagesController@index');
 
 Route::get('sitemap.xml', ['as' => 'sitemapXml', 'uses' => 'PagesController@sitemapXml']);
 
-//Route::get('{parentOne}/{login}/{page}{suffix}', 'PagesController@pageThreeLevel')->where('suffix', '.html');
-
 Route::get('{parentOne}/{parentTwo}/{parentThree}/{page}{suffix}', ['uses' => 'PagesController@pageFourLevel'])->where('suffix', '.html');
 Route::get('{parentOne}/{parentTwo}/{page}{suffix}', ['uses' => 'PagesController@pageThreeLevel'])->where('suffix', '.html');
 Route::get('{parentOne}/{page}{suffix}', ['uses' => 'PagesController@pageTwoLevel'])->where('suffix', '.html');

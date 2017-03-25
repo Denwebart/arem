@@ -22,7 +22,7 @@ class Controller extends \App\Http\Controllers\Controller
 		
 		$this->user = Auth::check() && Auth::user()->alias == $request->login
 			? Auth::user()
-			: User::whereAlias($request->login)->firstOrFail();
+			: User::whereAlias($request->login)->first();
 
 		\View::share('user', $this->user);
 	}
