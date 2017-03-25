@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use App\Models\Page;
 use App\Models\User;
 use Carbon\Carbon;
@@ -39,8 +40,13 @@ class PagesController extends Controller
 	
 	public function pageTwoLevel(Request $request, $parentOne, $page)
 	{
+		// доделать - оптимизировать
 		if(!is_object($page)) {
-			$page = User::whereAlias($page)->active()->firstOrFail();
+			$page = User::whereAlias($page)->active()->first();
+		}
+		
+		if(!is_object($page)) {
+			$page = Award::whereAlias($page)->firstOrFail();
 		}
 		
 		return $this->renderPage($request, $page);
@@ -60,6 +66,10 @@ class PagesController extends Controller
 	{
 		if (is_a($page, 'App\Models\User') && url($request->getPathInfo()) == $page->getJournalUrl()) {
 			return $this->getUserJournalPage($request, $page);
+		}
+		
+		if (is_a($page, 'App\Models\Award') && url($request->getPathInfo()) == $page->getUrl()) {
+			return $this->getAwardPage($request, $page);
 		}
 		
 		if(!is_object($page) || (is_a($page, 'App\Models\Page') && url($request->getPathInfo()) != $page->getUrl())) {
@@ -124,6 +134,11 @@ class PagesController extends Controller
 		return view('pages.awards', compact('page'));
 	}
 	
+	protected function getAwardPage($request, $page)
+	{
+		return view('pages.award', compact('page'));
+	}
+	
 	/**
 	 * HTML Sitemap page
 	 *
@@ -150,12 +165,17 @@ class PagesController extends Controller
 	{
 		$user = $page;
 		$page = new Page();
-		return view('cabinet::cabinet.articles', compact('page', 'user'));
+		
+		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereUserId($page->id)->active()->get();
+		
+		return view('cabinet::cabinet.articles', compact('page', 'user', 'articles'));
 	}
 	
 	protected function getJournalPage($request, $page)
 	{
-		return view('pages.articles', compact('page'));
+		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereParentId($page->id)->active()->get();
+		
+		return view('pages.articles', compact('page', 'articles'));
 	}
 	
 	protected function getQuestionsPage($request, $page)
@@ -166,7 +186,10 @@ class PagesController extends Controller
 //				: [];
 //		});
 		
-		return view('pages.questions', compact('page'));
+		// доделать выбор из нужной категории
+		$questions = Page::whereType(Page::TYPE_QUESTION)->active()->get();
+		
+		return view('pages.questions', compact('page', 'questions'));
 	}
 	
 	/**
@@ -296,8 +319,10 @@ class PagesController extends Controller
 //			return Property::with(['values'])->get();
 //		});
 		
+		$articles = Page::whereParentId($page->id)->active()->get();
+		
 		if(!$request->ajax()) {
-			return view('pages.category', compact('page'));
+			return view('pages.category', compact('page', 'articles'));
 		} else {
 //			return \Response::json([
 //				'success' => true,

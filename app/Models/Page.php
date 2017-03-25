@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
@@ -120,6 +121,17 @@ class Page extends Model
 	public function menus()
 	{
 		return $this->hasMany(Menu::class);
+	}
+	
+	/**
+	 * Scope a query to only include active pages.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeActive($query)
+	{
+		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now());
 	}
 	
 	/**
