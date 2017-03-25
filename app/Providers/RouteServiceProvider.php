@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Page;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -28,10 +27,7 @@ class RouteServiceProvider extends ServiceProvider
 	    parent::boot();
 	
 	    Route::bind('page', function($alias) {
-		    $page = Page::whereAlias($alias)
-			    ->whereIsPublished(1)
-			    ->where('published_at', '<=', Carbon::now())
-			    ->first();
+		    $page = Page::whereAlias($alias)->active()->first();
 		    
 		    return $page ? $page : $alias;
 	    });
