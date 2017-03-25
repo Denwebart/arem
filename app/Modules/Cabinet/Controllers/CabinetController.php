@@ -117,6 +117,19 @@ class CabinetController extends Controller
 	}
 	
 	/**
+	 * All subscribers of user
+	 *
+	 * @param Request $request
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function subscribers(Request $request)
+	{
+		return view('cabinet::cabinet.subscribers');
+	}
+	
+	/**
 	 * All cars of user
 	 *
 	 * @param Request $request

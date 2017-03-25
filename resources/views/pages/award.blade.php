@@ -6,6 +6,10 @@
             <a href="index.html" itemprop="item"><span itemprop="name">Главная</span></a>
             <meta itemprop="position" content="1">
         </li>
+        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+            <a href="awards.html" itemprop="item"><span itemprop="name">Награды</span></a>
+            <meta itemprop="position" content="2">
+        </li>
     </ul>
 
     @if($page->title)
@@ -26,5 +30,45 @@
         <p><a href="http://www.avtorem.info/uploads/pages/13/editor/chashka.jpg" class="fancybox" data-fancybox-group="group-content"></a></p><figure itemscope="" itemprop="image" itemtype="http://schema.org/ImageObject"><a href="http://www.avtorem.info/uploads/pages/13/editor/chashka.jpg" class="fancybox" data-fancybox-group="group-content"><img itemprop="image" style="width: 600px; height: 338px; display: block; margin-left: auto; margin-right: auto;" title="Стильная чашка с логотипом сайта Школа авторемонта" src="http://www.avtorem.info/uploads/pages/13/editor/chashka.jpg" alt="Стильная чашка с логотипом сайта Школа авторемонта"><meta itemprop="url" content="http://www.avtorem.info/uploads/pages/13/editor/chashka.jpg"><meta itemprop="width" content="800"><meta itemprop="height" content="450"></a></figure><p></p>
         <p><a href="http://www.avtorem.info/uploads/pages/13/editor/chashka-1.jpg" class="fancybox" data-fancybox-group="group-content"></a></p><figure itemscope="" itemprop="image" itemtype="http://schema.org/ImageObject"><a href="http://www.avtorem.info/uploads/pages/13/editor/chashka-1.jpg" class="fancybox" data-fancybox-group="group-content"><img itemprop="image" style="width: 600px; height: 338px; display: block; margin-left: auto; margin-right: auto;" title="Белая чашка с фирменным логотипом сайта Школа авторемонта" src="http://www.avtorem.info/uploads/pages/13/editor/chashka-1.jpg" alt="Белая чашка с фирменным логотипом сайта Школа авторемонта"><meta itemprop="url" content="http://www.avtorem.info/uploads/pages/13/editor/chashka-1.jpg"><meta itemprop="width" content="800"><meta itemprop="height" content="450"></a></figure><p></p>
         <p style="text-align: justify;"><strong>6. Порядок получения вознаграждений.</strong><br>После того, как в конце месяца пользователь будет определён, как победитель в одной или нескольких номинациях, он должен связаться с администрацией сайта и сообщить свои контакты для почтового отправления. В сообщении должны быть точно указаны такие данные как – страна, область или регион, город, почтовый индекс, улица, дом, номер квартиры, номер мобильного телефона и ФИО пользователя. Администрация <a title="Школа авторемонта - Ремонт автомобиля своими руками, советы по ремонту и техническому обслуживанию легковых автомобилей своими силами" href="http://www.avtorem.info" rel="nofollow" target="_blank"><strong>Школа авторемонта</strong></a> обязуется отправить приз(ы) почтовой службой в кратчайшие сроки. О чём сразу оповестит пользователя.</p>
+    </div>
+
+    <div class="col-md-4 sidebar">
+        <div class="widget widget-users">
+            <h4 class="title">Награды</h4>
+            <div class="small-description">
+                Награды за достижения...
+                <br>
+                <a href="#">Как получить награду?</a>
+            </div>
+            <div class="items">
+                <div class="item">
+                    <a href="profile.html" class="user-avatar">
+                        <img src="img/uploads/awards/kommentator-mesyatsa.png" alt="" class="avatar mini">
+                    </a>
+                    <div class="user">
+                        <a href="profile.html" class="login"><span>Комментатор месяца</span></a>
+                        <span class="rank">Краткое описание награды (?)</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="profile.html" class="user-avatar">
+                        <img src="img/uploads/awards/pisatel-goda.png" alt="" class="avatar mini">
+                    </a>
+                    <div class="user">
+                        <a href="profile.html" class="login"><span>Писатель года</span></a>
+                        <span class="rank">...</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <a href="profile.html" class="user-avatar">
+                        <img src="img/uploads/awards/znatok-goda.png" alt="" class="avatar mini">
+                    </a>
+                    <div class="user">
+                        <a href="profile.html" class="login"><span>Знаток года</span></a>
+                        <span class="rank">...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

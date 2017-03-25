@@ -18,6 +18,7 @@ Route::group(['module' => 'Cabinet', 'prefix' => 'user', 'middleware' => ['web',
 	Route::get('/{login}/saved', ['as' => 'user.saved', 'uses' => 'CabinetController@saved']);
 	
 	Route::get('/{login}/subscriptions', ['as' => 'user.subscriptions', 'uses' => 'CabinetController@subscriptions']);
+	Route::get('/{login}/subscribers', ['as' => 'user.subscribers', 'uses' => 'CabinetController@subscribers']);
 	
 	Route::get('/{login}/friends', ['as' => 'user.friends', 'uses' => 'CabinetController@friends']);
 	

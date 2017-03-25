@@ -104,7 +104,7 @@
                                                 <i class="fa fa-newspaper-o"></i>
                                                 Подписаться
                                             </button>
-                                            <a href="profile-subscribers.html" class="button default-button">
+                                            <a href="{{ route('user.subscribers', ['login' => $user->alias]) }}" class="button default-button">
                                                 <i class="fa fa-users"></i>
                                                 124 890
                                             </a>
