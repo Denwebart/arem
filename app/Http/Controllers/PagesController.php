@@ -166,7 +166,7 @@ class PagesController extends Controller
 		$user = $page;
 		$page = new Page();
 		
-		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereUserId($page->id)->active()->get();
+		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereUserId($user->id)->active()->get();
 		
 		return view('cabinet::cabinet.articles', compact('page', 'user', 'articles'));
 	}
