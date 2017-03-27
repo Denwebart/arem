@@ -132,6 +132,8 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'Laravel\Socialite\Contracts\Factory' instanceof \Laravel\Socialite\SocialiteManager,
             'SocialiteProviders\Manager\Contracts\Helpers\ConfigRetrieverInterface' instanceof \SocialiteProviders\Manager\Helpers\ConfigRetriever,
+            'html' instanceof \Collective\Html\HtmlBuilder,
+            'form' instanceof \Collective\Html\FormBuilder,
         ],
         \Illuminate\Contracts\Container\Container::make('') => [
             '' == '@',
@@ -256,6 +258,8 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'Laravel\Socialite\Contracts\Factory' instanceof \Laravel\Socialite\SocialiteManager,
             'SocialiteProviders\Manager\Contracts\Helpers\ConfigRetrieverInterface' instanceof \SocialiteProviders\Manager\Helpers\ConfigRetriever,
+            'html' instanceof \Collective\Html\HtmlBuilder,
+            'form' instanceof \Collective\Html\FormBuilder,
         ],
         \App::make('') => [
             '' == '@',
@@ -380,6 +384,8 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'Laravel\Socialite\Contracts\Factory' instanceof \Laravel\Socialite\SocialiteManager,
             'SocialiteProviders\Manager\Contracts\Helpers\ConfigRetrieverInterface' instanceof \SocialiteProviders\Manager\Helpers\ConfigRetriever,
+            'html' instanceof \Collective\Html\HtmlBuilder,
+            'form' instanceof \Collective\Html\FormBuilder,
         ],
         \app('') => [
             '' == '@',
@@ -504,6 +510,8 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'Laravel\Socialite\Contracts\Factory' instanceof \Laravel\Socialite\SocialiteManager,
             'SocialiteProviders\Manager\Contracts\Helpers\ConfigRetrieverInterface' instanceof \SocialiteProviders\Manager\Helpers\ConfigRetriever,
+            'html' instanceof \Collective\Html\HtmlBuilder,
+            'form' instanceof \Collective\Html\FormBuilder,
         ],
     ];
 }
