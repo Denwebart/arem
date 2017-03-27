@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Str;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -144,6 +145,18 @@ class Page extends Model
 	public function getTitle()
 	{
 		return $this->menu_title ? $this->menu_title : $this->title;
+	}
+	
+	/**
+	 * Get introtext (from field introtext or content)
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getIntrotext()
+	{
+		return $this->introtext ? $this->introtext : Str::limit($this->content, 500, '...');
 	}
 	
 	/**
