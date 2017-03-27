@@ -41,11 +41,13 @@ class PagesController extends Controller
 	public function pageTwoLevel(Request $request, $parentOne, $page)
 	{
 		// доделать - оптимизировать
-		if(!is_object($page)) {
+		$parent = Page::whereAlias($parentOne)->active()->firstOrFail();
+		
+		if(!is_object($page) && $parent->type == Page::TYPE_JOURNAL) {
 			$page = User::whereAlias($page)->active()->first();
 		}
 		
-		if(!is_object($page)) {
+		if(!is_object($page) && $parent->id == Page::ID_AWARDS_PAGE) {
 			$page = Award::whereAlias($page)->firstOrFail();
 		}
 		
@@ -72,7 +74,7 @@ class PagesController extends Controller
 			return $this->getAwardPage($request, $page);
 		}
 		
-		if(!is_object($page) || (is_a($page, 'App\Models\Page') && url($request->getPathInfo()) != $page->getUrl())) {
+		if(!is_a($page, 'App\Models\Page') || url($request->getPathInfo()) != $page->getUrl()) {
 			abort(404);
 		}
 		
@@ -129,11 +131,31 @@ class PagesController extends Controller
 		return view('pages.contact', compact('page'));
 	}
 	
+	/**
+	 * Page with all awards
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function getAwardsPage($request, $page)
 	{
 		return view('pages.awards', compact('page'));
 	}
 	
+	/**
+	 * Page for description of current award
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function getAwardPage($request, $page)
 	{
 		return view('pages.award', compact('page'));
@@ -161,6 +183,16 @@ class PagesController extends Controller
 		return view('pages.sitemap', compact('page', 'sitemapItems'));
 	}
 	
+	/**
+	 * Page with articles of user journal
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function getUserJournalPage($request, $page)
 	{
 		$user = $page;
@@ -171,6 +203,16 @@ class PagesController extends Controller
 		return view('cabinet::cabinet.articles', compact('page', 'user', 'articles'));
 	}
 	
+	/**
+	 * Page with all articles of journals
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function getJournalPage($request, $page)
 	{
 		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereParentId($page->id)->active()->get();
@@ -178,6 +220,16 @@ class PagesController extends Controller
 		return view('pages.articles', compact('page', 'articles'));
 	}
 	
+	/**
+	 * Page with questions (all or from category)
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	protected function getQuestionsPage($request, $page)
 	{
 //		$childrenPages = \Cache::rememberForever('page.'. $page->id .'.children', function() use($page) {
@@ -193,7 +245,7 @@ class PagesController extends Controller
 	}
 	
 	/**
-	 * Product catalog page
+	 * Page with articles from category
 	 *
 	 * @param $request
 	 * @param $page
