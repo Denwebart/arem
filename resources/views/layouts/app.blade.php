@@ -124,12 +124,18 @@
                         </a>
                     </div>
                     <div class="col-md-3 col-sm-4 col-xs-5 col-title">
-                        <h1>
-                            Школа авторемонта
-                            <span class="slogan">
-                                Статьи, советы и рекомендации по ремонту иобслуживанию автомобилей своими руками
-                            </span>
-                        </h1>
+                        @if(isset($siteSettings['H1']) && is_array($siteSettings['H1']))
+                            <h1>
+                                @if(isset($siteSettings['H1']['title']) && is_object($siteSettings['H1']['title']))
+                                    {{ $siteSettings['H1']['title']->value }}
+                                @endif
+                                @if(isset($siteSettings['H1']['slogan']) && is_object($siteSettings['H1']['slogan']))
+                                    <span class="slogan">
+                                        {{ $siteSettings['H1']['slogan']->value }}
+                                    </span>
+                                @endif
+                            </h1>
+                        @endif
                     </div>
                     <div class="visible-xs visible-sm col-sm-2 col-xs-1 col-menu-button">
                         <div class="menu mobile-buttons-menu">
