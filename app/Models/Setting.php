@@ -10,6 +10,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Setting
+ *
+ * @property int $id
+ * @property string $key
+ * @property bool $category
+ * @property bool $type
+ * @property string $title
+ * @property string $description
+ * @property string $value
+ * @property bool $is_active
+ * @property string $validation_rule
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereCategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereIsActive($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereKey($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereValidationRule($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Setting whereValue($value)
+ * @mixin \Eloquent
+ */
 class Setting extends Model
 {
 	protected $table = 'settings';

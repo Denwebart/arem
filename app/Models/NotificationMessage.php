@@ -10,6 +10,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\NotificationMessage
+ *
+ * @property int $id
+ * @property string $message
+ * @property string $description
+ * @property string $variables
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\NotificationMessage whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\NotificationMessage whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\NotificationMessage whereMessage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\NotificationMessage whereVariables($value)
+ * @mixin \Eloquent
+ */
 class NotificationMessage extends Model
 {
 	protected $table = "notifications_messages";

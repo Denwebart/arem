@@ -12,6 +12,60 @@ use App\Helpers\Str;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Page
+ *
+ * @property int $id
+ * @property int $parent_id
+ * @property int $user_id
+ * @property bool $type
+ * @property string $alias
+ * @property bool $is_published
+ * @property bool $is_container
+ * @property string $title
+ * @property string $menu_title
+ * @property string $image
+ * @property string $image_alt
+ * @property int $views
+ * @property int $votes_like
+ * @property int $votes_dislike
+ * @property string $introtext
+ * @property string $content
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $published_at
+ * @property string $meta_title
+ * @property string $meta_desc
+ * @property string $meta_key
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $children
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Menu[] $menus
+ * @property-read \App\Models\Page $parent
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page active()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereAlias($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereImageAlt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereIntrotext($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereIsContainer($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereIsPublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereMenuTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereMetaDesc($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereMetaKey($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereMetaTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereParentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page wherePublishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereViews($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereVotesDislike($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereVotesLike($value)
+ * @mixin \Eloquent
+ */
 class Page extends Model
 {
 	protected $table = 'pages';

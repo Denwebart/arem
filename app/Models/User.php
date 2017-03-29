@@ -13,6 +13,69 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property bool $role
+ * @property string $alias
+ * @property string $login
+ * @property string $email
+ * @property bool $is_active
+ * @property bool $is_banned
+ * @property bool $is_online
+ * @property string $last_activity
+ * @property string $avatar
+ * @property string $firstname
+ * @property string $lastname
+ * @property string $city
+ * @property string $country
+ * @property int $points
+ * @property string $car_brand
+ * @property string $car_model
+ * @property string $profession
+ * @property string $description
+ * @property bool $sex
+ * @property string $birthday
+ * @property string $password
+ * @property string $remember_token
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $activation_code
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Notification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Page[] $pages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $receivedMessages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $sentMessages
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserSocialAccount[] $socialAccounts
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User active()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereActivationCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereAlias($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereAvatar($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereBirthday($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCarBrand($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCarModel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCountry($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereFirstname($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsActive($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsBanned($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereIsOnline($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastActivity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLastname($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereLogin($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePoints($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereProfession($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereSex($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable;

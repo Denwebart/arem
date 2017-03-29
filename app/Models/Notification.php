@@ -10,6 +10,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Notification
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property bool $type
+ * @property string $message
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereMessage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Notification whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Notification extends Model
 {
 	protected $table = "notifications";

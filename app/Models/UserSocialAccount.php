@@ -10,6 +10,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\UserSocialAccount
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $provider_user_id
+ * @property string $provider
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereProvider($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereProviderUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\UserSocialAccount whereUserId($value)
+ * @mixin \Eloquent
+ */
 class UserSocialAccount extends Model
 {
 	

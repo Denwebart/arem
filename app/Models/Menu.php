@@ -10,6 +10,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Menu
+ *
+ * @property int $id
+ * @property bool $type
+ * @property int $page_id
+ * @property int $parent_id
+ * @property bool $position
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Menu[] $children
+ * @property-read \App\Models\Page $page
+ * @property-read \App\Models\Menu $parent
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Menu whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Menu wherePageId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Menu whereParentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Menu wherePosition($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Menu whereType($value)
+ * @mixin \Eloquent
+ */
 class Menu extends Model
 {
 	protected $table = 'menus';

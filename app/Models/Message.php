@@ -11,6 +11,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Message
+ *
+ * @property int $id
+ * @property int $user_id_sender
+ * @property int $user_id_recipient
+ * @property string $message
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $read_at
+ * @property string $deleted_sender
+ * @property string $deleted_recipient
+ * @property-read \App\Models\User $recipient
+ * @property-read \App\Models\User $sender
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message new()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereDeletedRecipient($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereDeletedSender($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereMessage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereReadAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereUserIdRecipient($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Message whereUserIdSender($value)
+ * @mixin \Eloquent
+ */
 class Message extends Model
 {
 	protected $table = "messages";
