@@ -101,12 +101,13 @@
 
     <div class="title">Мы в социальных сетях:</div>
     <div class="social-links">
-        <ul class="pull-left horisontal">
-            <li><a href="#"><i class="fa fa-vk"></i></a></li>
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-        </ul>
+        @if(isset($siteSettings['socialLinks']) && is_array($siteSettings['socialLinks']))
+            <ul class="pull-left horisontal">
+                @foreach($siteSettings['socialLinks'] as $key => $socialLink)
+                    <li><a href="{{ $socialLink->value }}" target="_blank" rel="nofollow noopener"><i class="fa fa-{{ $key }}"></i></a></li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 </div>
 
@@ -154,12 +155,13 @@
                             </nav>
                             <div class="clearfix"></div>
                             <div class="social-links">
-                                <ul class="pull-left horisontal">
-                                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-                                </ul>
+                                @if(isset($siteSettings['socialLinks']) && is_array($siteSettings['socialLinks']))
+                                    <ul class="pull-left horisontal">
+                                        @foreach($siteSettings['socialLinks'] as $key => $socialLink)
+                                            <li><a href="{{ $socialLink->value }}" target="_blank" rel="nofollow noopener"><i class="fa fa-{{ $key }}"></i></a></li>
+                                        @endforeach
+                                    </ul>
+                                @endif
 
                                 <ul class="pull-left horisontal">
                                     <li><a href="#"><i class="fa fa-bookmark-o"></i></a></li>
@@ -231,19 +233,21 @@
                             </div>
                             <div class="full-xxs col-xs-6 col-sm-6 col-md-12">
                                 <div class="copyright">
-                                    При использовании авторских статей
-                                    ссылка на сайт обязательна.
+                                    @if(isset($siteSettings['copyright']) && is_object($siteSettings['copyright']))
+                                        {!! $siteSettings['copyright']->value !!}
+                                    @endif
                                     <span class="without-enter">
-                                            © <a href="{{ url('/') }}" class="active">www.avtorem.info</a> 2010 - 2016
-                                        </span>
+                                        © <a href="{{ url('/') }}" class="active">www.avtorem.info</a> 2010 - 2016
+                                    </span>
                                 </div>
                                 <div class="social-links">
-                                    <ul class="pull-left horisontal">
-                                        <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-odnoklassniki"></i></a></li>
-                                    </ul>
+                                    @if(isset($siteSettings['socialLinks']) && is_array($siteSettings['socialLinks']))
+                                        <ul class="pull-left horisontal">
+                                            @foreach($siteSettings['socialLinks'] as $key => $socialLink)
+                                                <li><a href="{{ $socialLink->value }}" target="_blank" rel="nofollow noopener"><i class="fa fa-{{ $key }}"></i></a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
 
                                     <ul class="pull-left horisontal">
                                         <li><a href="#"><i class="fa fa-bookmark-o"></i></a></li>
@@ -286,8 +290,8 @@
                             <div class="input-group">
                                 <input type="text" placeholder="Введите email-адрес">
                                 <span class="input-group-button">
-                                        <button class="button accent-button" type="button">Подписаться</button>
-                                    </span>
+                                    <button class="button accent-button" type="button">Подписаться</button>
+                                </span>
                             </div>
                         </form>
                         <p class="small">
@@ -299,9 +303,11 @@
                             на который оформлена подписка, и нажмите кнопку «Отписаться».
                         </p>
 
-                        <div class="m-t-20 align-center-xs">
-                            <img src="/img/uploads/hit.png" alt="Счетчик, заменить на код счетчика">
-                        </div>
+                        @if(isset($siteSettings['counter']) && is_object($siteSettings['counter']))
+                            <div class="m-t-20 align-center-xs">
+                                {!! $siteSettings['counter']->value !!}
+                            </div>
+                        @endif
 
                         <p class="m-t-20 small visible-xs">
                             Нашли опечатку? Выделите фрагмент и отправьте нажатием Ctrl+Enter.
