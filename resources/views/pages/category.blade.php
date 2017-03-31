@@ -32,60 +32,17 @@
 
     <div class="row">
         <div class="menu submenu title-on-image">
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/vaz.jpg" alt="">
-                    <span class="title">
-                                            ВАЗ 2101, ВАЗ 2102, ВАЗ 2105, ВАЗ 2106, ВАЗ 2107, Жигули, Классика
-                                            <span class="label count">29</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/lada.jpg" alt="">
-                    <span class="title">
-                                            ВАЗ 2108, ВАЗ 2109, ВАЗ 2110, ВАЗ 1117 Калина, ВАЗ 2170 Приора
-                                            <span class="label count">18</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/daewoo-matiz.jpg" alt="">
-                    <span class="title">
-                                            Daewoo Lanos, Nexia, Matiz, Sens
-                                            <span class="label count">55</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/mitsubishi.jpg" alt="">
-                    <span class="title">
-                                            Mitsubishi (Мицубиси)
-                                            <span class="label count">2</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/slavuta.jpg" alt="">
-                    <span class="title">
-                                            Таврия, Славута, ЗАЗ-1102
-                                            <span class="label count">10</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="category.html" class="item">
-                    <img src="img/uploads/articles-categories/chery.jpg" alt="">
-                    <span class="title">
-                                            Chery (Чери)
-                                            <span class="label count">7</span>
-                                        </span>
-                </a>
-            </div>
+            @foreach($page->children()->published()->get() as $category)
+                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
+                    <a href="{{ $category->getUrl() }}" class="item">
+                        <img src="img/uploads/articles-categories/vaz.jpg" alt="{{ $category->image_alt }}" title="{{ $category->image_alt }}">
+                        <span class="title">
+                            {{ $category->getTitle() }}
+                            <span class="label count">{{ count($category->children) }}</span>
+                        </span>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 

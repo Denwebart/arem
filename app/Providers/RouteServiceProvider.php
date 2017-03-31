@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
 	    parent::boot();
 	
 	    Route::bind('page', function($alias) {
-		    $page = Page::whereAlias($alias)->active()->first();
+		    $page = Page::whereAlias($alias)->published()->first();
 		    
 		    return $page ? $page : $alias;
 	    });

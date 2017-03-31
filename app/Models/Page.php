@@ -184,7 +184,7 @@ class Page extends Model
 	 * @param \Illuminate\Database\Eloquent\Builder $query
 	 * @return \Illuminate\Database\Eloquent\Builder
 	 */
-	public function scopeActive($query)
+	public function scopePublished($query)
 	{
 		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now());
 	}
