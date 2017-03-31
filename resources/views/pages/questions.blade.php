@@ -22,42 +22,17 @@
 
     <div class="row">
         <div class="menu submenu title-on-image">
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="questions.html" class="item">
-                    <img src="img/uploads/articles-categories/vaz.jpg" alt="">
-                    <span class="title">
-                                            ВАЗ 2101-2107, Жигули, Классика
-                                            <span class="label count">29</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="questions.html" class="item">
-                    <img src="img/uploads/articles-categories/lada.jpg" alt="">
-                    <span class="title">
-                                            Ваз-2108, Ваз-2109, Ваз-2115, Ваз-2110, Ваз-1117 Калина, Ваз-2170 Приора
-                                            <span class="label count">18</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="questions.html" class="item">
-                    <img src="img/uploads/articles-categories/slavuta.jpg" alt="">
-                    <span class="title">
-                                            ЗАЗ 1102-1105, Таврия, Славута
-                                            <span class="label count">10</span>
-                                        </span>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
-                <a href="questions.html" class="item">
-                    <img src="img/uploads/articles-categories/daewoo-matiz.jpg" alt="">
-                    <span class="title">
-                                            Daewoo Lanos, Nexia, Sens, Matiz, Nubira
-                                            <span class="label count">55</span>
-                                        </span>
-                </a>
-            </div>
+            @foreach($page->children()->published()->get() as $category)
+                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 full-xxs">
+                    <a href="{{ $category->getUrl() }}" class="item">
+                        <img src="img/uploads/articles-categories/vaz.jpg" alt="{{ $category->image_alt }}" title="{{ $category->image_alt }}">
+                        <span class="title">
+                            {{ $category->getTitle() }}
+                            <span class="label count">{{ count($category->children) }}</span>
+                        </span>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 

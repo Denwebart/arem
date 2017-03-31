@@ -41,7 +41,7 @@ class PagesController extends Controller
 	public function pageTwoLevel(Request $request, $parentOne, $page)
 	{
 		// доделать - оптимизировать
-		$parent = Page::whereAlias($parentOne)->active()->firstOrFail();
+		$parent = Page::whereAlias($parentOne)->published()->firstOrFail();
 		
 		if(!is_object($page) && $parent->type == Page::TYPE_JOURNAL) {
 			$page = User::whereAlias($page)->active()->first();
@@ -198,7 +198,7 @@ class PagesController extends Controller
 		$user = $page;
 		$page = new Page();
 		
-		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereUserId($user->id)->active()->get();
+		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereUserId($user->id)->published()->get();
 		
 		return view('cabinet::cabinet.articles', compact('page', 'user', 'articles'));
 	}
@@ -215,7 +215,7 @@ class PagesController extends Controller
 	 */
 	protected function getJournalPage($request, $page)
 	{
-		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereParentId($page->id)->active()->get();
+		$articles = Page::whereType(Page::TYPE_ARTICLE)->whereParentId($page->id)->published()->get();
 		
 		return view('pages.articles', compact('page', 'articles'));
 	}
@@ -239,7 +239,7 @@ class PagesController extends Controller
 //		});
 		
 		// доделать выбор из нужной категории
-		$questions = Page::whereType(Page::TYPE_QUESTION)->active()->get();
+		$questions = Page::whereType(Page::TYPE_QUESTION)->published()->get();
 		
 		return view('pages.questions', compact('page', 'questions'));
 	}
@@ -371,7 +371,7 @@ class PagesController extends Controller
 //			return Property::with(['values'])->get();
 //		});
 		
-		$articles = Page::whereParentId($page->id)->active()->get();
+		$articles = Page::whereParentId($page->id)->whereIsContainer(0)->published()->get();
 		
 		if(!$request->ajax()) {
 			return view('pages.category', compact('page', 'articles'));
