@@ -7,8 +7,9 @@
     <div class="item article">
         <div class="item-title">
             <ul class="category breadcrumbs">
-                <li><a href="/">Главная</a></li>
-                <li><a href="category.html">Daewoo Lanos, Nexia, Matiz, Sens</a></li>
+                @foreach($article->getBreadcrumbs() as $breadcrumbItem)
+                    <li><a href="{{ $breadcrumbItem['url'] }}">{{ $breadcrumbItem['title'] }}</a></li>
+                @endforeach
             </ul>
             <h3>
                 <a href="{{ $article->getUrl() }}">

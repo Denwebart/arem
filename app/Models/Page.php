@@ -239,4 +239,46 @@ class Page extends Model
 			return url($parentUrl . '/' . $this->user->alias . '/' . $this->alias . $sufix);
 		}
 	}
+	
+	/**
+	 * Get page parents
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getBreadcrumbs()
+	{
+		// доделать - рефакторинг?
+		if(self::TYPE_ARTICLE != $this->type) {
+			if($this->parent_id) {
+				return
+					array_merge(
+						$this->parent->getBreadcrumbs(),
+						[
+							[
+								'url' => $this->parent->getUrl(),
+								'title' => $this->parent->getTitle(),
+							]
+						]
+					);
+			} else {
+				return [];
+			}
+		} else {
+			return array_merge(
+				$this->parent->getBreadcrumbs(),
+				[
+					[
+						'url' => $this->user->getJournalUrl(),
+						'title' => $this->user->login,
+					],
+					[
+						'url' => $this->parent->getUrl(),
+						'title' => $this->parent->getTitle(),
+					]
+				]
+			);
+		}
+	}
 }

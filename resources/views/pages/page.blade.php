@@ -1,16 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.main', ['breadcrumbs' => $page->getBreadcrumbs()])
 
 @section('content')
-    <ul class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-        <li class="home-page" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-            <a href="index.html" itemprop="item"><span itemprop="name">Главная</span></a>
-            <meta itemprop="position" content="1">
-        </li>
-        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-            <a href="category.html" itemprop="item"><span itemprop="name">Категория</span></a>
-            <meta itemprop="position" content="2">
-        </li>
-    </ul>
 
     <div class="table-block page-title">
         <h2 class="responsive-block p-r-25">{{ $page->title }}</h2>

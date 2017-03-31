@@ -7,8 +7,9 @@
 
 <div class="item question">
         <ul class="category breadcrumbs">
-            <li><a href="/">Главная</a></li>
-            <li><a href="questions.html">Ваз-2108, Ваз-2109, Ваз-2115, Ваз-2110, Ваз-1117 Калина, Ваз-2170 Приора</a></li>
+            @foreach($question->getBreadcrumbs() as $breadcrumbItem)
+                <li><a href="{{ $breadcrumbItem['url'] }}">{{ $breadcrumbItem['title'] }}</a></li>
+            @endforeach
         </ul>
         <div class="item-content">
             <a href="{{ route('user.profile', ['login' => $question->user->alias]) }}" class="user-avatar">
