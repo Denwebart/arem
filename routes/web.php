@@ -12,12 +12,6 @@
 */
 
 /*
- * Routes for developers mode (comment out in production mode)
- */
-//Route::pattern('parentOne', '/^(?!.*(_debugbar).*$)/xs');
-
-
-/*
  * Autorization
  */
 Auth::routes();

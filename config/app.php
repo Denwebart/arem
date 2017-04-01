@@ -167,7 +167,12 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
+	
+	    /*
+		 * Debugbar
+		 */
+	    Barryvdh\Debugbar\ServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -181,7 +186,6 @@ return [
 	     * Custom Service Providers
 	     */
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-	    Barryvdh\Debugbar\ServiceProvider::class,
 	    Modules\ServiceProvider::class,
 	    Widgets\ServiceProvider::class,
 	    SocialiteProviders\Manager\ServiceProvider::class,

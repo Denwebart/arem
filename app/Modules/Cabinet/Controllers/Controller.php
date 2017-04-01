@@ -8,6 +8,7 @@
 
 namespace Modules\Cabinet\Controllers;
 
+use App\Helpers\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +17,9 @@ class Controller extends \App\Http\Controllers\Controller
 {
 	public $user;
 	
-	public function __construct(Request $request)
+	public function __construct(Request $request, Settings $settings)
 	{
-		parent::__construct();
+		parent::__construct($settings);
 		
 		$this->user = Auth::check() && Auth::user()->alias == $request->login
 			? Auth::user()
