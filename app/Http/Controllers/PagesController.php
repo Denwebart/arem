@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Settings;
 use App\Models\Award;
 use App\Models\Page;
+use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -52,6 +53,10 @@ class PagesController extends Controller
 			$page = Award::whereAlias($page)->firstOrFail();
 		}
 		
+		if(!is_object($page) && $parent->id == Page::ID_TAGS_PAGE) {
+			$page = Tag::whereAlias($page)->firstOrFail();
+		}
+		
 		return $this->renderPage($request, $page);
 	}
 	
@@ -75,6 +80,10 @@ class PagesController extends Controller
 			return $this->getAwardPage($request, $page);
 		}
 		
+		if (is_a($page, 'App\Models\Tag') && url($request->getPathInfo()) == $page->getUrl()) {
+			return $this->getTagPage($request, $page);
+		}
+		
 		if(!is_a($page, 'App\Models\Page') || url($request->getPathInfo()) != $page->getUrl()) {
 			abort(404);
 		}
@@ -93,6 +102,8 @@ class PagesController extends Controller
 			return $this->getSitemapPage($request, $page);
 		} elseif($page->id == Page::ID_AWARDS_PAGE) {
 			return $this->getAwardsPage($request, $page);
+		} elseif($page->id == Page::ID_TAGS_PAGE) {
+			return $this->getTagsPage($request, $page);
 		}
 
 		if($page->is_container) {
@@ -160,6 +171,38 @@ class PagesController extends Controller
 	protected function getAwardPage($request, $page)
 	{
 		return view('pages.award', compact('page'));
+	}
+	
+	/**
+	 * Page with all tags
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getTagsPage($request, $page)
+	{
+		$tagsByAlphabet = Tag::getByAlphabet();
+		
+		return view('pages.tags', compact('page', 'tagsByAlphabet'));
+	}
+	
+	/**
+	 * Page for description of current tag
+	 *
+	 * @param $request
+	 * @param $page
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	protected function getTagPage($request, $page)
+	{
+		return view('pages.tag')->with('tag', $page);
 	}
 	
 	/**
