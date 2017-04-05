@@ -56,24 +56,9 @@
             {!! $page->content !!}
         </div>
     @endif
-    <div class="tags">
-        <a href="#">
-            <span>Daewoo Lanos</span>
-            <span class="count">234</span>
-        </a>
-        <a href="#">
-            <span>Замена колеса</span>
-            <span class="count">34</span>
-        </a>
-        <a href="#">
-            <span>Колесные диски</span>
-            <span class="count">4</span>
-        </a>
-        <a href="#">
-            <span>Ремонт</span>
-            <span class="count">67</span>
-        </a>
-    </div>
+
+    @include('parts.tags', ['item' => $page])
+
     <div id="social-buttons-widget" class="widget">
         <div class="text help-text pull-left">
             Понравилась статья? Поделись ею на своей странице!

@@ -77,6 +77,7 @@ class Page extends Model
 	const ID_CONTACT_PAGE = 2;
 	const ID_SITEMAP_PAGE = 3;
 	const ID_AWARDS_PAGE  = 4;
+	const ID_TAGS_PAGE    = 6;
 	
 	/**
 	 * Type of the page (value of "type" field)
@@ -165,6 +166,18 @@ class Page extends Model
 	public function user()
 	{
 		return $this->belongsTo(User::class);
+	}
+	
+	/**
+	 * Tags of the page
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function tags()
+	{
+		return $this->belongsToMany(Tag::class, 'pages_tags');
 	}
 	
 	/**

@@ -45,7 +45,8 @@ class Award extends Model
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getUrl($sufix = '.html') {
+	public function getUrl($sufix = '.html')
+	{
 		// доделать - оптимизировать
 		$page = Page::find(Page::ID_AWARDS_PAGE);
 		return $page

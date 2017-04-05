@@ -75,7 +75,7 @@ class FillPagesTable extends Migration
 			    ],
 			    [
 				    'id' => 6,
-				    'alias' => 'tag',
+				    'alias' => 'tags',
 				    'user_id' => '1',
 				    'type' => \App\Models\Page::TYPE_SYSTEM_PAGE,
 				    'title' => 'Теги',
