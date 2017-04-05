@@ -2,6 +2,8 @@
 
 @section('content')
 
+    {!! $areaWidget->contentTop() !!}
+
     <div class="table-block page-title enter-xxs">
         @if($page->title)
             <h2 class="responsive-block p-r-25">{{ $page->title }}</h2>
@@ -67,6 +69,8 @@
             </div>
         </div>
     </div>
+
+    {!! $areaWidget->contentMiddle() !!}
 
     <div class="blog with-filters">
         <div class="filters">
@@ -149,4 +153,6 @@
             {!! $page->content !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

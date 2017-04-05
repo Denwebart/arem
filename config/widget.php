@@ -8,5 +8,6 @@ return [
 	'widgets' => [
 		'headerPanel',
 		'menu',
+		'area',
 	],
 ];

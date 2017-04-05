@@ -9,6 +9,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Widgets\Area\Area;
+use Widgets\Area\Widgets;
 use Widgets\HeaderPanel\HeaderPanel;
 
 class Controller extends BaseController
@@ -19,6 +21,8 @@ class Controller extends BaseController
     {
 	    \View::share('siteSettings', $settings->getCategory(Setting::CATEGORY_SITE));
     	\View::share('headerPanel', new HeaderPanel());
+    	\View::share('areaWidget', new Area());
+    	\View::share('widgets', new Widgets());
     	\View::share('menu', new Menu());
     }
 }

@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
+    {!! $areaWidget->contentTop() !!}
+
     <div class="blog">
         <div class="list">
             <div class="item article full fixed">
@@ -321,6 +323,8 @@
 
     <div class="delimiter indent"></div>
 
+    {!! $areaWidget->contentMiddle() !!}
+
     <div class="table-block page-title">
         <h2 class="responsive-block p-r-25">{{ $page->title }}</h2>
         <div class="fixed-block">
@@ -342,53 +346,12 @@
         </div>
     </div>
 
-    <!--<div class="page-info">-->
-    <!--<div class="user" itemprop="author" itemscope="" itemtype="http://schema.org/Person">-->
-    <!--<a href="http://avtorem.info/user/ivan" itemprop="url">-->
-    <!--<img src="img/uploads/ivan.jpg" class="avatar micro" title="" alt=""><span class="login" itemprop="name">Ivan</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<div class="date">-->
-    <!--<i class="fa fa-calendar-o"></i>-->
-    <!--<time datetime="2013-03-17T19:55" itemprop="datePublished">17 марта 2013 в 19:55</time>-->
-    <!--</div>-->
-    <!--<div class="views" title="Количество просмотров">-->
-    <!--<i class="fa fa-eye"></i>-->
-    <!--<span>13 122</span>-->
-    <!--</div>-->
-    <!--<div class="comments-count" title="Количество комментариев">-->
-    <!--<a href="#comments">-->
-    <!--<i class="fa fa-comments-o"></i><span class="count" itemprop="commentCount">12</span>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<div class="saved-count active" title="Сколько пользователей сохранили">-->
-    <!--<i class="fa fa-heart"></i>-->
-    <!--<span>1</span>-->
-    <!--</div>-->
-    <!--</div>-->
     @if($page->content)
         <div class="text page-text">
             {!! $page->content !!}
         </div>
     @endif
-    <!--<div class="tags">-->
-    <!--<a href="#">-->
-    <!--<span>Daewoo Lanos</span>-->
-    <!--<span class="count">234</span>-->
-    <!--</a>-->
-    <!--<a href="#">-->
-    <!--<span>Замена колеса</span>-->
-    <!--<span class="count">34</span>-->
-    <!--</a>-->
-    <!--<a href="#">-->
-    <!--<span>Колесные диски</span>-->
-    <!--<span class="count">4</span>-->
-    <!--</a>-->
-    <!--<a href="#">-->
-    <!--<span>Ремонт</span>-->
-    <!--<span class="count">67</span>-->
-    <!--</a>-->
-    <!--</div>-->
+
     <div id="social-buttons-widget" class="widget">
         <div class="text help-text pull-left">
             Понравилась статья? Поделись ею на своей странице!
@@ -401,4 +364,6 @@
             <!--Yandex Блок "Поделиться"-->
         </div>
     </div>
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

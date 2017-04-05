@@ -31,6 +31,9 @@
                 </section>
             </div>
             <div class="col-md-4 sidebar">
+
+                {!! $areaWidget->rightSidebar() !!}
+
                 <div class="widget widget-questions">
                     <div class="widget-title">
                         <h4 class="title">Вопросы пользователей</h4>

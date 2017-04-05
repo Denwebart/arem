@@ -2,6 +2,8 @@
 
 @section('content')
 
+    {!! $areaWidget->contentTop() !!}
+
     @if($page->title)
         <h2 class="responsive-block">{{ $page->title }}</h2>
     @endif
@@ -11,6 +13,8 @@
             {!! $page->introtext !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentMiddle() !!}
 
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -36,4 +40,6 @@
             {!! $page->content !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

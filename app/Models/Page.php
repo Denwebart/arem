@@ -65,6 +65,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereVotesDislike($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page whereVotesLike($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Page published()
  */
 class Page extends Model
 {

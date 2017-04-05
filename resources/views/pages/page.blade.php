@@ -2,6 +2,8 @@
 
 @section('content')
 
+    {!! $areaWidget->contentTop() !!}
+
     <div class="table-block page-title">
         <h2 class="responsive-block p-r-25">{{ $page->title }}</h2>
         <div class="fixed-block">
@@ -128,6 +130,8 @@
             </div>
         </div>
     </section>
+
+    {!! $areaWidget->contentMiddle() !!}
 
     <!--Комментарии-->
     <section id="comments">
@@ -415,4 +419,6 @@
             </div>
         </div>
     </section>
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

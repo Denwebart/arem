@@ -2,6 +2,8 @@
 
 @section('content')
 
+    {!! $areaWidget->contentTop() !!}
+
     @if($page->title)
         <div class="page-title">
             <h2>{{ $page->title }}</h2>
@@ -10,12 +12,6 @@
 
     @if($page->introtext)
         <div class="text page-text">
-            <img src="img/uploads/articles-categories/lada-big.jpg" alt="" class="m-b-20">
-            <!--<img src="img/uploads/articles-categories/vaz-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/mitsubishi-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/chery-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/slavuta-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/daewoo-matiz-big.jpg" alt="">-->
             {!! $page->introtext !!}
         </div>
     @endif
@@ -35,6 +31,8 @@
             @endforeach
         </div>
     </div>
+
+    {!! $areaWidget->contentMiddle() !!}
 
     <div class="blog with-filters">
         <div class="filters">
@@ -117,4 +115,6 @@
             {!! $page->content !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

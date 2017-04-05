@@ -2,19 +2,17 @@
 
 @section('content')
 
+    {!! $areaWidget->contentTop() !!}
+
     <h2 class="responsive-block">{{ $page->title }}</h2>
 
     @if($page->introtext)
         <div class="text page-text">
-        {{--<img src="img/uploads/articles-categories/lada-big.jpg" alt="" class="m-b-20">--}}
-        <!--<img src="img/uploads/articles-categories/vaz-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/mitsubishi-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/chery-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/slavuta-big.jpg" alt="">-->
-            <!--<img src="img/uploads/articles-categories/daewoo-matiz-big.jpg" alt="">-->
             {!! $page->introtext !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentMiddle() !!}
 
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -83,4 +81,6 @@
             {!! $page->content !!}
         </div>
     @endif
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection

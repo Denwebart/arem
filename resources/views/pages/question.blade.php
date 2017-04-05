@@ -98,6 +98,8 @@
         </div>
     </div>
 
+    {!! $areaWidget->contentMiddle() !!}
+
     <section id="best-answers">
         <h3>Лучшие ответы (<span class="count">2</span>)</h3>
         <div class="comments-list">
@@ -589,4 +591,6 @@
             </div>
         </div>
     </section>
+
+    {!! $areaWidget->contentBottom() !!}
 @endsection
