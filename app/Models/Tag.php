@@ -40,11 +40,25 @@ class Tag extends Model
 		});
 	}
 	
+	/**
+	 * Pages with tag
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	public function pages()
 	{
 		return $this->belongsToMany(Page::class, 'pages_tags');
 	}
 	
+	/**
+	 * Pages Tags
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	public function pagesTags()
 	{
 		return $this->hasMany(PageTag::class);
@@ -66,6 +80,13 @@ class Tag extends Model
 			: null;
 	}
 	
+	/**
+	 * All tags grouped by alphabet
+	 *
+	 * @return array
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
 	public static function getByAlphabet()
 	{
 		$tags = self::orderBy('title', 'ASC')

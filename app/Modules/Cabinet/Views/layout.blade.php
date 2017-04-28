@@ -164,92 +164,12 @@
             </div>
             <div class="col-md-3 sidebar">
 
-                <div class="widget widget-users white-section">
-                    <div class="widget-title">
-                        <h4 class="title">Друзья</h4>
-                        <a href="profile-friends.html" class="count">
-                            12
-                        </a>
-                    </div>
-                    <div class="items horisontal">
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Ivan">
-                                <img src="/img/uploads/ivan.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Мастер">
-                                <img src="/img/uploads/avatar-3.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Muph1984">
-                                <img src="/img/uploads/avatar-1.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Макс">
-                                <img src="/img/uploads/default-avatar.png" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="widget-title">
-                        <h4 class="title">Друзья онлайн</h4>
-                        <a href="profile-friends.html" class="count">
-                            1
-                        </a>
-                    </div>
-                    <div class="items horisontal">
-                        <div class="item user">
-                            <a href="profile.html" class="user-avatar" title="Denwebart">
-                                <img src="/img/uploads/avatar.jpg" alt="" class="avatar mini">
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @yield('rightSidebarTop')
 
                 {!! $areaWidget->rightSidebar() !!}
+
+                @yield('rightSidebarBottom')
+
             </div>
         </div>
     </div>

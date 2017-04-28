@@ -24,10 +24,10 @@ class ChangeUsersTable extends Migration
 		    $table->string('avatar')->nullable()->after('last_activity');
 		    $table->string('firstname', 100)->nullable()->after('avatar');
 		    $table->string('lastname', 100)->nullable()->after('firstname');
-		    $table->string('city', 150)->nullable()->after('lastname');
+		    $table->integer('points')->default(0)->after('lastname');
+		    $table->string('city', 150)->nullable()->after('points');
 		    $table->string('country', 150)->nullable()->after('city');
-		    $table->integer('points')->default(0)->after('country');
-		    $table->string('car_brand', 150)->nullable()->after('points');
+		    $table->string('car_brand', 150)->nullable()->after('country');
 		    $table->string('car_model', 150)->nullable()->after('car_brand');
 		    $table->string('profession', 150)->nullable()->after('car_model');
 		    $table->text('description')->after('profession');

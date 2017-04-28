@@ -104,26 +104,20 @@ class Advertising extends Model
 	/**
 	 * Widgets
 	 */
-	const WIDGET_LATEST    = 1;
-	const WIDGET_BEST      = 2;
-	const WIDGET_POPULAR   = 3;
-	const WIDGET_UNPOPULAR = 4;
-	const WIDGET_COMMENTS  = 5;
-	const WIDGET_QUESTIONS = 6;
-	const WIDGET_ANSWERS   = 7;
-	const WIDGET_TAGS      = 8;
-	const WIDGET_NOT_BEST  = 9;
+	const WIDGET_QUESTIONS_TABS = 1;
+	const WIDGET_ARTICLES_TABS  = 2;
+	const WIDGET_ANSWERS_TABS   = 3;
+	const WIDGET_COMMENTS_TABS  = 4;
+	const WIDGET_TAGS           = 5;
+	const WIDGET_USERS_RATING   = 6;
 	
 	public static $widgets = [
-		self::WIDGET_LATEST    => 'Самое новое',
-		self::WIDGET_BEST      => 'Лучшие по голосам',
-		self::WIDGET_NOT_BEST  => 'Худшие по голосам',
-		self::WIDGET_POPULAR   => 'Лучшие по просмотрам',
-		self::WIDGET_UNPOPULAR => 'Худшие по просмотрам',
-		self::WIDGET_COMMENTS  => 'Новые комментарии',
-		self::WIDGET_QUESTIONS => 'Новые вопросы',
-		self::WIDGET_ANSWERS   => 'Лучшие ответы',
-		self::WIDGET_TAGS      => 'Теги',
+		self::WIDGET_QUESTIONS_TABS => 'Воросы (вкладки: новые, лучшие, популярные)',
+		self::WIDGET_ARTICLES_TABS  => 'Статьи пользователей (вкладки: новые, лучшие, популярные)',
+		self::WIDGET_ANSWERS_TABS   => 'Ответы (вкладки: новые, лучшие, популярные)',
+		self::WIDGET_COMMENTS_TABS  => 'Комментарии (вкладки: новые, лучшие, популярные)',
+		self::WIDGET_TAGS           => 'Популярные теги',
+		self::WIDGET_USERS_RATING   => 'Рейтинг пользователей',
 	];
 	
 	protected $fillable = [

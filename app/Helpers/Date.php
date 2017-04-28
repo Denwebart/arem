@@ -111,12 +111,13 @@ class Date
 	 *     else                  - date time
 	 *
 	 * @param string $date
+	 * @param bool $withTime default false
 	 * @return string
 	 *
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public static function getRelative($date)
+	public static function getRelative($date, $withTime = true)
 	{
 		if(!is_null($date)) {
 			$timestamp = strtotime($date);
@@ -137,7 +138,7 @@ class Date
 			} elseif (Carbon::yesterday()->timestamp == strtotime(date('d-m-Y', $timestamp))) {
 				$result = 'вчера в ' . date('H:i', $timestamp);
 			} else {
-				$result = self::format($date, true);
+				$result = self::format($date, $withTime);
 			}
 			
 			return $result;

@@ -17,26 +17,20 @@
                 {{--<div class="widget @if(Advertising::TYPE_ADVERTISING == $item->type) type-a @endif">--}}
             {{--@endif--}}
         {{--@else--}}
-        <div class="widget @if(\App\Models\Advertising::TYPE_ADVERTISING == $item->type) type-a @endif">
+
         {{--@endif--}}
-            {{--@include('widgets.area.controlAdvertising')--}}
-            @if($item->is_show_title)
-                <div class="widget-title">
-                    <h4 class="title">{{ $item->title }}</h4>
-                    {{--<div class="filters">--}}
-                        {{--<a class="active" href="#">новые</a>--}}
-                        {{--<a href="#">лучшие</a>--}}
-                        {{--<a href="#">популярные</a>--}}
-                    {{--</div>--}}
-                </div>
-            @endif
-            <div class="items">
-                @if(\App\Models\Advertising::TYPE_ADVERTISING == $item->type)
-                    {!! $item->code !!}
-                @elseif(\App\Models\Advertising::TYPE_WIDGET == $item->type)
-                    {!! $widgets->show($item->code, $item->limit) !!}
+        {{--@include('widgets.area.controlAdvertising')--}}
+        @if(\App\Models\Advertising::TYPE_ADVERTISING == $item->type)
+            <div class="widget type-a">
+                @if($item->is_show_title)
+                    <div class="widget-title">
+                        <h4 class="title">{{ $item->title }}</h4>
+                    </div>
                 @endif
+                {!! $item->code !!}
             </div>
-        </div>
+        @elseif(\App\Models\Advertising::TYPE_WIDGET == $item->type)
+            {!! $widgets->show($item->code, $item->limit, $item) !!}
+        @endif
     @endforeach
 </div>

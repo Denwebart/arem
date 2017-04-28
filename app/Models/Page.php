@@ -72,6 +72,12 @@ class Page extends Model
 	protected $table = 'pages';
 	
 	/**
+	 * Path of the main image
+	 */
+	protected $imagePath = '/uploads/pages/{id}/';
+	protected $defaultImagePath = '/img/default-image.svg';
+	
+	/**
 	 * Id страниц с контактной формы и карты сайта
 	 */
 	const ID_CONTACT_PAGE = 2;
@@ -128,6 +134,9 @@ class Page extends Model
 				\Cache::forget('menuItems');
 				$page->menus()->delete();
 			}
+			if(count($page->pagesTags)) {
+				$page->pagesTags()->delete();
+			}
 			$page->children()->delete();
 		});
 	}
@@ -157,6 +166,18 @@ class Page extends Model
 	}
 	
 	/**
+	 * Comments of the page (answers and comments)
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
+	
+	/**
 	 * Author of the page
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -178,6 +199,18 @@ class Page extends Model
 	public function tags()
 	{
 		return $this->belongsToMany(Tag::class, 'pages_tags');
+	}
+	
+	/**
+	 * Pages Tags
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function pagesTags()
+	{
+		return $this->hasMany(PageTag::class);
 	}
 	
 	/**
@@ -218,13 +251,43 @@ class Page extends Model
 	/**
 	 * Get introtext (from field introtext or content)
 	 *
+	 * @param int $limit default 500
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getIntrotext()
+	public function getIntrotext($limit = 500)
 	{
-		return $this->introtext ? $this->introtext : Str::limit($this->content, 500, '...');
+		return $this->introtext ? $this->introtext : Str::limit($this->content, $limit, '...');
+	}
+	
+	/**
+	 * Get url of the main image
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageUrl($default = true)
+	{
+		// доделать
+		return $this->image
+			? url($this->defaultImagePath)
+			: ($default
+				? url($this->defaultImagePath)
+				: null);
+	}
+	
+	/**
+	 * Get attribute "alt" of the main image (from field image_alt or title)
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageAlt()
+	{
+		return $this->image_alt ? $this->image_alt : $this->title;
 	}
 	
 	/**

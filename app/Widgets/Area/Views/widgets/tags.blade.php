@@ -1,13 +1,15 @@
-<div id="tags-sidebar-widget" class="sidebar-widget">
-    @foreach($tags as $tag)
-        <a href="{{ URL::route('journal.tag', ['journalAlias' => Config::get('settings.journalAlias'), 'tag' => $tag->title]) }}" class="tag btn btn-primary btn-sm">
-            {{ $tag->title }}
-            <span class="label">
-                {{ count($tag->pages) }}
-            </span>
-        </a>
-    @endforeach
-    <div class="all-tags">
-        <a href="{{ URL::route('journal.tags', ['journalAlias' => Config::get('settings.journalAlias')]) }}">Все теги</a>
+@if(count($tags))
+    <div class="widget widget-tags">
+        @if($advertisingModel->is_show_title)
+            <h4 class="title">{{ $advertisingModel->title }}</h4>
+        @endif
+        <div class="tags">
+            @foreach($tags as $tag)
+                <a href="{{ $tag->getUrl() }}">
+                    <span>{{ $tag->title }}</span>
+                    <span class="count">{{ count($tag->pages) }}</span>
+                </a>
+            @endforeach
+        </div>
     </div>
-</div>
+@endif

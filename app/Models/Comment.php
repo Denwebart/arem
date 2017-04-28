@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -54,9 +55,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
-	const VOTE_LIKE = 'like';
-	const VOTE_DISLIKE = 'dislike';
-	
 	const MARK_BEST = 1;
 	
 	protected $table = 'comments';
@@ -108,5 +106,68 @@ class Comment extends Model
 	public function page()
 	{
 		return $this->belongsTo(Page::class);
+	}
+	
+	/**
+	 * Author of the comment
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+	
+	/**
+	 * Scope a query to only include active pages.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopePublished($query)
+	{
+		return $query->whereIsPublished(1)->where('published_at', '<=', Carbon::now())
+			->whereIsDeleted(0);
+	}
+	
+	/**
+	 * Scope a query to only include answers.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeAnswer($query)
+	{
+		return $query->whereIsAnswer(1);
+	}
+	
+	/**
+	 * Scope a query to only include comments, not answers.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeComment($query)
+	{
+		return $query->whereIsAnswer(0);
+	}
+	
+	/**
+	 * Get url of page with comment
+	 *
+	 * @param string $sufix
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getUrl($sufix = '.html')
+	{
+		return $this->page
+			? $this->is_answer
+				? $this->page->getUrl() . '#answer-' . $this->id
+				: $this->page->getUrl() . '#comment-' . $this->id
+			: false;
 	}
 }

@@ -102,7 +102,24 @@ class User extends Authenticatable
 	];
 	
 	/**
-	 * Male
+	 * Rank
+	 */
+	const RANK_1 = 0;
+	const RANK_2 = 1;
+	const RANK_3 = 2;
+	const RANK_4 = 3;
+	const RANK_5 = 4;
+	
+	public static $rank = [
+		self::RANK_1 => 'Новичок',
+		self::RANK_2 => 'Любитель',
+		self::RANK_3 => 'Энтузиаст',
+		self::RANK_4 => 'Профи',
+		self::RANK_5 => 'Эксперт',
+	];
+	
+	/**
+	 * Sex
 	 */
 	const SEX_MALE = 0;
 	const SEX_FEMALE = 1;
@@ -230,7 +247,7 @@ class User extends Authenticatable
 	 */
 	public function scopeActive($query)
 	{
-		return $query->where('role', '!=', self::ROLE_NONE)->whereNull('remember_token');
+		return $query->where('role', '!=', self::ROLE_NONE)->whereNotNull('remember_token');
 	}
 	
 	/**
@@ -293,6 +310,18 @@ class User extends Authenticatable
 	{
 		$separator = ($this->firstname && $this->lastname) ? ' ' : '';
 		return $this->firstname . $separator . $this->lastname;
+	}
+	
+	/**
+	 * Get rank of user
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getRank()
+	{
+		return self::$rank[$this->rank];
 	}
 	
 	/**
