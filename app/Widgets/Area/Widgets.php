@@ -51,9 +51,15 @@ class Widgets
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2016 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function questionsTabs($limit = 3, $advertisingModel)
+	public function questionsTabs($limit = 3, $advertisingModel = false)
 	{
-		$cache = Cache::has('widgets.questionsTabs') ? Cache::get('widgets.questionsTabs') : [];
+		$tab = 'new';
+		
+		if(\Request::ajax()) {
+			$tab = \Request::get('sortby');
+		}
+		
+		$cache = Cache::has('widgets.questionsTabs.' . $tab) ? Cache::get('widgets.questionsTabs.' . $tab) : [];
 		
 		if(isset($cache[$limit])) {
 			return $cache[$limit];
@@ -82,15 +88,38 @@ class Widgets
 				},
 			])
 			->limit($limit);
-			
-		$query = $query->orderBy('published_at', 'DESC');
+		
+		switch ($tab) {
+			case 'new':
+				$query = $query->orderBy('published_at', 'DESC');
+				break;
+			case 'best':
+				$query = $query->orderBy('votes_like', 'DESC');
+				break;
+			case 'popular':
+				$query = $query->orderBy('views', 'DESC');
+				break;
+		}
 		
 		$questions = $query->get();
+		
+		if(\Request::ajax()) {
+			$view = (string) view('widget.area::widgets.questions', compact('questions'))->render();
+			
+			$cache[$limit] = $view;
+			Cache::forever('widgets.questionsTabs.' . $tab, $cache);
+			
+			return \Response::json([
+				'success' => true,
+				'resultHtml' => $view,
+			]);
+		}
 		
 		$view = (string) view('widget.area::widgets.questionsTabs', compact('questions', 'advertisingModel'))->render();
 		
 		$cache[$limit] = $view;
-		Cache::forever('widgets.questionsTabs.' . $limit, $cache);
+		Cache::forever('widgets.questionsTabs.' . $tab, $cache);
+		
 		return $view;
 	}
 	

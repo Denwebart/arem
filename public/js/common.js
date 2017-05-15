@@ -31,7 +31,6 @@ $(function() {
 
                 if(response.success){
                     $form.trigger('reset');
-                    console.log(response.message);
                     $form.find('.success-message').text(response.message);
                 }
 
@@ -53,6 +52,34 @@ $(function() {
                     });
                 } else {
                     $form.find('.error-message').text(responseText.error);
+                }
+            }
+        });
+    });
+
+    // Tabs
+    $(document).on('click', '.widget-tabs .tab', function (event) {
+        event.preventDefault ? event.preventDefault() : event.returnValue = false;
+
+        var $tabButton = $(this),
+            $widget = $(this).parent().parent().parent(),
+            url = $widget.data('url');
+
+        $tabButton.parent().find('.tab').removeClass('active');
+        $tabButton.addClass('active');
+
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "POST",
+            data: {sortby: $tabButton.data('sortby')},
+            async: true,
+            beforeSend: function (request) {
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function(response) {
+                if(response.success){
+                    $widget.find('.items').html(response.resultHtml);
                 }
             }
         });

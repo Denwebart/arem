@@ -23,7 +23,7 @@ class Area
 					->whereHas('pageTypes', function($query) use($pageType) {
 						$query->where('page_type', '=', $pageType);
 					})
-					->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'is_active']);
+					->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'description', 'is_active']);
 			} else {
 				$advertising = Advertising::whereIsActive(1)
 					->whereHas('pageTypes', function($query) use($pageType) {
@@ -31,7 +31,7 @@ class Area
 					})
 					->whereIn('access', [Advertising::ACCESS_FOR_ALL, Advertising::ACCESS_FOR_REGISTERED])
 					->orderBy('position', 'ASC')
-					->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'is_active']);
+					->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'description', 'is_active']);
 			}
 		} else {
 			$advertising = Advertising::whereIsActive(1)
@@ -40,7 +40,7 @@ class Area
 				})
 				->whereIn('access', [Advertising::ACCESS_FOR_ALL, Advertising::ACCESS_FOR_GUEST])
 				->orderBy('position', 'ASC')
-				->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'is_active']);
+				->get(['id', 'type', 'area', 'position', 'title', 'is_show_title', 'access', 'code', 'limit', 'description', 'is_active']);
 		}
 		
 		foreach($advertising as $item) {

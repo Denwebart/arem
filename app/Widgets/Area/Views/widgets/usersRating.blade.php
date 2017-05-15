@@ -4,9 +4,7 @@
             <h4 class="title">{{ $advertisingModel->title }}</h4>
         @endif
         <div class="small-description">
-            Здесь отображаются самые активные пользователи сайта.
-            <br>
-            <a href="#">Как сюда попасть?</a>
+            {!! $advertisingModel->description !!}
         </div>
         <div class="items">
             @foreach($users as $index => $user)

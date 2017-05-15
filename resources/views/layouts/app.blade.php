@@ -328,5 +328,8 @@
 </script>
 <!-- Optimized loading JS End -->
 
+@yield('scripts')
+
+
 </body>
 </html>

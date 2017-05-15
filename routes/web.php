@@ -27,6 +27,11 @@ Route::get('social_login/callback/{provider}', '\App\Http\Controllers\Auth\Socia
 Route::get('users', ['as' => 'users', 'uses' => 'UsersController@users']);
 
 /*
+ * Ajax
+ */
+
+
+/*
  * Pages
  */
 Route::get('/', 'PagesController@index');

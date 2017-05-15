@@ -20,6 +20,11 @@ class ServiceProvider extends  \Illuminate\Support\ServiceProvider
 	
 	public function register()
 	{
-		
+		$widgets = config("widget.widgets");
+		while(list(,$widget) = each($widgets)) {
+			if(file_exists(__DIR__. '/' . ucfirst($widget) . '/routes.php')) {
+				include __DIR__.  '/' . ucfirst($widget) . '/routes.php';
+			}
+		}
 	}
 }
