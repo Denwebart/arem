@@ -8,8 +8,6 @@
 
 namespace App\Helpers;
 
-use App\Models\Page;
-
 class View
 {
 	/**
