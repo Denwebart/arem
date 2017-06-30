@@ -4,7 +4,7 @@
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
  */
 
-Route::group(['module' => 'Admin', 'prefix' => 'admin', 'middleware' => ['web', 'auth'], 'namespace' => 'Modules\Admin\Controllers'], function () {
+Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['web', 'auth'], 'namespace' => 'Modules\Admin\Controllers'], function () {
 	
 	Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
 	

@@ -322,7 +322,7 @@ class UsersController extends Controller
                         WHEN 0 THEN 3
                         END'))
 			->orderBy('created_at', 'ASC')
-			->with(['comments', 'pages', 'requestedCalls'])
+			->with(['comments', 'pages'])
 			->get();
 	}
 }

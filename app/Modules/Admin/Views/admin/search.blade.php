@@ -64,14 +64,6 @@
                                 </a>
                             </li>
                         @endif
-                        @if(isset($galleryResults) && count($galleryResults))
-                            <li class="">
-                                <a href="#gallery" data-toggle="tab" aria-expanded="false">
-                                    <b>Галерея</b>
-                                    <span class="badge badge-danger m-l-10">{{ count($galleryResults) }}</span>
-                                </a>
-                            </li>
-                        @endif
                         @if(isset($usersResults) && count($usersResults))
                             <li class="">
                                 <a href="#users" data-toggle="tab" aria-expanded="false">
@@ -91,9 +83,6 @@
                                         @if(is_a($result, \App\Models\Page::class))
                                             {{--Page--}}
                                             @include('admin::admin._searchPage')
-                                        @elseif(is_a($result, \App\Models\Gallery::class))
-                                            {{-- Gallery --}}
-                                            @include('admin::admin._searchGallery')
                                         @elseif(is_a($result, \App\Models\User::class))
                                             {{--User--}}
                                             @include('admin::admin._searchUser')
@@ -168,45 +157,6 @@
                             </div>
                         @endif
                         <!-- end Pages tab -->
-
-                        <!-- Gallery tab -->
-                        @if(isset($galleryResults) && count($galleryResults))
-                            <div class="tab-pane" id="gallery">
-
-                                @foreach($galleryResults as $result)
-                                    {{--Gallery--}}
-                                    @include('admin::admin._searchGallery')
-                                @endforeach
-
-                                {{--<ul class="pagination pagination-split pull-right">--}}
-                                    {{--<li class="disabled">--}}
-                                        {{--<a href="#"><i class="fa fa-angle-left"></i></a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#">1</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li class="active">--}}
-                                        {{--<a href="#">2</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#">3</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#">4</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#">5</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li>--}}
-                                        {{--<a href="#"><i class="fa fa-angle-right"></i></a>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-
-                                <div class="clearfix"></div>
-
-                            </div>
-                        @endif
-                        <!-- end Gallery tab -->
 
                         <!-- Users tab -->
                         @if(isset($usersResults) && count($usersResults))

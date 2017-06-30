@@ -246,18 +246,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.gallery.index') }}" class="waves-effect @if(Request::is('admin/gallery*')) active @endif">
-                            <i class="fi-camera "></i>
-                            <span>Галерея</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.calls.index') }}" class="waves-effect @if(Request::is('admin/calls*')) active @endif">
-                            <i class="fa fa-phone"></i>
-                            <span>Звонки</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin.letters.index') }}" class="waves-effect @if(Request::is('admin/letters*')) active @endif">
                             <i class="fi-mail"></i>
                             <span>Письма</span>

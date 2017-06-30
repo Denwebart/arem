@@ -51,7 +51,7 @@
                             @if($user->deleted_at)
                                 <button type="button" class="button-undelete btn btn-link text-success btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}">Восстановить</button>
                             @else
-                                <button type="button" class="button-delete btn btn-link text-danger btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}" data-has-activities="{{ (count($user->pages) || count($user->comments) || count($user->requestedCalls)) ? 1 : 0 }}">Удалить</button>
+                                <button type="button" class="button-delete btn btn-link text-danger btn-sm m-t-15 waves-effect waves-light" data-item-id="{{ $user->id }}" data-item-title="{{ $user->login }}" data-has-activities="{{ (count($user->pages) || count($user->comments)) ? 1 : 0 }}">Удалить</button>
                             @endif
                         @endif
                     </div>

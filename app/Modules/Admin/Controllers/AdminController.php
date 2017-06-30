@@ -8,7 +8,6 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\Gallery;
 use App\Models\Page;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -57,16 +56,6 @@ class AdminController extends Controller
 				->orderBy('score', 'DESC')
 				->get();
 			
-			$galleryResults = Gallery::select(DB::raw('*, MATCH (title, description, image_alt) AGAINST ("' . $searchQuery . '") AS score'))
-				->where(function($query) use($searchQuery) {
-					$query->where('title', 'LIKE', "%$searchQuery%")
-						->orWhere('description', 'LIKE', "%$searchQuery%")
-						->orWhere('image_alt', 'LIKE', "%$searchQuery%");
-				})
-//				->whereRaw("MATCH (title, description, image_alt) AGAINST (? in boolean mode)", [$searchQuery])
-				->orderBy('score', 'DESC')
-				->get();
-			
 			$usersResults = User::select(DB::raw('*, MATCH (login, email, firstname, lastname, description) AGAINST ("' . $searchQuery . '") AS score'))
 				->where(function($query) use($searchQuery) {
 					$query->where('login', 'LIKE', "%$searchQuery%")
@@ -80,11 +69,10 @@ class AdminController extends Controller
 				->get();
 			
 			$results = $results->merge($usersResults)
-				->merge($galleryResults)
 				->merge($pagesResults)
 				->sortByDesc('score')->values()->all();
 			
-			return view('admin::admin.search', compact('searchQuery','results', 'pagesResults', 'galleryResults', 'usersResults'));
+			return view('admin::admin.search', compact('searchQuery','results', 'pagesResults', 'usersResults'));
 		}
 		
 		return view('admin::admin.search', compact('searchQuery','results'));

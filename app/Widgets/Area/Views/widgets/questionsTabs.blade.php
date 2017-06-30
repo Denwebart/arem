@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="items">
-            @include('widget.area::widgets.questions')
+            @include('widget.area::widgets.questionsTabsItems')
         </div>
     </div>
 @endif
