@@ -77,9 +77,12 @@ class Page extends Model
 	protected $imagePath = '/uploads/pages/{id}/';
 	protected $defaultImagePath = '/img/default-image.svg';
 	
+	protected $pageSufix = '.html';
+	
 	/**
 	 * Id страниц с контактной формы и карты сайта
 	 */
+	const ID_MAIN_PAGE    = 1;
 	const ID_CONTACT_PAGE = 2;
 	const ID_SITEMAP_PAGE = 3;
 	const ID_AWARDS_PAGE  = 4;
@@ -100,6 +103,25 @@ class Page extends Model
 		self::TYPE_QUESTION => 'Вопрос',
 		self::TYPE_ARTICLE  => 'Статья',
 		self::TYPE_SYSTEM_PAGE  => 'Системная страница',
+	];
+	
+	public static $pagesIcons = [
+		self::ID_MAIN_PAGE     => 'fa fa-home',
+		self::ID_CONTACT_PAGE  => 'fa fa-envelope-o',
+		self::ID_SITEMAP_PAGE  => 'fa fa-sitemap',
+		self::ID_AWARDS_PAGE   => 'fa fa-trophy',
+		self::ID_TAGS_PAGE     => 'fa fa-tags',
+	];
+	
+	/**
+	 * Статус публикации (значение поля is_published)
+	 */
+	const UNPUBLISHED = 0;
+	const PUBLISHED   = 1;
+	
+	public static $is_published = [
+		self::UNPUBLISHED => 'Не опубликована',
+		self::PUBLISHED   => 'Опубликована',
 	];
 	
 	protected $fillable = [
@@ -237,6 +259,30 @@ class Page extends Model
 	}
 	
 	/**
+	 * Is main page?
+	 * @return bool
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function isMain()
+	{
+		return $this->id == self::ID_MAIN_PAGE ? true : false;
+	}
+	
+	/**
+	 * Can page be deleted?
+	 * @return bool
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function canBeDeleted()
+	{
+		return ($this->type != self::TYPE_SYSTEM_PAGE) ? true : false;
+	}
+	
+	/**
 	 * Get page title (menu_title or title)
 	 *
 	 * @return mixed
@@ -262,23 +308,6 @@ class Page extends Model
 	}
 	
 	/**
-	 * Get url of the main image
-	 *
-	 * @return mixed
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function getImageUrl($default = true)
-	{
-		// доделать
-		return $this->image
-			? url($this->defaultImagePath)
-			: ($default
-				? url($this->defaultImagePath)
-				: null);
-	}
-	
-	/**
 	 * Get attribute "alt" of the main image (from field image_alt or title)
 	 *
 	 * @return mixed
@@ -293,28 +322,31 @@ class Page extends Model
 	/**
 	 * Get page url
 	 *
-	 * @param string $sufix
+	 * @param bool $withoutDomain
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	public function getUrl($sufix = '.html')
+	public function getUrl($withoutDomain = false)
 	{
 		// доделать - рефакторинг?
 		if(self::TYPE_ARTICLE != $this->type) {
 			
-			$sufix = (!$this->is_container && $this->alias != '/') ? $sufix : '';
+			$sufix = (!$this->is_container && $this->alias != '/') ? $this->pageSufix : '';
 			
 			if($this->parent_id) {
-				return url($this->parent->getUrl() . '/' . $this->alias . $sufix);
+				$url = $this->parent->getUrl($withoutDomain) . '/' . $this->alias . $sufix;
 			} else {
-				return url($this->alias . $sufix);
+				$url = $this->alias == '/' ? '/' : '/' . $this->alias . $sufix;
 			}
 			
 		} else {
-			$parentUrl = $this->parent_id ? ($this->parent) ? $this->parent->alias : '' : '';
-			return url($parentUrl . '/' . $this->user->alias . '/' . $this->alias . $sufix);
+			$parentUrl = $this->parent_id ? (($this->parent) ? $this->parent->alias . '/' : '') : '';
+			$userUrl = $this->user_id ? (($this->user) ? $this->user->alias . '/' : '') : '';
+			$url = $parentUrl . $userUrl . $this->alias . $this->pageSufix;
 		}
+		
+		return $withoutDomain ? $url : url($url);
 	}
 	
 	/**
@@ -357,5 +389,118 @@ class Page extends Model
 				]
 			);
 		}
+	}
+	
+	/**
+	 * Get url of the main image
+	 *
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+//	public function getImageUrl($default = true)
+//	{
+//		// доделать
+//		return $this->image
+//			? url($this->defaultImagePath)
+//			: ($default
+//				? url($this->defaultImagePath)
+//				: null);
+//	}
+	
+	/**
+	 * Get url of the main image
+	 *
+	 * @param null $prefix (null, 'origin', 'full', 'mini')
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageUrl($prefix = null)
+	{
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return $this->image ? asset($this->imagePath . $this->id . '/' . $prefix . $this->image) : '';
+	}
+	
+	/**
+	 * Get default image url
+	 *
+	 * @param null $prefix (null, 'origin', 'full', 'mini')
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getDefaultImageUrl($prefix = null)
+	{
+		$prefix = is_null($prefix) ? '' : ($prefix . '_');
+		return asset($this->defaultImagePath . $prefix . $this->defaultImageName);
+	}
+	
+	/**
+	 * Getting the path for loading images through the editor
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageEditorPath() {
+		return $this->imagePath . $this->id . '/editor/';
+	}
+	
+	/**
+	 * Get a temporary path for loading an image
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getTempPath() {
+		return '/uploads/temp/' . \Illuminate\Support\Str::random(20) . '/';
+	}
+	
+	/**
+	 * Moving images from a temporary folder
+	 *
+	 * @param $tempPath
+	 * @param string $field
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function saveEditorImages($tempPath, $field = 'content')
+	{
+		$moveDirectory = File::copyDirectory(public_path($tempPath), public_path($this->getImageEditorPath()));
+		if($moveDirectory) {
+			File::deleteDirectory(public_path($tempPath));
+		}
+		
+		return str_replace($tempPath, $this->getImageEditorPath(), $this->$field);
+	}
+	
+	/**
+	 * Deliting images wich where uploaded by editor
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function deleteEditorImages()
+	{
+		$fieldsValue = $this->introtext . $this->content;
+		// Deleting files from directory
+		if(File::exists(public_path($this->getImageEditorPath()))) {
+			$files = File::allFiles(public_path($this->getImageEditorPath()));
+			foreach($files as $file)
+			{
+				if(strpos($fieldsValue, $file->getFilename()) === false) {
+					if(File::exists($file)) {
+						$filename = $file->getPath() . $file->getFilename();
+						File::delete($filename);
+					}
+				}
+			}
+		}
+		
+		return true;
 	}
 }

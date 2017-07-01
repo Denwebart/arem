@@ -244,8 +244,8 @@ class PagesController extends Controller
 	 */
 	protected function getPages()
 	{
-		return Page::select(['id', 'parent_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'menu_title', 'meta_title', 'meta_desc', 'meta_key'])
-			->with('parent', 'children')
+		return Page::select(['id', 'parent_id', 'user_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'menu_title', 'meta_title', 'meta_desc', 'meta_key'])
+			->with('parent', 'children', 'user')
 			->get();
 	}
 }
