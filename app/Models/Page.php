@@ -80,6 +80,11 @@ class Page extends Model
 	protected $pageSufix = '.html';
 	
 	/**
+	 * Максимальная вложнность страниц
+	 */
+	const MAX_LEVEL = 4; // 4 уровня
+	
+	/**
 	 * Id страниц с контактной формы и карты сайта
 	 */
 	const ID_MAIN_PAGE    = 1;
@@ -503,4 +508,66 @@ class Page extends Model
 		
 		return true;
 	}
+	
+	/**
+	 * Get categories array
+	 *
+	 * @param bool $pageType
+	 * @param bool $empty
+	 * @return array List of categories (id => title)
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public static function getCategory($pageType = false, $empty = true)
+	{
+		$query = new Page();
+		$query = $query->select('id', 'parent_id', 'alias', 'title', 'menu_title', 'is_container', 'type');
+		$query = $query->whereIsContainer(1)
+			->whereParentId(0);
+		
+		if($pageType) {
+			$query = $query->where('type', '=', $pageType);
+		}
+		
+		$pages = $query->get();
+		
+		$array = [];
+		if($empty) {
+			$array[0] = '&mdash;'; // тире
+		}
+		foreach ($pages as $page) {
+			$array[$page->id] = $page->getTitle();
+			
+			$array = $array + self::getCategoryChildren($page, 1);
+		}
+		return $array;
+	}
+	
+	/**
+	 * Recursive function for get child page array
+	 *
+	 * @param $page
+	 * @param $level
+	 * @return array
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 *
+	 */
+	protected static function getCategoryChildren($page, $level)
+	{
+		if($level < (self::MAX_LEVEL - 1)) {
+			if(count($page->children)) {
+				foreach($page->children()->whereIsContainer(1)->get() as $child) {
+					$array[$child->id] = ' ' . str_repeat('&mdash; ', $level) . $child->getTitle();
+					if(count($child->children)) {
+						$array = $array + self::getCategoryChildren($child, $level + 1);
+					}
+				}
+			}
+		}
+		return isset($array) ? $array : [];
+	}
+	
 }

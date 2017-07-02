@@ -18,7 +18,18 @@ $route = isset($route) ? $route : \Route::current()->getName();
                                 {{--<input type="checkbox" id="chk-{{ $letter->id }}">--}}
                                 {{--<label for="chk-{{ $letter->id }}" class="toggle"></label>--}}
                             {{--</div>--}}
-                            <p class="title">{{ $letter->name }}</p>
+                            <p class="title">
+                                @if($letter->user)
+                                    {{--<a href="{{ $letter->user->getUrl() }}">--}}
+                                        <span class="text-info">{{ $letter->user->login }}</span>
+                                    {{--</a>--}}
+                                @else
+                                    {{ $letter->user_name }}
+                                    <span class="font-12 text-muted">
+                                        ({{ $letter->user_email }})
+                                    </span>
+                                @endif
+                            </p>
                             @if(!$letter->is_important)
                                 <button type="button" class="button-make-important star-toggle fa fa-star-o m-l-20" data-item-id="{{ $letter->id }}" data-is-important="{{ $letter->is_important }}" data-toggle="tooltip" title="Отметить как важное"></button>
                             @else

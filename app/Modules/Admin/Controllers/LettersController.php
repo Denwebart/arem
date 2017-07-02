@@ -228,7 +228,7 @@ class LettersController extends Controller
 			$query = $query->whereNull('deleted_at');
 		}
 		
-		$letters = $query->orderBy('created_at', 'DESC')->paginate(20);
+		$letters = $query->orderBy('created_at', 'DESC')->with(['user'])->paginate(20);
 		return $letters;
 	}
 }

@@ -12,7 +12,16 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Письмо от {{ $letter->email }}</h4>
+            <h4 class="page-title">Письмо от
+                @if($letter->user)
+                    <a href="{{ $letter->user->getUrl() }}">
+                        {{ $letter->user->login }}
+                        ({{ $letter->user->email }})
+                    </a>
+                @else
+                    {{ $letter->user_email }}
+                @endif
+            </h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
@@ -84,12 +93,29 @@
 
                     <div class="media m-b-30 ">
                         <span class="pull-left">
-                            <img alt="" src="{{ asset('images/default-avatar.png') }}" class="pull-left media-object thumb-sm img-circle">
+                            @if($letter->user)
+                                <img src="{{ $letter->user->getAvatarUrl() }}" alt="Пользователь {{ $letter->user->login }}" title="Пользователь {{ $letter->user->login }}" data-toggle="tooltip" class="pull-left media-object thumb-sm img-circle">
+                            @else
+                                <img src="{{ asset('images/default-avatar.png') }}" alt="Неавторизованный пользователь" title="Неавторизованный пользователь" data-toggle="tooltip" class="pull-left media-object thumb-sm img-circle">
+                            @endif
                         </span>
                         <div class="media-body">
                             <span class="media-meta pull-right">{{ \App\Helpers\Date::format($letter->created_at, true, true) }}</span>
-                            <h4 class="text-primary m-0">{{ $letter->name }}</h4>
-                            <small class="text-muted">Отправитель: {{ $letter->email }}</small>
+
+                            @if($letter->user)
+                                <h4 class="text-primary m-0">
+                                    <a href="{{ $letter->user->getUrl() }}">
+                                        {{ $letter->user->login }}
+                                        <i class="font-14 m-l-5 fa fa-external-link"></i>
+                                    </a>
+                                </h4>
+                                <a href="{{ $letter->user->getUrl() }}">
+                                    <small class="text-muted">Отправитель: {{ $letter->user->email }}</small>
+                                </a>
+                            @else
+                                <h4 class="text-primary m-0">{{ $letter->user_name }}</h4>
+                                <small class="text-muted">Отправитель: {{ $letter->user_email }}</small>
+                            @endif
                         </div>
                     </div> <!-- media -->
 
