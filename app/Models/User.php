@@ -176,6 +176,7 @@ class User extends Authenticatable
 			$user->receivedMessages()->delete();
 			$user->sentMessages()->delete();
 			$user->pages()->delete();
+			$user->comments()->delete();
 		});
 	}
 	
@@ -189,6 +190,18 @@ class User extends Authenticatable
 	public function pages()
 	{
 		return $this->hasMany(Page::class);
+	}
+	
+	/**
+	 * Comments of the user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
 	}
 	
 	/**
@@ -262,6 +275,30 @@ class User extends Authenticatable
     	return $this->role == self::ROLE_NONE && is_null($this->remember_token)
 		    ? false : true;
     }
+	
+	/**
+	 * Is superadmin?
+	 * @return bool
+	 *
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function isSuperadmin()
+	{
+		return $this->id == 1 ? true : false;
+	}
+	
+	/**
+	 * Is user has admin permission?
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function hasAdminPermission()
+	{
+		return $this->isSuperadmin() || $this->role == self::ROLE_ADMIN ? true : false;
+	}
 	
 	/**
 	 * Get user's profile url

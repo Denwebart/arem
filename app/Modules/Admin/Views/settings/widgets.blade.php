@@ -42,13 +42,13 @@
 
 <div class="row">
     <div class="col-lg-6">
-        @include('admin::slider.index')
-        @include('admin::reviews.index')
+        {{--@include('admin::reviews.index')--}}
+        {{--@include('admin::slider.index'--}}
     </div><!-- end col -->
 
     <div class="col-lg-6">
-        @include('admin::teamMembers.index')
-        @include('admin::partners.index')
+        {{--@include('admin::teamMembers.index')--}}
+        {{--@include('admin::partners.index')--}}
     </div><!-- end col -->
 </div>
 
