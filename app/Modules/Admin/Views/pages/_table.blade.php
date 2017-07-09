@@ -11,6 +11,7 @@
         <tr>
             <th>ID</th>
             <th>Тип</th>
+            <th>Изображение</th>
             <th>Заголовок</th>
             <th>URL</th>
             <th>Статус публикации</th>
@@ -36,6 +37,10 @@
                     @else
                         <i class="fa fa-file-o" title="Страница" data-toggle="tooltip"></i>
                     @endif
+                </td>
+
+                <td>
+                    <img src="{{ $page->getImageUrl( true) }}" alt="{{ $page->image_alt }}" title="{{ $page->image_alt }}">
                 </td>
 
                 <td>

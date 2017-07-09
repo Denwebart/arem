@@ -29,7 +29,7 @@ class MenusController extends Controller
 		// доделать изменение заголовка меню для других пунктов меню (в других меню)
 		if($request->ajax()) {
 			$menu = Menu::find($request->get('pk'));
-
+			
 			if($menu && $menu->page) {
 				$newMenuTitle = trim($request->get('value'));
 				$validator = \Validator::make(['menu_title' => $newMenuTitle], ['menu_title' => 'required|max:50']);
@@ -40,26 +40,26 @@ class MenusController extends Controller
 						'error' => $validator->errors()->first('menu_title'),
 					]);
 				}
-
+				
 				$menu->page->menu_title = $newMenuTitle;
 				$menu->page->save();
 				
 				\Cache::forget('menuItems');
-
+				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Заголовок меню успешно изменен.',
 					'pageId' => $menu->page->id,
 				]);
 			}
-
+			
 			return \Response::json([
 				'success' => false,
 				'message' => 'Произошла ошибка, заголовок меню не изменен.'
 			]);
 		}
 	}
-
+	
 	/**
 	 * Delete menu item
 	 *
@@ -75,9 +75,9 @@ class MenusController extends Controller
 			$menu = Menu::whereId($request->get('itemId'))
 				->whereType($request->get('menuType'))
 				->first();
-
+			
 			if(is_object($menu) && $menu->delete()) {
-
+				
 				$items = Menu::getMenuItems($request->get('menuType'));
 				
 				\Cache::forget('menuItems');
@@ -85,18 +85,19 @@ class MenusController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пункт меню успешно удалён.',
-					'menuItemsHtml' => view('admin::menus.items', compact('items'))
+					'resultHtml' => view('admin::menus.items', compact('items'))
 						->with('menuType', $request->get('menuType'))->render(),
+					'itemsCount' => count($items),
 				]);
 			}
-
+			
 			return \Response::json([
 				'success' => false,
 				'message' => 'Произошла ошибка, пункт меню не удалён'
 			]);
 		}
 	}
-
+	
 	/**
 	 * Change position of menu items
 	 *
@@ -118,13 +119,13 @@ class MenusController extends Controller
 		}
 		
 		\Cache::forget('menuItems');
-
+		
 		return \Response::json(array(
 			'success' => true,
 			'message' => 'Позиция пункта меню изменена.',
 		));
 	}
-
+	
 	/**
 	 * Autocomplete pages for adding to menus
 	 * (with jQuery-Autocomplete https://github.com/devbridge/jQuery-Autocomplete)
@@ -144,9 +145,9 @@ class MenusController extends Controller
 			->get(['id', 'alias', 'type', 'is_container', 'parent_id', 'title', 'menu_title']);
 		$result = ['query' => "Unit", 'suggestions' => []];
 		foreach($pages as $item) {
-			$title = ($item->menu_title != $item->title)
-				? $item->menu_title . ' (' . $item->title . ' | URL: ' . $item->getUrl(true) . ')'
-				: $item->getTitle() . ' (' . $item->getUrl(true) . ')';
+			$title = ($item->title && $item->menu_title != $item->title)
+				? $item->getTitle() . ' (' . $item->title . ' | URL: ' . $item->getUrl(true) . ')'
+				: $item->getTitle() . ' (URL: ' . $item->getUrl(true) . ')';
 			$result['suggestions'][] = [
 				'value' => $title, 'data' => $item->id
 			];
@@ -154,7 +155,7 @@ class MenusController extends Controller
 		
 		return \Response::json($result);
 	}
-
+	
 	/**
 	 * Add new menu item
 	 *
@@ -167,26 +168,26 @@ class MenusController extends Controller
 	public function add(Request $request)
 	{
 		if($request->ajax()) {
-
+			
 			if(!$request->get('pageId') || (!$request->get('pageTitle') && empty($request->get('pageTitle')))) {
 				return \Response::json([
 					'success' => false,
 					'message' => 'Пункт меню не добавлен. Выберите страницу, которую хотите добавить.'
 				]);
 			}
-
+			
 			$page = Page::whereId($request->get('pageId'))
 				->orWhere('title', '=', $request->get('pageTitle'))
 				->orWhere('menu_title', '=', $request->get('pageTitle'))
 				->first();
-
+			
 			if(!$page) {
 				return \Response::json([
 					'success' => false,
 					'message' => 'Пункт меню не добавлен. Страница, которую вы хотите добавить, не существует.'
 				]);
 			}
-
+			
 			$menu = Menu::whereType($request->get('menuType'))->wherePageId($page->id)->first();
 			if($menu) {
 				return \Response::json([
@@ -194,14 +195,14 @@ class MenusController extends Controller
 					'message' => 'Такой пункт меню уже добавлен в меню "' . Menu::$types[$request->get('menuType')] . '".'
 				]);
 			}
-
+			
 			$menuItem = new Menu();
 			$menuItem->type = $request->get('menuType');
 			$menuItem->page_id = $page->id;
 			
 			$position = DB::table('menus')->max('position');
 			$menuItem->position = $position + 1;
-
+			
 			if($menuItem->save()) {
 				$items = Menu::getMenuItems($request->get('menuType'));
 				
@@ -210,8 +211,9 @@ class MenusController extends Controller
 				return \Response::json([
 					'success' => true,
 					'message' => 'Пункт меню успешно добавлен.',
-					'menuItemsHtml' => view('admin::menus.items', compact('items'))
+					'resultHtml' => view('admin::menus.items', compact('items'))
 						->with('menuType', $request->get('menuType'))->render(),
+					'itemsCount' => count($items),
 				]);
 			}
 		}

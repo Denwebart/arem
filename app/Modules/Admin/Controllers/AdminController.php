@@ -43,7 +43,7 @@ class AdminController extends Controller
 		
 		if($searchQuery) {
 			
-			$pagesResults = Page::select(DB::raw('*, MATCH (alias, title, menu_title, introtext, content) AGAINST ("' . $searchQuery . '") AS score'))
+			$pagesResults = Page::select(DB::raw('*, MATCH(alias, title, menu_title, introtext, content) AGAINST("' . $searchQuery . '") AS score'))
 				->where(function($query) use($searchQuery) {
 					$query->where('title', 'LIKE', "%$searchQuery%")
 						->orWhere('menu_title', 'LIKE', "%$searchQuery%")
@@ -52,11 +52,11 @@ class AdminController extends Controller
 						->orWhere(DB::raw('strip_tags(content)'), 'LIKE', "%$searchQuery%");
 				})
 				->with('children', 'user')
-//					->whereRaw("MATCH (alias, title, menu_title, introtext, content) AGAINST (? in boolean mode)", [$searchQuery])
+//				->whereRaw('MATCH(alias, title, menu_title, introtext, content) AGAINST("' . $searchQuery . '")')
 				->orderBy('score', 'DESC')
 				->get();
 			
-			$usersResults = User::select(DB::raw('*, MATCH (login, email, firstname, lastname, description) AGAINST ("' . $searchQuery . '") AS score'))
+			$usersResults = User::select(DB::raw('*, MATCH(login, email, firstname, lastname, description) AGAINST("' . $searchQuery . '") AS score'))
 				->where(function($query) use($searchQuery) {
 					$query->where('login', 'LIKE', "%$searchQuery%")
 						->orWhere('firstname', 'LIKE', "%$searchQuery%")
@@ -65,7 +65,7 @@ class AdminController extends Controller
 						->orWhere('description', 'LIKE', "%$searchQuery%");
 				})
 //				->whereRaw("MATCH (login, email, firstname, lastname, description) AGAINST (? in boolean mode)", [$searchQuery])
-				->orderBy('score', 'desc')
+				->orderBy('score', 'DESC')
 				->get();
 			
 			$results = $results->merge($usersResults)

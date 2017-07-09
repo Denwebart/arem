@@ -15,7 +15,11 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::get('search', ['as' => 'search', 'uses' => 'AdminController@search']);
 	
 	Route::post('pages/change_published_status/{id}', ['as' => 'pages.changePublishedStatus', 'uses' => 'PagesController@changePublishedStatus']);
+	Route::get('pages/articles', ['as' => 'pages.articles', 'uses' => 'PagesController@articles']);
+	Route::get('pages/questions', ['as' => 'pages.questions', 'uses' => 'PagesController@questions']);
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
+	
+	Route::resource('comments', 'CommentsController', ['except' => ['show']]);
 	
 	Route::post('letters/change_important_status/{id}', ['as' => 'letters.changeImportantStatus', 'uses' => 'LettersController@changeImportantStatus']);
 	Route::post('letters/undelete/{id}', ['as' => 'letters.undelete', 'uses' => 'LettersController@undelete']);
@@ -40,4 +44,5 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::post('menus/add', ['as' => 'menus.add', 'uses' => 'MenusController@add']);
 	Route::get('menus/autocomplete', ['as' => 'menus.autocomplete', 'uses' => 'MenusController@pagesAutocomplete']);
 	
+	Route::get('advertising', ['as' => 'advertising.index', 'uses' => 'AdvertisingController@index']);
 });

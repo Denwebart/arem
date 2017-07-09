@@ -246,17 +246,55 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.letters.index') }}" class="waves-effect @if(Request::is('admin/letters*')) active @endif">
-                            <i class="fi-mail"></i>
-                            <span>Письма</span>
+                        <a href="{{ route('admin.pages.questions') }}" class="waves-effect @if(Request::is('admin/pages/questions*')) active @endif">
+                            <i class="fa fa-question-circle-o"></i>
+                            <span>Вопросы</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.pages.articles') }}" class="waves-effect @if(Request::is('admin/pages/articles*')) active @endif">
+                            <i class="fi-file"></i>
+                            <span>Статьи пользователей</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.comments.index') }}" class="waves-effect @if(Request::is('admin/comments*')) active @endif">
+                            <i class="fi-speech-bubble"></i>
+                            <span>Комментарии и ответы</span>
                         </a>
                     </li>
 
                     <li class="menu-delimiter"></li>
                     <li>
+                        <a href="{{ route('admin.letters.index') }}" class="waves-effect @if(Request::is('admin/letters*')) active @endif">
+                            <i class="fi-mail"></i>
+                            <span>Письма</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.users.index') }}" class="waves-effect @if(Request::is('admin/users*')) active @endif">
                             <i class="fi-head"></i>
                             <span>Пользователи</span>
+                        </a>
+                    </li>
+
+                    <li class="menu-delimiter"></li>
+                    {{--<li>--}}
+                        {{--<a href="javascript: void(0);" aria-expanded="true" class="waves-effect @if(Request::is('admin/settings*')) active @endif">--}}
+                            {{--<i class="fi-cog"></i>--}}
+                            {{--<span>Настройки</span>--}}
+                            {{--<span class="menu-arrow"></span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="nav-second-level nav" aria-expanded="true">--}}
+                            {{--<li><a href="{{ route('admin.settings.index') }}" @if(Request::is('admin/settings*')) class="active" @endif><span>Общие</span></a></li>--}}
+                            {{--<li><a href="{{ route('admin.settings.widgets') }}" @if(Request::is('admin/settings/widgets*')) class="active" @endif><span>Виджеты</span></a></li>--}}
+                            {{--<li><a href="{{ route('admin.settings.advanced') }}" @if(Request::is('admin/settings/advanced*')) class="active" @endif><span>Расширенные</span></a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    <li>
+                        <a href="{{ route('admin.advertising.index') }}" class="waves-effect @if(Request::is('admin/advertising*')) active @endif">
+                            <i class="fi-marquee"></i>
+                            <span>Реклама и виджеты</span>
                         </a>
                     </li>
                     <li>
