@@ -1,6 +1,6 @@
 <?php
 /**
- * Class PagesController
+ * Class CommentsController
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -8,15 +8,15 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\Page;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-class PagesController extends Controller
+class CommentsController extends Controller
 {
 	/**
-	 * Display a listing of the site pages.
+	 * Display a listing of the comments.
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @author     It Hill (it-hill.com@yandex.ua)
@@ -24,37 +24,9 @@ class PagesController extends Controller
 	 */
 	public function index()
 	{
-		$pages = $this->getPages();
+		$comments = $this->getComments();
 		
-		return view('admin::pages.index', compact('pages'));
-	}
-	
-	/**
-	 * Display a listing of the questions.
-	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function questions()
-	{
-		$pages = $this->getPages();
-		
-		return view('admin::pages.questions', compact('pages'));
-	}
-	
-	/**
-	 * Display a listing of the articles.
-	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 * @author     It Hill (it-hill.com@yandex.ua)
-	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
-	 */
-	public function articles()
-	{
-		$pages = $this->getPages();
-		
-		return view('admin::pages.articles', compact('pages'));
+		return view('admin::comments.index', compact('comments'));
 	}
 	
 	/**
@@ -67,12 +39,12 @@ class PagesController extends Controller
 	 */
 	public function create(Request $request)
 	{
-		$page = new Page();
-		$page->is_published = Page::PUBLISHED;
+		$comment = new Comment();
+		$comment->is_published = Comment::PUBLISHED;
 		
 		$backUrl = $request->has('back_url') ? urldecode($request->get('back_url')) : URL::previous();
 		
-		return view('admin::pages.create', compact('page', 'backUrl'));
+		return view('admin::comments.create', compact('comment', 'backUrl'));
 	}
 	
 	/**
@@ -83,31 +55,31 @@ class PagesController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$page = new Page();
+		$comment = new Comment();
 		$data = $request->except('image');
-		$data = array_merge($data, $page->setData($data));
+		$data = array_merge($data, $comment->setData($data));
 		
-		$validator = \Validator::make($data, Page::rules());
+		$validator = \Validator::make($data, Comment::rules());
 		
 		if ($validator->fails())
 		{
-			return redirect(route('admin.pages.create', ['back_url' => urlencode($request->get('backUrl'))]))
+			return redirect(route('admin.comments.create', ['back_url' => urlencode($request->get('backUrl'))]))
 				->withErrors($validator->errors())
 				->withInput($data)
 				->with('errorMessage', 'Страница не сохранена. Исправьте ошибки.');
 		} else {
-			$page->fill($data);
-			$page->save();
+			$comment->fill($data);
+			$comment->save();
 			
-			$page->setImage($request);
-			$page->content = $page->saveEditorImages($data['tempPath']);
-			$page->introtext = $page->saveEditorImages($data['tempPath'], 'introtext');
-			$page->save();
+			$comment->setImage($request);
+			$comment->content = $comment->saveEditorImages($data['tempPath']);
+			$comment->introtext = $comment->saveEditorImages($data['tempPath'], 'introtext');
+			$comment->save();
 			
 			if($request->get('returnBack')) {
 				return redirect($request->get('backUrl'))->with('successMessage', 'Страница создана!');
 			} else {
-				return redirect(route('admin.pages.edit', ['id' => $page->id, 'back_url' => urlencode($request->get('backUrl'))]))
+				return redirect(route('admin.comments.edit', ['id' => $comment->id, 'back_url' => urlencode($request->get('backUrl'))]))
 					->with('successMessage', 'Страница создана!');
 			}
 		}
@@ -124,11 +96,11 @@ class PagesController extends Controller
 	 */
 	public function edit(Request $request, $id)
 	{
-		$page = Page::findOrFail($id);
+		$comment = Comment::findOrFail($id);
 		
 		$backUrl = $request->has('back_url') ? urldecode($request->get('back_url')) : URL::previous();
 		
-		return view('admin::pages.edit', compact('page', 'backUrl'));
+		return view('admin::comments.edit', compact('comment', 'backUrl'));
 	}
 	
 	/**
@@ -140,17 +112,17 @@ class PagesController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		$page = Page::findOrFail($id);
+		$comment = Comment::findOrFail($id);
 		$data = $request->except('image');
-		if($page->isMain()) {
+		if($comment->isMain()) {
 			$data['alias'] = '/';
 		}
-		$data = array_merge($data, $page->setData($data));
+		$data = array_merge($data, $comment->setData($data));
 
-		$rules = Page::rules($page->id);
+		$rules = Comment::rules($comment->id);
 		$messages = [];
-		// validation rule for main page
-		if($page->isMain()) {
+		// validation rule for main comment
+		if($comment->isMain()) {
 			$rules['alias'] = 'regex:/^[\/]+$/u';
 			$messages['alias.regex'] = 'Алиас главной страницы нельзя изменить.';
 		}
@@ -158,30 +130,30 @@ class PagesController extends Controller
 		
 		if ($validator->fails())
 		{
-			return redirect(route('admin.pages.edit', ['id' => $page->id, 'back_url' => urlencode($request->get('backUrl'))]))
+			return redirect(route('admin.comments.edit', ['id' => $comment->id, 'back_url' => urlencode($request->get('backUrl'))]))
 				->withErrors($validator->errors())
 				->withInput()
 				->with('errorMessage', 'Страница не сохранена. Исправьте ошибки.');
 		} else {
-			if(count($page->menus)) {
+			if(count($comment->menus)) {
 				foreach (['alias', 'title', 'menu_title', 'parent_id', 'is_published'] as $attribute) {
-					if ($page->$attribute != $data[$attribute]) {
+					if ($comment->$attribute != $data[$attribute]) {
 						\Cache::forget('menuItems');
 						break;
 					}
 				}
 			}
 			
-			$page->fill($data);
-			$page->setImage($request);
-			$page->content = $page->saveEditorImages($data['tempPath']);
-			$page->introtext = $page->saveEditorImages($data['tempPath'], 'introtext');
-			$page->save();
+			$comment->fill($data);
+			$comment->setImage($request);
+			$comment->content = $comment->saveEditorImages($data['tempPath']);
+			$comment->introtext = $comment->saveEditorImages($data['tempPath'], 'introtext');
+			$comment->save();
 			
 			if($request->get('returnBack')) {
 				return redirect($request->get('backUrl'))->with('successMessage', 'Страница сохранена!');
 			} else {
-				return redirect(route('admin.pages.edit', ['id' => $page->id, 'back_url' => urlencode($request->get('backUrl'))]))->with('successMessage', 'Страница сохранена!');
+				return redirect(route('admin.comments.edit', ['id' => $comment->id, 'back_url' => urlencode($request->get('backUrl'))]))->with('successMessage', 'Страница сохранена!');
 			}
 		}
 	}
@@ -196,17 +168,17 @@ class PagesController extends Controller
 	 */
 	public function destroy($id)
 	{
-		$page = Page::find($id);
-		if($page->canBeDeleted()) {
-			$page->delete();
+		$comment = Comment::find($id);
+		if($comment->canBeDeleted()) {
+			$comment->delete();
 			
 			if(\Request::ajax()) {
-				$pages = $this->getPages();
+				$comments = $this->getComments();
 				
 				return \Response::json([
 					'success' => true,
 					'message' => 'Страница успешно удалена.',
-					'resultHtml' => view('admin::pages._table', compact('pages'))->render(),
+					'resultHtml' => view('admin::comments._table', compact('comments'))->render(),
 				]);
 			} else {
 				return back()->with('successMessage', 'Страница успешно удалена.');
@@ -234,22 +206,22 @@ class PagesController extends Controller
 	 */
 	public function changePublishedStatus(Request $request, $id)
 	{
-		$page = Page::findOrFail($id);
-		if(!$page->isMain()) {
+		$comment = Comment::findOrFail($id);
+		if(!$comment->isMain()) {
 			if($request->has('is_published')) {
-				$page->is_published = !$request->get('is_published');
-				$page->published_at = Carbon::now();
-				$page->save();
+				$comment->is_published = !$request->get('is_published');
+				$comment->published_at = Carbon::now();
+				$comment->save();
 				
 				if(\Request::ajax()) {
 					return \Response::json([
 						'success' => true,
-						'message' => $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.',
-						'isPublished' => (integer) $page->is_published,
-						'isPublishedText' => Page::$is_published[$page->is_published],
+						'message' => $comment->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.',
+						'isPublished' => (integer) $comment->is_published,
+						'isPublishedText' => Comment::$is_published[$comment->is_published],
 					]);
 				} else {
-					return back()->with('successMessage', $page->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.');
+					return back()->with('successMessage', $comment->is_published ? 'Страница опубликована.' : 'Страница снята с публикации.');
 				}
 			}
 		} else {
@@ -265,16 +237,16 @@ class PagesController extends Controller
 	}
 	
 	/**
-	 * Get list of pages
+	 * Get list of comments
 	 *
 	 * @return mixed
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected function getPages()
+	protected function getComments()
 	{
-		return Page::select(['id', 'parent_id', 'user_id', 'alias', 'type', 'is_container', 'is_published', 'title', 'image', 'image_alt', 'menu_title', 'meta_title', 'meta_desc', 'meta_key'])
-			->with('parent', 'children', 'user')
+		return Comment::select(['id', 'parent_id', 'user_id', 'user_email', 'user_name', 'is_answer', 'ip_id', 'page_id', 'is_published', 'is_deleted', 'votes_like', 'votes_dislike', 'mark', 'comment', 'created_at', 'published_at'])
+			->with('parent', 'children', 'user', 'page')
 			->get();
 	}
 }

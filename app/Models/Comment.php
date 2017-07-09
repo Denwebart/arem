@@ -55,9 +55,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Comment extends Model
 {
+	protected $table = 'comments';
+	
 	const MARK_BEST = 1;
 	
-	protected $table = 'comments';
+	/**
+	 * Максимальная вложнность комментариев
+	 */
+	const MAX_LEVEL = 2; // 2 уровня
+	
+	/**
+	 * Статус публикации (значение поля is_published)
+	 */
+	const UNPUBLISHED = 0;
+	const PUBLISHED   = 1;
+	
+	public static $is_published = [
+		self::UNPUBLISHED => 'Не опубликован',
+		self::PUBLISHED   => 'Опубликован',
+	];
 	
 	protected $fillable = [
 		'is_answer',
