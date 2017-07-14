@@ -12,16 +12,16 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Новая страница</h4>
+            <h4 class="page-title">Редактирование страницы</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.pages.index') }}">Страницы</a>
+                    <a href="{{ route('admin.advertising.index') }}">Страницы</a>
                 </li>
                 <li class="active">
-                    Новая страница
+                    Редактирование страницы
                 </li>
             </ol>
             <div class="clearfix"></div>
@@ -32,12 +32,28 @@
 
 <div class="row">
     <div class="col-sm-6 col-md-6 col-xs-12 hidden-xs">
+        @if($page->user)
+            <p class="text-muted font-13 m-b-0">
+                Автор:
+                <a href="{{ route('admin.users.show', ['id' => $page->user->id]) }}">
+                    <img src="{{ $page->user->getAvatarUrl() }}" class="img-circle m-l-5" width="18px" alt="{{ $page->user->login }}">
+                    <span class="m-l-5">{{ $page->user->login }}</span>
+                </a>
+            </p>
+        @endif
         <p class="text-muted font-13 m-b-0">
-            Автор:
-            <a href="{{ route('admin.users.show', ['id' => Auth::user()->id]) }}">
-                <img src="{{ Auth::user()->getAvatarUrl() }}" class="img-circle m-l-5" width="18px" alt="{{ Auth::user()->login }}">
-                <span class="m-l-5">{{ Auth::user()->login }}</span>
-            </a>
+            @if($page->is_published)
+                Опубликована: {{ \App\Helpers\Date::format($page->published_at, true) }}.
+            @endif
+            Последнее обновение:
+            @if($page->updated_at)
+                {{ \App\Helpers\Date::format($page->updated_at, true) }}
+                @if(\App\Helpers\Date::format($page->updated_at, true) != \App\Helpers\Date::getRelative($page->updated_at, true))
+                    ({{ \App\Helpers\Date::getRelative($page->updated_at, true) }})
+                @endif
+            @else
+                cтраница не обновлялась.
+            @endif
         </p>
     </div>
     <div class="col-sm-6 col-md-6 col-xs-12">
@@ -61,7 +77,8 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card-box">
-            {!! Form::model($page, ['route' => ['admin.pages.store'], 'class' => 'form-horizontal', 'id' => 'main-form', 'files' => true]) !!}
+            {!! Form::model($page, ['route' => ['admin.pages.update', $page->id], 'class' => 'form-horizontal', 'id' => 'main-form', 'files' => true]) !!}
+            {!! Form::hidden('_method', 'PUT') !!}
 
             @include('admin::pages._form')
 

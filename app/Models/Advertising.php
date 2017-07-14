@@ -91,6 +91,17 @@ class Advertising extends Model
 	];
 	
 	/**
+	 * Active status (значение поля is_active)
+	 */
+	const INACTIVE = 0;
+	const ACTIVE   = 1;
+	
+	public static $is_active = [
+		self::INACTIVE => 'Не включен',
+		self::ACTIVE   => 'Включен',
+	];
+	
+	/**
 	 * Types
 	 */
 	const TYPE_ADVERTISING = 1;

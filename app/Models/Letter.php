@@ -10,6 +10,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * App\Models\Letter
@@ -74,6 +75,18 @@ class Letter extends Model
 		
 		static::addGlobalScope('newFirst', function (Builder $builder) {
 			$builder->orderBy('created_at', 'DESC');
+		});
+		
+		static::creating(function($letter) {
+			//
+		});
+		
+		static::deleting(function($letter) {
+			if(!$letter->deleted_at) {
+				$letter->deleted_at = Carbon::now();
+				$letter->save();
+				return false;
+			}
 		});
 	}
 	

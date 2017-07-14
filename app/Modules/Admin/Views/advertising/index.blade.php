@@ -12,13 +12,13 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Комментарии</h4>
+            <h4 class="page-title">Реклама и виджеты</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
                 </li>
                 <li class="active">
-                    Комментарии
+                    Реклама и виджеты
                 </li>
             </ol>
             <div class="clearfix"></div>
@@ -28,9 +28,16 @@
 <!-- end row -->
 
 <div class="row">
+    <div class="col-sm-12 text-xs-center">
+        <a href="{{ route('admin.pages.create') }}" class="btn btn-inverse m-b-20 pull-right">
+            <i class="fa fa-plus m-r-5"></i>
+            Создать
+        </a>
+    </div>
+
     <div class="col-md-12">
         <div class="card-box" id="table-container">
-            @include('admin::comments._table')
+            @include('admin::advertising._table')
         </div>
     </div><!-- end col -->
 </div>
@@ -69,24 +76,26 @@
         };
         $('#datatable').dataTable(dataTableOptions);
 
-        /* Deleting comments */
+        /* Deleting pages */
         $('#table-container').on('click', '.button-delete', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
             var itemId = $(this).data('itemId'),
                 itemTitle = $(this).data('itemTitle'),
-                pageTitle = $(this).data('pageTitle'),
-                countChildren = $(this).data('countChildren');
+                countChildren = $(this).data('countChildren'),
+                countMenus = $(this).data('countMenus');
 
             var text = '';
-
+            if(countMenus) {
+                text = text + '\n Страница будет удалена из меню.';
+            }
             if(countChildren) {
-                text = text + '\n Все вложенные комментарии (' + countChildren + ' шт.) будут удалены.';
+                text = text + '\n Все вложенные страницы (' + countChildren + ' шт.) будут удалены.';
             }
 
             swal({
-                title: "Удалить комментарий?",
-                text: 'Вы точно хотите удалить комментарий от '+ itemTitle +' к странице "'+ pageTitle +'"?' + text,
+                title: "Удалить страницу?",
+                text: 'Вы точно хотите удалить страницу "'+ itemTitle +'"?' + text,
                 type: "error",
                 showCancelButton: true,
                 cancelButtonText: 'Отмена',
@@ -94,7 +103,7 @@
                 confirmButtonText: 'Удалить'
             }).then(function() {
                 $.ajax({
-                    url: "/admin/comments/" + itemId,
+                    url: "/admin/pages/" + itemId,
                     dataType: "text json",
                     type: "DELETE",
                     data: {},
@@ -116,7 +125,7 @@
             }, function(dismiss) {});
         });
 
-        /* Change published status for comments */
+        /* Change published status for pages */
         $('#table-container').on('click', '.button-change-published-status', function (e) {
             e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
@@ -125,7 +134,7 @@
                 itemPublishedStatus = $button.data('isPublished');
 
             $.ajax({
-                url: "/admin/comments/change_published_status/" + itemId,
+                url: "/admin/pages/change_published_status/" + itemId,
                 dataType: "text json",
                 type: "POST",
                 data: {'is_published': itemPublishedStatus},
@@ -142,10 +151,10 @@
                             $button.find('span').text('Опубликовать');
                         }
                         $button.find('i').toggleClass('mdi-eye-off').toggleClass('mdi-eye');
-                        $('.item[data-item-id='+ itemId +']').find('.published-status .label')
+                        $('.item[data-page-id='+ itemId +']').find('.published-status .label')
                             .toggleClass('label-muted').toggleClass('label-success')
                             .text(response.isPublishedText);
-                        var $metaDataLabel = $('.item[data-item-id='+ itemId +']').find('.meta-data .label');
+                        var $metaDataLabel = $('.item[data-page-id='+ itemId +']').find('.meta-data .label');
                         if(!$metaDataLabel.hasClass('label-success')) {
                             $metaDataLabel.toggleClass('label-muted').toggleClass('label-danger').toggleClass('label-warning');
                         }

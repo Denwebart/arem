@@ -13,27 +13,27 @@
 
 <!-- TinyMCE image -->
 {{ Form::file('editorImage', ['style' => 'display:none', 'id' => 'editorImage']) }}
-{{ Form::hidden('tempPath', $page->getTempPath(), ['id' => 'tempPath']) }}
+{{ Form::hidden('tempPath', $advertising->getTempPath(), ['id' => 'tempPath']) }}
 
 <!-- Creating a page with a specific type -->
-{!! Form::hidden('type', $page->type) !!}
+{!! Form::hidden('type', $advertising->type) !!}
 
 <div class="row">
     <div class="col-lg-6 col-sm-12 col-xs-12 m-b-15">
         <div class="form-group @if($errors->has('parent_id')) has-error @endif">
             {!! Form::label('parent_id', 'Категория', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                @if($page->canBeDeleted())
+                @if($advertising->canBeDeleted())
                     <select name="parent_id" id="parent_id" class="selectpicker" data-style="btn-custom">
                         @foreach(\App\Models\Page::getCategory() as $key => $item)
-                            <option value="{{ $key }}" @if($page->parent_id == $key) selected @endif>{{ $item }}</option>
+                            <option value="{{ $key }}" @if($advertising->parent_id == $key) selected @endif>{{ $item }}</option>
                         @endforeach
                     </select>
                 @else
-                    {!! Form::hidden('parent_id', $page->parent_id) !!}
+                    {!! Form::hidden('parent_id', $advertising->parent_id) !!}
                     <select name="parent_id" id="parent_id" class="selectpicker" disabled data-style="btn-custom">
                         @foreach(\App\Models\Page::getCategory() as $key => $item)
-                            <option value="{{ $key }}" @if($page->parent_id == $key) selected @endif>{{ $item }}</option>
+                            <option value="{{ $key }}" @if($advertising->parent_id == $key) selected @endif>{{ $item }}</option>
                         @endforeach
                     </select>
                 @endif
@@ -54,11 +54,11 @@
                 {!! Form::label('alias', 'Алиас', ['class' => 'control-label pull-right']) !!}
             </div>
             <div class="col-sm-10 col-md-10">
-                @if(!$page->isMain())
-                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control inputmask maxlength', 'maxlength' => 255]) !!}
+                @if(!$advertising->isMain())
+                    {!! Form::text('alias', $advertising->alias, ['id' => 'alias', 'class' => 'form-control inputmask maxlength', 'maxlength' => 255]) !!}
                     <a href="#" class="button-clear glyphicon glyphicon-remove form-control-feedback text-muted font-12"></a>
                 @else
-                    {!! Form::text('alias', $page->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255, 'disabled' => true]) !!}
+                    {!! Form::text('alias', $advertising->alias, ['id' => 'alias', 'class' => 'form-control maxlength', 'maxlength' => 255, 'disabled' => true]) !!}
                 @endif
 
                 @if($errors->has('alias'))
@@ -72,7 +72,7 @@
         <div class="form-group @if($errors->has('title')) has-error @endif">
             {!! Form::label('title', 'Заголовок', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::text('title', $page->title, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
+                {!! Form::text('title', $advertising->title, ['id' => 'title', 'class' => 'form-control maxlength', 'maxlength' => 255]) !!}
 
                 @if($errors->has('title'))
                     <span class="error help-block text-danger font-12">
@@ -85,7 +85,7 @@
         <div class="form-group @if($errors->has('menu_title')) has-error @endif">
             {!! Form::label('menu_title', 'Заголовок меню', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::text('menu_title', $page->menu_title, ['id' => 'menu_title', 'class' => 'form-control maxlength', 'maxlength' => 50]) !!}
+                {!! Form::text('menu_title', $advertising->menu_title, ['id' => 'menu_title', 'class' => 'form-control maxlength', 'maxlength' => 50]) !!}
 
                 @if($errors->has('menu_title'))
                     <span class="error help-block text-danger font-12">
@@ -95,13 +95,13 @@
                 @endif
             </div>
         </div>
-        @if($page->canBeDeleted())
+        @if($advertising->canBeDeleted())
             <div class="form-group @if($errors->has('is_container')) has-error @endif">
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-4 switchery-demo">
                     {!! Form::hidden('is_container', 0) !!}
-                    {!! Form::checkbox('is_container', 1, $page->is_container, ['id' => 'is_container', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
+                    {!! Form::checkbox('is_container', 1, $advertising->is_container, ['id' => 'is_container', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
                     {!! Form::label('is_container', 'Категория', ['class' => 'control-label m-l-5']) !!}
                 </div>
                 <div class="col-md-6">
@@ -120,7 +120,7 @@
         <div class="form-group">
             <div class="col-sm-6 col-md-6 @if($errors->has('image')) has-error @endif">
                 {!! Form::label('image', 'Изображение для страницы', ['class' => 'control-label m-b-5']) !!}
-                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $page->getImageUrl(), 'data-max-file-size' => '3M', 'data-min-width' => '470', 'data-min-height' => '250']) !!}
+                {!! Form::file('image', ['id' => 'image', 'class' => 'dropify', 'data-default-file' => $advertising->getImageUrl(), 'data-max-file-size' => '3M', 'data-min-width' => '470', 'data-min-height' => '250']) !!}
                 <span class="help-block @if($errors->has('image')) hidden @endif">
                     <small>
                         Изображение отображается перед текстом страницы
@@ -142,7 +142,7 @@
                 <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="ALT - это краткое и правдивое описание изображения. Обязательно должен содержать важные ключевые фразы для продвижения изображения (не страницы). Рекомендуемая длина не менее 3-4 слов и не более 255 символов. Поисковики учитывают не весь ALT, а лишь несколько первых слов. Для Google лимит 16 слов, для Яндекса – 28 слов." data-original-title="Атрибут ALT для изображения">
                     <i class="fa fa-question-circle-o"></i>
                 </span>
-                {!! Form::textarea('image_alt', $page->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 5]) !!}
+                {!! Form::textarea('image_alt', $advertising->image_alt, ['id' => 'image_alt', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 5]) !!}
 
                 @if($errors->has('image_alt'))
                     <span class="error help-block text-danger font-12">
@@ -159,7 +159,7 @@
 
                 <div class="switchery-demo m-t-10">
                     {!! Form::hidden('watermark', 0) !!}
-                    {!! Form::checkbox('watermark', 1, $page->is_published, ['id' => 'watermark', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
+                    {!! Form::checkbox('watermark', 1, $advertising->is_published, ['id' => 'watermark', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
                     {!! Form::label('watermark', 'Водяной знак на изображении', ['class' => 'control-label m-l-5']) !!}
                     <!-- Info text: watermark -->
                     <span class="m-l-10 text-muted help-popover" data-container="body" title="" data-toggle="popover" data-trigger="hover" data-placement="right" tabindex="0" data-content="Водяной знак на изображении позволяет защитить картинку от копирования. Рекомендуется использовать только на авторских изображениях." data-original-title="Водяной знак">
@@ -174,7 +174,7 @@
         <div class="form-group @if($errors->has('meta_title')) has-error @endif">
             {!! Form::label('meta_title', 'Мета-тег Title', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_title', $page->meta_title, ['id' => 'meta_title', 'class' => 'form-control maxlength', 'maxlength' => 100, 'rows' => 2]) !!}
+                {!! Form::textarea('meta_title', $advertising->meta_title, ['id' => 'meta_title', 'class' => 'form-control maxlength', 'maxlength' => 100, 'rows' => 2]) !!}
 
                 <span class="help-block @if($errors->has('meta_title')) hidden @endif">
                     <small>Самый важный SEO-тег. Рекомендуемая длина - 65 символов.</small>
@@ -190,7 +190,7 @@
         <div class="form-group @if($errors->has('meta_desc')) has-error @endif">
             {!! Form::label('meta_desc', 'Мета-тег Description', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_desc', $page->meta_desc, ['id' => 'meta_desc', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
+                {!! Form::textarea('meta_desc', $advertising->meta_desc, ['id' => 'meta_desc', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
 
                 <span class="help-block @if($errors->has('meta_desc')) hidden @endif">
                     <small>Второй по важности SEO-тег. Рекомендуемая длина - 160 символов.</small>
@@ -206,7 +206,7 @@
         <div class="form-group @if($errors->has('meta_key')) has-error @endif">
             {!! Form::label('meta_key', 'Мета-тег Keywords', ['class' => 'col-sm-2 col-md-2 control-label']) !!}
             <div class="col-sm-10 col-md-10">
-                {!! Form::textarea('meta_key', $page->meta_key, ['id' => 'meta_key', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
+                {!! Form::textarea('meta_key', $advertising->meta_key, ['id' => 'meta_key', 'class' => 'form-control maxlength', 'maxlength' => 255, 'rows' => 3]) !!}
 
                 <span class="help-block @if($errors->has('meta_key')) hidden @endif">
                     <small>Необязательный SEO-тег. Существительные в единственном числе через запятую.</small>
@@ -223,22 +223,22 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-4 switchery-demo">
-                @if(!$page->isMain())
+                @if(!$advertising->isMain())
                     {!! Form::hidden('is_published', 0) !!}
-                    {!! Form::checkbox('is_published', 1, $page->is_published, ['id' => 'is_published', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
+                    {!! Form::checkbox('is_published', 1, $advertising->is_published, ['id' => 'is_published', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small']) !!}
                 @else
                     {!! Form::hidden('is_published', 1) !!}
-                    {!! Form::checkbox('is_published', 1, $page->is_published, ['id' => 'is_published', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small', 'disabled' => true]) !!}
+                    {!! Form::checkbox('is_published', 1, $advertising->is_published, ['id' => 'is_published', 'data-plugin' => 'switchery', 'data-color' => '#3bafda', 'data-size' => 'small', 'disabled' => true]) !!}
                 @endif
                 {!! Form::label('is_published', \App\Models\Page::$is_published[\App\Models\Page::PUBLISHED], ['class' => 'control-label m-l-5']) !!}
             </div>
             <div class="col-md-6">
                 <span class="help-block">
                     <small>
-                        @if(!$page->published_at)
+                        @if(!$advertising->published_at)
                             (сохраните, чтоб опубликовать)
                         @else
-                            {{ \App\Helpers\Date::format($page->published_at, true, true) }}
+                            {{ \App\Helpers\Date::format($advertising->published_at, true, true) }}
                         @endif
                     </small>
                 </span>
@@ -285,7 +285,7 @@
             <div class="col-md-12">
                 {!! Form::label('content', 'Текст страницы', ['class' => 'control-label m-b-5']) !!}
 
-                {!! Form::textarea('content', $page->content, ['id' => 'content', 'class' => 'form-control editor', 'rows' => 10]) !!}
+                {!! Form::textarea('content', $advertising->content, ['id' => 'content', 'class' => 'form-control editor', 'rows' => 10]) !!}
 
                 @if($errors->has('content'))
                     <span class="error help-block text-danger font-12">
@@ -302,7 +302,7 @@
             <div class="col-md-12">
                 {!! Form::label('introtext', 'Краткое описание страницы', ['class' => 'control-label m-b-5']) !!}
 
-                {!! Form::textarea('introtext', $page->introtext, ['id' => 'introtext', 'class' => 'form-control editor', 'rows' => 10]) !!}
+                {!! Form::textarea('introtext', $advertising->introtext, ['id' => 'introtext', 'class' => 'form-control editor', 'rows' => 10]) !!}
 
                 @if($errors->has('introtext'))
                     <span class="error help-block text-danger font-12">
@@ -427,7 +427,7 @@
 @endpush
 
 @push('scriptsBottom')
-    @include('admin::tinymce-init', ['imagePath' => $page->getImageEditorPath()])
+    @include('admin::tinymce-init', ['imagePath' => $advertising->getImageEditorPath()])
 
     <script type="text/javascript">
         // Clear input field

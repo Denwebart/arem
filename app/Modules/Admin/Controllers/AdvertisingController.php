@@ -1,6 +1,6 @@
 <?php
 /**
- * Class CommentsController
+ * Class AdvertisingController
  *
  * @author     It Hill (it-hill.com@yandex.ua)
  * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
@@ -8,12 +8,12 @@
 
 namespace Modules\Admin\Controllers;
 
-use App\Models\Comment;
+use App\Models\Advertising;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-class CommentsController extends Controller
+class AdvertisingController extends Controller
 {
 	/**
 	 * Display a listing of the comments.
@@ -24,9 +24,9 @@ class CommentsController extends Controller
 	 */
 	public function index()
 	{
-		$comments = $this->getComments();
+		$advertisings = $this->getAdvertising();
 		
-		return view('admin::comments.index', compact('comments'));
+		return view('admin::advertising.index', compact('advertisings'));
 	}
 	
 	/**
@@ -187,10 +187,10 @@ class CommentsController extends Controller
 	 * @author     It Hill (it-hill.com@yandex.ua)
 	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
 	 */
-	protected function getComments()
+	protected function getAdvertising()
 	{
-		return Comment::select(['id', 'parent_id', 'user_id', 'user_email', 'user_name', 'is_answer', 'ip_id', 'page_id', 'is_published', 'is_deleted', 'votes_like', 'votes_dislike', 'mark', 'comment', 'created_at', 'published_at'])
-			->with('parent', 'children', 'user', 'page')
+		return Advertising::select(['id', 'type', 'area', 'position', 'title', 'is_answer', 'ip_id', 'page_id', 'is_active', 'is_deleted', 'votes_like', 'votes_dislike', 'mark', 'comment', 'created_at', 'published_at'])
+//			->with('parent', 'children', 'user', 'page')
 			->get();
 	}
 }

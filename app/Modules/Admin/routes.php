@@ -19,7 +19,7 @@ Route::group(['module' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'middl
 	Route::get('pages/questions', ['as' => 'pages.questions', 'uses' => 'PagesController@questions']);
 	Route::resource('pages', 'PagesController', ['except' => ['show']]);
 	
-	Route::resource('comments', 'CommentsController', ['except' => ['show']]);
+	Route::resource('comments', 'CommentsController', ['except' => ['show', 'create', 'store']]);
 	
 	Route::post('letters/change_important_status/{id}', ['as' => 'letters.changeImportantStatus', 'uses' => 'LettersController@changeImportantStatus']);
 	Route::post('letters/undelete/{id}', ['as' => 'letters.undelete', 'uses' => 'LettersController@undelete']);

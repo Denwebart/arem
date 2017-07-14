@@ -186,4 +186,72 @@ class Comment extends Model
 				: $this->page->getUrl() . '#comment-' . $this->id
 			: false;
 	}
+	
+	/**
+	 * Getting the path for loading images through the editor
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getImageEditorPath() {
+		return $this->imagePath . $this->id . '/editor/';
+	}
+	
+	/**
+	 * Get a temporary path for loading an image
+	 *
+	 * @return string
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function getTempPath() {
+		return '/uploads/temp/' . \Illuminate\Support\Str::random(20) . '/';
+	}
+	
+	/**
+	 * Moving images from a temporary folder
+	 *
+	 * @param $tempPath
+	 * @param string $field
+	 * @return mixed
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function saveEditorImages($tempPath, $field = 'content')
+	{
+		$moveDirectory = File::copyDirectory(public_path($tempPath), public_path($this->getImageEditorPath()));
+		if($moveDirectory) {
+			File::deleteDirectory(public_path($tempPath));
+		}
+		
+		return str_replace($tempPath, $this->getImageEditorPath(), $this->$field);
+	}
+	
+	/**
+	 * Deliting images wich where uploaded by editor
+	 *
+	 * @return bool
+	 * @author     It Hill (it-hill.com@yandex.ua)
+	 * @copyright  Copyright (c) 2015-2017 Website development studio It Hill (http://www.it-hill.com)
+	 */
+	public function deleteEditorImages()
+	{
+		$fieldsValue = $this->introtext . $this->content;
+		// Deleting files from directory
+		if(File::exists(public_path($this->getImageEditorPath()))) {
+			$files = File::allFiles(public_path($this->getImageEditorPath()));
+			foreach($files as $file)
+			{
+				if(strpos($fieldsValue, $file->getFilename()) === false) {
+					if(File::exists($file)) {
+						$filename = $file->getPath() . $file->getFilename();
+						File::delete($filename);
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
 }

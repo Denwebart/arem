@@ -12,16 +12,16 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="page-title-box">
-            <h4 class="page-title">Редактирование страницы</h4>
+            <h4 class="page-title">Редактирование @if(!$comment->is_answer) комментария @else ответа @endif</h4>
             <ol class="breadcrumb p-0 m-0">
                 <li>
                     <a href="{{ route('admin.index') }}">Главная</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.pages.index') }}">Страницы</a>
+                    <a href="{{ route('admin.comments.index') }}">Комментарии</a>
                 </li>
                 <li class="active">
-                    Редактирование страницы
+                    Редактирование @if(!$comment->is_answer) комментария @else ответа @endif
                 </li>
             </ol>
             <div class="clearfix"></div>
@@ -32,27 +32,32 @@
 
 <div class="row">
     <div class="col-sm-6 col-md-6 col-xs-12 hidden-xs">
-        @if($page->user)
-            <p class="text-muted font-13 m-b-0">
-                Автор:
-                <a href="{{ route('admin.users.show', ['id' => $page->user->id]) }}">
-                    <img src="{{ $page->user->getAvatarUrl() }}" class="img-circle m-l-5" width="18px" alt="{{ $page->user->login }}">
-                    <span class="m-l-5">{{ $page->user->login }}</span>
-                </a>
-            </p>
-        @endif
         <p class="text-muted font-13 m-b-0">
-            @if($page->is_published)
-                Опубликована: {{ \App\Helpers\Date::format($page->published_at, true) }}.
+            Автор:
+            @if($comment->user)
+                <a href="{{ route('admin.users.show', ['id' => $comment->user->id]) }}">
+                    <img src="{{ $comment->user->getAvatarUrl() }}" class="img-circle m-l-5" width="18px" alt="{{ $comment->user->login }}">
+                    <span class="m-l-5">{{ $comment->user->login }}</span>
+                </a>
+            @else
+                <span class="m-l-5">
+                    {{ $comment->user_name }}
+                    ({{ $comment->user_email }})
+                </span>
+            @endif
+        </p>
+        <p class="text-muted font-13 m-b-0">
+            @if($comment->is_published)
+                Опубликован: {{ \App\Helpers\Date::format($comment->published_at, true) }}.
             @endif
             Последнее обновение:
-            @if($page->updated_at)
-                {{ \App\Helpers\Date::format($page->updated_at, true) }}
-                @if(\App\Helpers\Date::format($page->updated_at, true) != \App\Helpers\Date::getRelative($page->updated_at, true))
-                    ({{ \App\Helpers\Date::getRelative($page->updated_at, true) }})
+            @if($comment->updated_at)
+                {{ \App\Helpers\Date::format($comment->updated_at, true) }}
+                @if(\App\Helpers\Date::format($comment->updated_at, true) != \App\Helpers\Date::getRelative($comment->updated_at, true))
+                    ({{ \App\Helpers\Date::getRelative($comment->updated_at, true) }})
                 @endif
             @else
-                cтраница не обновлялась.
+                комментарий не обновлялся.
             @endif
         </p>
     </div>
@@ -77,10 +82,10 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card-box">
-            {!! Form::model($page, ['route' => ['admin.pages.update', $page->id], 'class' => 'form-horizontal', 'id' => 'main-form', 'files' => true]) !!}
+            {!! Form::model($comment, ['route' => ['admin.comments.update', $comment->id], 'class' => 'form-horizontal', 'id' => 'main-form', 'files' => true]) !!}
             {!! Form::hidden('_method', 'PUT') !!}
 
-            @include('admin::pages._form')
+            @include('admin::comments._form')
 
             {!! Form::close() !!}
         </div>
